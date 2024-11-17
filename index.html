@@ -1,30 +1,99 @@
+<!-- We may implement scrollitelling later on, but for now this is just a static layout, and we will see how it goes with the visualizations.-->
+
 <!doctype html>
 <html>
 <head>
     <meta charset="utf-8">
-    <meta name="description" content="">
+    <meta name="description" content="Charli XCX - Brat">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CS171 - Introduction to JavaScript</title>
+    <title>cs171 - brat final project</title>
 
-    <!-- Load CSS libraries -->
-    <!-- Bootstrap CSS for responsive design and layout styling -->
+    <!-- Load CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <!-- Link to custom styles -->
     <link rel="stylesheet" href="css/style.css">
 
-    <!-- Load google fonts -->
-    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,400italic,300italic' rel='stylesheet'
-          type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Satisfy' rel='stylesheet' type='text/css'>
+    <!-- Load Google Fonts -->
+    <link href='https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap' rel='stylesheet'>
 </head>
 <body>
+<header>
+    <h1>brat</h1>
+    <div class="visual-placeholder large">
+        <img src="media/OpeningScreen.jpeg" alt="Opening Visual" class="opening-visual">
+    </div>
+</header>
+
+<!-- Main Content -->
+<main>
+    <!-- Timeline Section -->
+    <section class="timeline-section">
+        <h2>charli xcx throughout the years</h2>
+        <div class="timeline">
+            <!-- Timeline Markers -->
+            <div class="timeline-item">
+                <div class="timeline-line"></div>
+                <div class="horizontal-line left"></div>
+                <div class="timeline-circle left"></div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-line"></div>
+                <div class="horizontal-line right"></div>
+                <div class="timeline-circle right"></div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-line"></div>
+                <div class="horizontal-line left"></div>
+                <div class="timeline-circle left"></div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-line"></div>
+                <div class="horizontal-line right"></div>
+                <div class="timeline-circle right"></div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-line"></div>
+                <div class="horizontal-line left"></div>
+                <div class="timeline-circle left"></div> 
+            </div>
+        </div>
+    </section>
 
 
+    <!-- Quiz Section -->
+    <section class="quiz-section">
+        <h2>what song on the brat album fits your personality?</h2>
+        <div class="quiz-placeholder full-width">
+            quiz questions will take up the full page here
+        </div>
+    </section>
 
-<!-- Scripts at the bottom -->
-<script src="https://d3js.org/d3.v7.min.js"></script>
-<script src="activity_1.js"></script>
+    <!-- Data Analysis Section -->
+    <section class="analysis-section">
+        <h2>track popularity analysis</h2>
+        <div class="visual-placeholder medium">
+            danceability vs. popularity
+        </div>
+        <div class="visual-placeholder medium">
+            explicit content vs. popularity
+        </div>
+        <div class="visual-placeholder medium">
+            other filters
+        </div>
+    </section>
 
+    <!-- Word Cloud Section -->
+    <section class="word-cloud-section">
+        <h2>creative word cloud</h2>
+        <div class="visual-placeholder large">
+            word cloud or stage animation
+        </div>
+    </section>
+</main>
+
+<!-- Footer -->
+<footer>
+    <p>&copy;2024 charli xcx cs171 final project</p>
+</footer>
 </body>
 </html>
