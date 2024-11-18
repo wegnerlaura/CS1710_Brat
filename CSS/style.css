@@ -241,4 +241,57 @@ section {
     margin-right: auto;
 }
 
+/* Quiz Section Styling */
+#quiz-section {
+    padding: 50px;
+    text-align: center;
+    color: #c4f24c;
+}
+
+.quiz-placeholder {
+    background: none;
+    border: 2px dashed #c4f24c;
+    margin: 20px auto;
+    padding: 30px;
+    text-align: center;
+}
+
+.quiz-question {
+    margin: 20px 0;
+    font-size: 1.2rem;
+}
+
+.quiz-question label {
+    display: block;
+    margin: 10px 0;
+    font-size: 1rem;
+    /* White text */
+    color: #FFFFFF;
+}
+
+#quiz-submit {
+    margin-top: 20px;
+    padding: 10px 20px;
+    /* Neon green button */
+    background-color: #c4f24c;
+    /* Black text */
+    color: #000000;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+#quiz-submit:hover {
+    /* Slightly darker green on hover */
+    background-color: #a6d43c;
+}
+
+#quiz-result {
+    margin-top: 30px;
+    color: #FFFFFF;
+}
+
+.hidden {
+    display: none;
+}
 
