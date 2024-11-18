@@ -1,0 +1,170 @@
+/* General Styles */
+body {
+    /* fitting to the style of the brat theme */
+    font-family: 'Roboto', sans-serif;
+    /* Black background */
+    background-color: #000000;
+    /* White text */
+    color: #FFFFFF;
+    margin: 0;
+    padding: 0;
+    /* Brat aesthetic with everything being lowercase */
+    text-transform: lowercase;
+}
+
+h1, h2 {
+    /* Neon green */
+    color: #c4f24c;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+header {
+    text-align: center;
+    padding: 100px 20px;
+    border-bottom: 2px solid #c4f24c;
+}
+
+footer {
+    /* Black footer */
+    background-color: #000000;
+    /* Neon green text */
+    color: #c4f24c;
+    text-align: center;
+    padding: 10px;
+}
+
+/* Placeholder Styling */
+.visual-placeholder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: none;
+    border: 2px dashed #c4f24c;
+    color: #FFFFFF;
+    margin: 20px auto;
+    text-align: center;
+    padding: 20px;
+}
+
+/* for the opening */
+.visual-placeholder.large {
+    height: 800px;
+    width: 90%;
+}
+
+/* for smaller visualizations */
+.visual-placeholder.medium {
+    height: 300px;
+    width: 45%;
+}
+
+.quiz-placeholder.full-width {
+    height: 100vh;
+    width: 100%;
+}
+
+/* Section Styling */
+section {
+    padding: 50px 20px;
+    /* Section separator */
+    border-bottom: 2px solid #c4f24c;
+}
+
+/* Timeline Section */
+.timeline-section {
+    padding: 50px 20px;
+    background: #000000;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.timeline {
+    position: relative;
+    /* vertical timeline */
+    width: 50%;
+    margin: 0 auto;
+    padding: 50px 0;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 80px;
+    height: 100px;
+}
+
+/* Vertical Line */
+.timeline-line {
+    position: absolute;
+    left: 50%;
+    width: 2px;
+    height: 100%;
+    /* Neon green */
+    background: #c4f24c;
+    transform: translateX(-50%);
+    z-index: 1;
+}
+
+/* Horizontal Lines */
+.horizontal-line {
+    position: absolute;
+    /* Length of the horizontal lines */
+    width: 100px;
+    height: 2px;
+    background: #c4f24c;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.horizontal-line.left {
+    /* Start exactly at the vertical line */
+    left: calc(50% - 2px);
+    /* Extend left */
+    transform: translateX(-100%) translateY(-50%);
+}
+
+.horizontal-line.right {
+    left: calc(50% + 2px);
+    /* Extend right */
+    transform: translateX(0%) translateY(-50%);
+}
+
+/* Circles at ends of horizontal lines */
+.timeline-circle {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: #c4f24c;
+    border-radius: 50%;
+    top: 50%;
+    z-index: 2;
+    transform: translate(-50%, -50%);
+}
+
+.timeline-circle.left {
+    left: calc(50% - 102px);
+}
+
+.timeline-circle.right {
+    left: calc(50% + 102px);
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #c4f24c;
+    transform: translateX(-50%);
+}
+
+.opening-visual {
+    /* image fills placeholder width and height */
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
