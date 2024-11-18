@@ -211,24 +211,28 @@ section {
 .hidden {
     opacity: 0;
     visibility: hidden;
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
 
-/* Animations */
 .fade-in {
-    animation: fadeIn 0.8s ease-out forwards;
+    opacity: 1;
     visibility: visible;
+    transform: translateY(0);
 }
 
 .slide-in {
-    animation: slideIn 1s ease-out forwards;
+    opacity: 1;
     visibility: visible;
+    transform: translateX(0);
 }
 
 .scale-up {
-    animation: scaleUp 1s ease-out forwards;
-    /* Make visible after animation */
+    opacity: 1;
     visibility: visible;
+    transform: scale(1);
 }
+
+
 
 /* Storytelling paragraphs */
 .large-text {
