@@ -1,5 +1,7 @@
+// This currently does not really work. It used to work, but once I implemented the quiz, it did not anymore. I tried debugging, but that didn't work,
+// so I would love your advice on what is not working for the scrollitelling animations.
+
 document.addEventListener("DOMContentLoaded", () => {
-    // Function to animate elements when they scroll into view
     const animateOnScroll = (elements, animationClass) => {
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
@@ -9,17 +11,16 @@ document.addEventListener("DOMContentLoaded", () => {
                     observer.unobserve(entry.target);
                 }
             });
-            // Animation starts when 50% of the element is visible
-        }, { threshold: 0.5 });
+        }, { threshold: 0.2 });
 
         elements.forEach((element) => observer.observe(element));
     };
 
-    // Animations
-    // Timeline items
+    // Animate elements
+    animateOnScroll(document.querySelectorAll(".animated-title"), "fade-in");
+    animateOnScroll(document.querySelectorAll(".animated-paragraph"), "fade-in");
     animateOnScroll(document.querySelectorAll(".timeline-item"), "fade-in");
-    // Quiz section
     animateOnScroll(document.querySelectorAll(".quiz-placeholder"), "slide-in");
-    // Last section
     animateOnScroll(document.querySelectorAll(".visual-placeholder.large"), "scale-up");
 });
+
