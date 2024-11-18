@@ -298,4 +298,24 @@ section {
 .hidden {
     display: none;
 }
+\#excontent-popularity-visualization {
+    background-color: #000000;
+    border: 2px solid #c4f24c;
+}
 
+#excontent-popularity-visualization .domain,
+#excontent-popularity-visualization .tick line {
+    stroke: #c4f24c;
+}
+
+.tooltip {
+    position: absolute;
+    text-align: center;
+    padding: 8px;
+    font: 12px sans-serif;
+    background: rgba(0, 0, 0, 0.8);
+    color: #c4f24c;
+    border: 1px solid #c4f24c;
+    border-radius: 4px;
+    pointer-events: none;
+}
