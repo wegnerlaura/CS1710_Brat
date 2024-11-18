@@ -168,3 +168,77 @@ section {
     object-fit: cover;
 }
 
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        /* Start slightly below */
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        /* Move into place */
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        /* Start off-screen to the left */
+        transform: translateX(-100%);
+    }
+    to {
+        opacity: 1;
+        /* Slide into place */
+        transform: translateX(0);
+    }
+}
+
+@keyframes scaleUp {
+    from {
+        opacity: 0;
+        /* Start smaller */
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        /* Grow to full size */
+        transform: scale(1);
+    }
+}
+
+/* Default hidden state for scroll-triggered elements */
+.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* Animations */
+.fade-in {
+    animation: fadeIn 0.8s ease-out forwards;
+    visibility: visible;
+}
+
+.slide-in {
+    animation: slideIn 1s ease-out forwards;
+    visibility: visible;
+}
+
+.scale-up {
+    animation: scaleUp 1s ease-out forwards;
+    /* Make visible after animation */
+    visibility: visible;
+}
+
+/* Storytelling paragraphs */
+.large-text {
+    font-size: 2rem;
+    line-height: 2.5rem;
+    text-align: center;
+    margin: 40px 10px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+

@@ -1,5 +1,3 @@
-<!-- We may implement scrollitelling later on, but for now this is just a static layout, and we will see how it goes with the visualizations.-->
-
 <!doctype html>
 <html>
 <head>
@@ -14,11 +12,11 @@
     <link rel="stylesheet" href="css/style.css">
 
     <!-- Load Google Fonts -->
-    <link href='https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Satisfy&display=swap' rel='stylesheet'>
 </head>
 <body>
 <header>
-    <h1>brat</h1>
+    <h1 class="hero-title">brat</h1>
     <div class="visual-placeholder large">
         <img src="media/OpeningScreen.jpeg" alt="Opening Visual" class="opening-visual">
     </div>
@@ -26,67 +24,97 @@
 
 <!-- Main Content -->
 <main>
+    <!-- Intro Section -->
+    <section class="intro-section">
+        <h2 class="animated-title hidden">a bold new era of charli xcx</h2>
+        <p class="animated-paragraph hidden large-text">
+            brat is a masterpiece. charli xcx’s creativity knows no bounds. her music challenges conventions with unapologetic lyrics, experimental beats, and a creative attitude. brace yourself for the journey through the brat era.
+        </p>
+    </section>
+
     <!-- Timeline Section -->
     <section class="timeline-section">
-        <h2>charli xcx throughout the years</h2>
+        <h2 class="animated-title hidden">charli xcx throughout the years</h2>
+        <p class="animated-paragraph hidden large-text">
+            from her early days in true romance to her rebellious reinvention in brat, charli xcx’s journey has been one of reinvention and innovation. let’s take a visual look at how her music has evolved.
+        </p>
         <div class="timeline">
             <!-- Timeline Markers -->
-            <div class="timeline-item">
+            <div class="timeline-item hidden">
                 <div class="timeline-line"></div>
                 <div class="horizontal-line left"></div>
                 <div class="timeline-circle left"></div>
             </div>
-            <div class="timeline-item">
+            <div class="timeline-item hidden">
                 <div class="timeline-line"></div>
                 <div class="horizontal-line right"></div>
                 <div class="timeline-circle right"></div>
             </div>
-            <div class="timeline-item">
+            <div class="timeline-item hidden">
                 <div class="timeline-line"></div>
                 <div class="horizontal-line left"></div>
                 <div class="timeline-circle left"></div>
             </div>
-            <div class="timeline-item">
+            <div class="timeline-item hidden">
                 <div class="timeline-line"></div>
                 <div class="horizontal-line right"></div>
                 <div class="timeline-circle right"></div>
             </div>
-            <div class="timeline-item">
+            <div class="timeline-item hidden">
                 <div class="timeline-line"></div>
                 <div class="horizontal-line left"></div>
-                <div class="timeline-circle left"></div> 
+                <div class="timeline-circle left"></div>
             </div>
         </div>
     </section>
 
-
     <!-- Quiz Section -->
     <section class="quiz-section">
-        <h2>what song on the brat album fits your personality?</h2>
-        <div class="quiz-placeholder full-width">
+        <h2 class="animated-title hidden">what song on the brat album fits your personality?</h2>
+        <p class="animated-paragraph hidden large-text">
+            take this fun quiz to see what fits to your personality. are you raw and unfiltered, or bold and experimental? find out as we connect your vibe to charli's soundscape.
+        </p>
+        <div class="quiz-placeholder full-width hidden">
             quiz questions will take up the full page here
         </div>
     </section>
 
     <!-- Data Analysis Section -->
     <section class="analysis-section">
-        <h2>track popularity analysis</h2>
-        <div class="visual-placeholder medium">
+        <h2 class="animated-title hidden">the numbers behind the tracks</h2>
+        <p class="animated-paragraph hidden large-text">
+            beyond the beats and lyrics, there’s data. discover the secrets behind brat—its danceability, rawness, and popularity.
+        </p>
+        <div class="visual-placeholder medium hidden">
             danceability vs. popularity
         </div>
-        <div class="visual-placeholder medium">
+        <div class="visual-placeholder medium hidden">
             explicit content vs. popularity
         </div>
-        <div class="visual-placeholder medium">
+        <div class="visual-placeholder medium hidden">
             other filters
         </div>
     </section>
 
     <!-- Word Cloud Section -->
     <section class="word-cloud-section">
-        <h2>creative word cloud</h2>
-        <div class="visual-placeholder large">
-            word cloud or stage animation
+        <h2 class="animated-title hidden">a creative word cloud</h2>
+        <p class="animated-paragraph hidden large-text">
+            take a closer look at the lyrical themes of brat. this word cloud reveals charli xcx’s storytelling, filled with defiance, empowerment, and emotion.
+        </p>
+        <div class="visual-placeholder large hidden">
+            word cloud 
+        </div>
+    </section>
+
+    <!-- New Placeholder Section -->
+    <section class="final-section">
+        <h2 class="animated-title hidden">what brat means to the fans</h2>
+        <p class="animated-paragraph hidden large-text">
+            charli xcx’s brat is more than music—it’s a cultural movement. from fan art to deep interpretations, discover how brat has inspired an entire generation.
+        </p>
+        <div class="visual-placeholder large hidden">
+            this will be another visualization
         </div>
     </section>
 </main>
@@ -95,5 +123,32 @@
 <footer>
     <p>&copy;2024 charli xcx cs171 final project</p>
 </footer>
+
+<!-- Add JavaScript -->
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const animateOnScroll = (elements, animationClass) => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add(animationClass);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            elements.forEach((element) => observer.observe(element));
+        };
+
+        // Placeholders
+        animateOnScroll(document.querySelectorAll(".animated-title"), "fade-in");
+        animateOnScroll(document.querySelectorAll(".animated-paragraph"), "fade-in");
+        animateOnScroll(document.querySelectorAll(".timeline-item"), "fade-in");
+        animateOnScroll(document.querySelectorAll(".quiz-placeholder"), "slide-in");
+        animateOnScroll(document.querySelectorAll(".visual-placeholder.medium"), "fade-in"); // Fix here
+        animateOnScroll(document.querySelectorAll(".visual-placeholder.large"), "scale-up");
+    });
+</script>
 </body>
 </html>
+
