@@ -67,7 +67,7 @@ const noteGroup = svg.selectAll("g.note")
 
 noteGroup.append("line")
     .attr("x1", d => d.danceability * 8)
-    .attr("y1", d => -d.danceability * 6)
+    .attr("y1", d => d.danceability * 6 - 4)
     .attr("x2", d => d.danceability * 8)
     .attr("y2", -40)
     .attr("stroke", "#c4f24c")
@@ -79,6 +79,16 @@ noteGroup.append("ellipse")
     .attr("rx", d => d.danceability * 8)
     .attr("ry", d => d.danceability * 6)
     .attr("fill", "#c4f24c");
+
+// Add horizontal lines for C and C# notes
+noteGroup.filter(d => d.key === 0 || d.key === 1)
+    .append("line")
+    .attr("x1", d => -d.danceability * 8 - 5)  // Extend slightly to the left
+    .attr("y1", 0)  // Center of the note
+    .attr("x2", d => d.danceability * 8 + 5)   // Extend slightly to the right
+    .attr("y2", 0)  // Center of the note
+    .attr("stroke", "#c4f24c")
+    .attr("stroke-width", 1);
 
 // Add sharp signs
 svg.selectAll("text.sharp")
@@ -118,6 +128,8 @@ noteGroup.on("mouseover", function(event, d) {
             .duration(500)
             .style("opacity", 0);
     });
+
+// modify these numbers to place songs and key in the right spot compared to the visualization
 // Add x-axis label
 svg.append("text")
     .attr("x", width / 2)
