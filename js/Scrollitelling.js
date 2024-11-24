@@ -1,6 +1,21 @@
 // This currently does not really work. It used to work, but once I implemented the quiz, it did not anymore. I tried debugging, but that didn't work,
 // so I would love your advice on what is not working for the scrollitelling animations.
 
+
+document.addEventListener('DOMContentLoaded', function() {
+    AOS.init({
+        duration: 1000,
+        easing: 'ease-in-out',
+        once: false,
+        mirror: false
+    });
+});
+
+
+
+//AOS.init();
+
+/*
 document.addEventListener("DOMContentLoaded", () => {
     const animateOnScroll = (elements, animationClass) => {
         const observer = new IntersectionObserver((entries) => {
@@ -24,3 +39,4 @@ document.addEventListener("DOMContentLoaded", () => {
     animateOnScroll(document.querySelectorAll(".visual-placeholder.large"), "scale-up");
 });
 
+*/
