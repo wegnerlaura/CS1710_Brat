@@ -168,70 +168,6 @@ section {
     object-fit: cover;
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        /* Start slightly below */
-        transform: translateY(50px);
-    }
-    to {
-        opacity: 1;
-        /* Move into place */
-        transform: translateY(0);
-    }
-}
-
-@keyframes slideIn {
-    from {
-        opacity: 0;
-        /* Start off-screen to the left */
-        transform: translateX(-100%);
-    }
-    to {
-        opacity: 1;
-        /* Slide into place */
-        transform: translateX(0);
-    }
-}
-
-@keyframes scaleUp {
-    from {
-        opacity: 0;
-        /* Start smaller */
-        transform: scale(0.8);
-    }
-    to {
-        opacity: 1;
-        /* Grow to full size */
-        transform: scale(1);
-    }
-}
-
-/* Default hidden state for scroll-triggered elements */
-.hidden {
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-}
-
-.fade-in {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
-
-.slide-in {
-    opacity: 1;
-    visibility: visible;
-    transform: translateX(0);
-}
-
-.scale-up {
-    opacity: 1;
-    visibility: visible;
-    transform: scale(1);
-}
-
 
 
 /* Storytelling paragraphs */
@@ -318,4 +254,69 @@ section {
     border: 1px solid #c4f24c;
     border-radius: 4px;
     pointer-events: none;
+}
+
+/* Circular Diagram Styling */
+#visualization {
+    width: 800px;
+    height: 800px;
+    margin: 0 auto;
+    background-color: #000000;
+}
+
+.segment-line {
+    stroke: #c4f24c;
+    stroke-width: 1;
+    opacity: 0.3;
+}
+
+.key-path {
+    fill: rgba(196, 242, 76, 0.2);
+    stroke: #c4f24c;
+    stroke-width: 2;
+}
+
+.tempo-path {
+    fill: rgba(255, 0, 0, 0.2);
+    stroke: #ff0000;
+    stroke-width: 2;
+}
+
+.song-label {
+    fill: #FFFFFF;
+    font-size: 10px;
+    text-anchor: middle;
+}
+
+.legend-text {
+    fill: #FFFFFF;
+    font-size: 12px;
+}
+
+.legend-box {
+    stroke-width: 1;
+}
+
+.legend-box.key {
+    fill: rgba(196, 242, 76, 0.2);
+    stroke: #c4f24c;
+}
+
+.legend-box.tempo {
+    fill: rgba(255, 0, 0, 0.2);
+    stroke: #ff0000;
+}
+
+.outer-circle {
+    fill: none;
+    stroke: #c4f24c;
+    stroke-width: 1;
+    opacity: 0.3;
+}
+
+.inner-circle {
+    fill: none;
+    stroke: #c4f24c;
+    stroke-width: 1;
+    opacity: 0.3;
 }

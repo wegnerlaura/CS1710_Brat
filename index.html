@@ -7,9 +7,10 @@
     <title>cs171 - brat final project</title>
 
     <!-- Load CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/xbootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <!-- Load Google Fonts -->
     <link href='https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Satisfy&display=swap' rel='stylesheet'>
@@ -28,7 +29,7 @@
     <section class="intro-section">
         <h2 class="animated-title hidden">a bold new era of charli xcx</h2>
         <p class="animated-paragraph hidden large-text">
-            brat is a masterpiece. charli xcx’s creativity knows no bounds. her music challenges conventions with unapologetic lyrics, experimental beats, and a creative attitude. brace yourself for the journey through the brat era.
+            brat is a masterpiece. charli xcx's creativity knows no bounds. her music challenges conventions with unapologetic lyrics, experimental beats, and a creative attitude. brace yourself for the journey through the brat era.
         </p>
     </section>
 
@@ -36,7 +37,7 @@
     <section class="timeline-section">
         <h2 class="animated-title">charli xcx throughout the years</h2>
         <p class="animated-paragraph large-text">
-            from her early days in true romance to her rebellious reinvention in brat, charli xcx’s journey has been one of reinvention and innovation. let’s take a visual look at how her music has evolved.
+            from her early days in true romance to her rebellious reinvention in brat, charli xcx's journey has been one of reinvention and innovation. let's take a visual look at how her music has evolved.
         </p>
         <div class="timeline">
             <!-- Timeline Markers -->
@@ -64,7 +65,7 @@
     </section>
 
     <!-- Quiz Section -->
-    <section id="quiz-section" class="quiz-section">
+    <section id="quiz-section" class="quiz-section" data-aos="fade-up">
         <h2 class="animated-title">what song on the brat album fits your personality?</h2>
         <p class="animated-paragraph large-text">
             take this fun quiz to see what fits to your personality. are you raw and unfiltered, or bold and experimental? find out as we connect your vibe to charli's soundscape.
@@ -103,7 +104,7 @@
     <section class="analysis-section">
         <h2 class="animated-title">the numbers behind the tracks</h2>
         <p class="animated-paragraph large-text">
-            beyond the beats and lyrics, there’s data. discover the secrets behind brat—its danceability, rawness, and popularity.
+            beyond the beats and lyrics, there's data. discover the secrets behind brat—its danceability, rawness, and popularity.
         </p>
         <div class="visual-placeholder medium">
             danceability vs. popularity
@@ -120,7 +121,7 @@
     <section class="word-cloud-section">
         <h2 class="animated-title">a creative word cloud</h2>
         <p class="animated-paragraph large-text">
-            take a closer look at the lyrical themes of brat. this word cloud reveals charli xcx’s storytelling, filled with defiance, empowerment, and emotion.
+            take a closer look at the lyrical themes of brat. this word cloud reveals charli xcx's storytelling, filled with defiance, empowerment, and emotion.
         </p>
         <div class="visual-placeholder large">
             word cloud
@@ -131,10 +132,21 @@
     <section class="final-section">
         <h2 class="animated-title">what brat means to the fans</h2>
         <p class="animated-paragraph large-text">
-            charli xcx’s brat is more than music—it’s a cultural movement. from fan art to deep interpretations, discover how brat has inspired an entire generation.
+            charli xcx's brat is more than music—it's a cultural movement. from fan art to deep interpretations, discover how brat has inspired an entire generation.
         </p>
         <div class="visual-placeholder large">
             this will be another visualization
+        </div>
+    </section>
+
+    <!-- Circular Diagram Section -->
+    <section class="diagram-section">
+        <h2 class="animated-title">how consistent are key and tempo across the album?</h2>
+        <p class="animated-paragraph large-text">
+            explore the musical patterns of brat through this circular visualization. discover how keys and tempos interweave throughout the album, revealing the intricate musical structure that makes each track unique.
+        </p>
+        <div class="visual-placeholder large">
+            <div id="visualization"></div>
         </div>
     </section>
 </main>
@@ -145,14 +157,11 @@
 </footer>
 
 <!-- Add JavaScript -->
-<script src="js/PersonalityQuiz.js"></script>
-<script src="js/Scrolliteling.js.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script src="https://d3js.org/d3.v7.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/d3-cloud@1.2.5/build/d3.layout.cloud.min.js"></script>
 <script src="js/PersonalityQuiz.js"></script>
+<script src="js/Scrollitelling.js"></script>
 <script src="js/WordCloud.js"></script>
-
+<script src="js/Tempo-Key.js"></script>
 </body>
 </html>
-
-
