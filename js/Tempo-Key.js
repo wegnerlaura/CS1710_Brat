@@ -37,7 +37,8 @@ d3.csv("data/brat.csv").then(data => {
         .range([0, 2 * Math.PI]);
 
     const keyScale = d3.scaleLinear()
-        .domain([0, 11]) // Musical keys range from 0 to 11
+        // Musical keys range from 0 to 11
+        .domain([0, 11])
         .range([diagramRadius * 0.7, diagramRadius * 0.9]);
 
     const tempoScale = d3.scaleLinear()
@@ -105,8 +106,10 @@ d3.csv("data/brat.csv").then(data => {
 
     // Function to update filters dynamically
     function updateFilters() {
-        const keyThreshold = +keySlider.node().value; // Get slider value for keys
-        const tempoThreshold = +tempoSlider.node().value; // Get slider value for tempo
+        // Get slider value for keys
+        const keyThreshold = +keySlider.node().value;
+        // Get slider value for tempo
+        const tempoThreshold = +tempoSlider.node().value;
 
         // Update value displays dynamically
         keyValueDisplay.text(`Key: ${keyThreshold}`);
@@ -134,7 +137,7 @@ d3.csv("data/brat.csv").then(data => {
     legend.append("rect")
         .attr("width", 15)
         .attr("height", 15)
-        .attr("fill", keyColorScale(5.5)); // Midpoint of green scale
+        .attr("fill", keyColorScale(5.5));
 
     legend.append("text")
         .attr("x", 20)
@@ -148,7 +151,7 @@ d3.csv("data/brat.csv").then(data => {
         .attr("width", 15)
         .attr("height", 15)
         .attr("y", 25)
-        .attr("fill", tempoColorScale((d3.min(data, d => d.tempo) + d3.max(data, d => d.tempo)) / 2)); // Midpoint of red scale
+        .attr("fill", tempoColorScale((d3.min(data, d => d.tempo) + d3.max(data, d => d.tempo)) / 2));
 
     legend.append("text")
         .attr("x", 20)

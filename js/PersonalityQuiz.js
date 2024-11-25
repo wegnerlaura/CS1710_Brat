@@ -1,4 +1,5 @@
 // Currently, I did something wrong to the algorithm because it only shows Apple or 360, but I will fix that in the next iterations.
+// I will also work on making this visualization more fun with color changes and fun messages etc.
 
 document.addEventListener("DOMContentLoaded", function () {
     // Song dataset with normalized attributes
@@ -6,19 +7,20 @@ document.addEventListener("DOMContentLoaded", function () {
         { name: "360", youtube_id: "WJW-VvmRKsE", danceability: 0.928, energy: 0.649, valence: 0.951, tempo: 120.042, popularity: 54 },
         { name: "Club Classics", youtube_id: "bg9EmWTRt3Y", danceability: 0.716, energy: 0.879, valence: 0.693, tempo: 144.95, popularity: 54 },
         { name: "Sympathy is a Knife", youtube_id: "KrxDhDDXUwQ", danceability: 0.718, energy: 0.706, valence: 0.580, tempo: 131.944, popularity: 54 },
-        { name: "I Might Say Something Stupid", youtube_id: "zw6bA75H2jc", danceability: 0.504, energy: 0.3, valence: 0.16, tempo: 79.25, popularity: 49 },
+        { name: "Stupid", youtube_id: "zw6bA75H2jc", danceability: 0.504, energy: 0.3, valence: 0.16, tempo: 79.25, popularity: 49 },
         { name: "Talk Talk", youtube_id: "K5jyIoPbu4M", danceability: 0.701, energy: 0.82, valence: 0.49, tempo: 130.146, popularity: 52 },
         { name: "Von Dutch", youtube_id: "cwZ1L_0QLjw", danceability: 0.8, energy: 0.95, valence: 0.6, tempo: 140.0, popularity: 50 },
-        { name: "Everything is Romantic", youtube_id: "fUr2t-KnILQ", danceability: 0.6, energy: 0.5, valence: 0.4, tempo: 115.0, popularity: 48 },
+        { name: "Romantic", youtube_id: "fUr2t-KnILQ", danceability: 0.6, energy: 0.5, valence: 0.4, tempo: 115.0, popularity: 48 },
         { name: "Rewind", youtube_id: "WlM7nm3TLnY", danceability: 0.55, energy: 0.6, valence: 0.5, tempo: 118.5, popularity: 47 },
         { name: "So I", youtube_id: "g-PovEJ1qWc", danceability: 0.68, energy: 0.7, valence: 0.65, tempo: 125.0, popularity: 53 },
         { name: "Girl So Confusing", youtube_id: "0q3K6FPzY18", danceability: 0.7, energy: 0.6, valence: 0.5, tempo: 135.0, popularity: 51 },
         { name: "Apple", youtube_id: "CPWxExGk7PM", danceability: 0.804, energy: 0.957, valence: 0.962, tempo: 150.0, popularity: 55 },
         { name: "B2B", youtube_id: "Lp8TaMWU-Ho", danceability: 0.6, energy: 0.8, valence: 0.4, tempo: 120.0, popularity: 50 },
         { name: "Mean Girls", youtube_id: "IKUQDMEBXN0", danceability: 0.7, energy: 0.75, valence: 0.6, tempo: 140.0, popularity: 52 },
-        { name: "I Think About It All the Time", youtube_id: "Mn0aho8Ayfk", danceability: 0.65, energy: 0.7, valence: 0.55, tempo: 132.0, popularity: 53 },
+        { name: "Think", youtube_id: "Mn0aho8Ayfk", danceability: 0.65, energy: 0.7, valence: 0.55, tempo: 132.0, popularity: 53 },
         { name: "365", youtube_id: "Ol9CCM240Ag", danceability: 0.75, energy: 0.8, valence: 0.7, tempo: 145.0, popularity: 54 }
     ];
+
 
     // Event listener for quiz submission
     document.getElementById("quiz-submit").addEventListener("click", function () {
@@ -65,47 +67,100 @@ document.addEventListener("DOMContentLoaded", function () {
         // Display the top song
         if (bestSong) {
             document.getElementById("result-song").innerHTML = `
-                <h3>${bestSong.name}</h3>
-                <p><strong>Danceability:</strong> ${bestSong.danceability.toFixed(2)}</p>
-                <p><strong>Energy:</strong> ${bestSong.energy.toFixed(2)}</p>
-                <p><strong>Valence:</strong> ${bestSong.valence.toFixed(2)}</p>
-                <div id="youtube-video">
-                    <iframe width="560" height="315"
-                        src="https://www.youtube.com/embed/${bestSong.youtube_id}"
-                        title="${bestSong.name}" frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen>
-                    </iframe>
-                </div>
-            `;
-        }
-
-        // Render song rankings with perfectly aligned numbers
-        const rankingList = sortedSongs.map((song, index) => `
-    <div style="
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: 5px 0;
-        font-size: 1.1rem;
-    ">
-        <div style="width: 30px; text-align: right; margin-right: 10px;">${index + 1}.</div>
-        <div style="text-align: left;">${song.name}</div>
-    </div>
-`).join("");
-
-// Display rankings in the result section
-        document.getElementById("song-ranking").innerHTML = `
-    <h4 style="text-align: center;">Song Rankings:</h4>
-    <div style="display: flex; flex-direction: column; align-items: center;">
-        ${rankingList}
+    <h2>Your Result:</h2>
+    <h3>${bestSong.name}</h3>
+    <p><strong>Danceability:</strong> ${bestSong.danceability.toFixed(2)}</p>
+    <p><strong>Energy:</strong> ${bestSong.energy.toFixed(2)}</p>
+    <p><strong>Valence:</strong> ${bestSong.valence.toFixed(2)}</p>
+    <div id="youtube-video">
+        <iframe width="560" height="315"
+            src="https://www.youtube.com/embed/${bestSong.youtube_id}"
+            title="${bestSong.name}" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+        </iframe>
     </div>
 `;
 
+        }
+
+        // Display ranking of all songs
+        const rankingContainer = document.getElementById("ranking-container");
+        rankingContainer.innerHTML = sortedSongs.map((song, index) => `
+            <p>${index + 1}. ${song.name}</p>
+        `).join("");
+
+        // Render the bar chart
+        drawBarChart(sortedSongs.slice(0, 5), "Top 5 Songs", "#top-bar-chart");
+        drawBarChart(sortedSongs.slice(-5), "Bottom 5 Songs", "#bottom-bar-chart");
+    });
+
+    // Bar chart rendering function
+    function drawBarChart(data, title, containerId) {
+        const container = d3.select(containerId);
+        container.selectAll("*").remove(); // Clear any existing chart
+
+        const width = 500;
+        const height = 300;
+        const margin = { top: 20, right: 20, bottom: 40, left: 40 };
+
+        const svg = container.append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", `translate(${margin.left}, ${margin.top})`);
+
+        const x = d3.scaleBand()
+            .domain(data.map(d => d.name))
+            .range([0, width])
+            .padding(0.1);
+
+        const y = d3.scaleLinear()
+            .domain([0, d3.max(data, d => d.score)])
+            .nice()
+            .range([height, 0]);
+
+        svg.append("g")
+            .attr("transform", `translate(0, ${height})`)
+            .call(d3.axisBottom(x))
+            .selectAll("text")
+            .attr("transform", "rotate(0)")
+            .style("text-anchor", "middle");
+
+        svg.append("g")
+            .call(d3.axisLeft(y))
+            .append("text")
+            .attr("fill", "#c4f24c")
+            .attr("x", -margin.left)
+            .attr("y", -10)
+            .attr("dy", "0.05em")
+            .attr("text-anchor", "start")
+            .text("Score");
+
+        svg.selectAll(".bar")
+            .data(data)
+            .enter()
+            .append("rect")
+            .attr("class", "bar")
+            .attr("x", d => x(d.name))
+            .attr("y", d => y(d.score))
+            .attr("width", x.bandwidth())
+            .attr("height", d => height - y(d.score))
+            .attr("fill", "#c4f24c");
 
 
-        // Reset quiz form after displaying the result
-        document.getElementById("quiz-form").reset();
+    }
+
+    // Toggle functionality for Ranking and Bar Chart
+    document.getElementById("toggle-ranking").addEventListener("click", () => {
+        document.getElementById("ranking-container").style.display = "block";
+        document.getElementById("bar-chart-container").style.display = "none";
+    });
+
+    document.getElementById("toggle-bar-chart").addEventListener("click", () => {
+        document.getElementById("ranking-container").style.display = "none";
+        // Flex layout for side-by-side charts
+        document.getElementById("bar-chart-container").style.display = "flex";
     });
 });
 

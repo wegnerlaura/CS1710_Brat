@@ -1,6 +1,7 @@
 // This currently does not really work. It used to work, but once I implemented the quiz, it did not anymore. I tried debugging, but that didn't work,
 // so I would love your advice on what is not working for the scrollitelling animations.
 
+// No Scrollitelling updates because I was working on the table of contents and my two visualizations.
 
 document.addEventListener('DOMContentLoaded', function() {
     AOS.init({
