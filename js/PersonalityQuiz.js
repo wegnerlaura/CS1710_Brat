@@ -80,18 +80,29 @@ document.addEventListener("DOMContentLoaded", function () {
             `;
         }
 
-        // Display ranking of all songs without bullet points
+        // Render song rankings with perfectly aligned numbers
         const rankingList = sortedSongs.map((song, index) => `
-            <div style="display: flex; justify-content: space-between; font-family: 'Roboto', sans-serif;">
-                <span style="width: 30px; text-align: right;">${index + 1}.</span>
-                <span>${song.name}</span>
-            </div>
-        `).join("");
+    <div style="
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 5px 0;
+        font-size: 1.1rem;
+    ">
+        <div style="width: 30px; text-align: right; margin-right: 10px;">${index + 1}.</div>
+        <div style="text-align: left;">${song.name}</div>
+    </div>
+`).join("");
 
+// Display rankings in the result section
         document.getElementById("song-ranking").innerHTML = `
-            <h4>Song Rankings:</h4>
-            <div style="font-size: 1.1rem;">${rankingList}</div>
-        `;
+    <h4 style="text-align: center;">Song Rankings:</h4>
+    <div style="display: flex; flex-direction: column; align-items: center;">
+        ${rankingList}
+    </div>
+`;
+
+
 
         // Reset quiz form after displaying the result
         document.getElementById("quiz-form").reset();
