@@ -7,16 +7,16 @@
     <title>cs171 - brat final project</title>
 
     <!-- Load CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/xbootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
 
     <!-- Load Google Fonts -->
     <link href='https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Satisfy&display=swap' rel='stylesheet'>
 
-<!--    word cloud load-->
+    <!-- Load D3.js -->
     <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-cloud/1.2.5/d3.layout.cloud.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3-cloud@1.2.5/build/d3.layout.cloud.min.js"></script>
 </head>
 <body>
 <header>
@@ -24,12 +24,25 @@
     <div class="visual-placeholder large">
         <img src="media/OpeningScreen.jpeg" alt="Opening Visual" class="opening-visual">
     </div>
+
+    <!-- Table of Contents -->
+    <div class="toc-container">
+        <h2 class="toc-title">Table of Contents</h2>
+        <ul class="toc-list">
+            <li><a href="#intro-section">Introduction</a></li>
+            <li><a href="#timeline-section">Timeline</a></li>
+            <li><a href="#quiz-section">Quiz</a></li>
+            <li><a href="#analysis-section">Popularity</a></li>
+            <li><a href="#word-cloud-section">Word Cloud</a></li>
+            <li><a href="#diagram-section">Tempo and Key</a></li>
+        </ul>
+    </div>
 </header>
 
 <!-- Main Content -->
 <main>
     <!-- Intro Section -->
-    <section class="intro-section">
+    <section id="intro-section" class="intro-section">
         <h2 class="animated-title hidden">a bold new era of charli xcx</h2>
         <p class="animated-paragraph hidden large-text">
             brat is a masterpiece. charli xcx’s creativity knows no bounds. her music challenges conventions with unapologetic lyrics, experimental beats, and a creative attitude. brace yourself for the journey through the brat era.
@@ -37,7 +50,7 @@
     </section>
 
     <!-- Timeline Section -->
-    <section class="timeline-section">
+    <section id="timeline-section" class="timeline-section">
         <h2 class="animated-title">charli xcx throughout the years</h2>
         <p class="animated-paragraph large-text">
             from her early days in true romance to her rebellious reinvention in brat, charli xcx’s journey has been one of reinvention and innovation. let’s take a visual look at how her music has evolved.
@@ -104,7 +117,7 @@
     </section>
 
     <!-- Data Analysis Section -->
-    <section class="analysis-section">
+    <section id="analysis-section" class="analysis-section">
         <h2 class="animated-title">the numbers behind the tracks</h2>
         <p class="animated-paragraph large-text">
             beyond the beats and lyrics, there’s data. discover the secrets behind brat—its danceability, rawness, and popularity.
@@ -121,23 +134,22 @@
     </section>
 
     <!-- Word Cloud Section -->
-    <section class="word-cloud-section">
+    <section id="word-cloud-section" class="word-cloud-section">
         <h2 class="animated-title">a creative word cloud</h2>
         <p class="animated-paragraph large-text">
             take a closer look at the lyrical themes of brat. this word cloud reveals charli xcx’s storytelling, filled with defiance, empowerment, and emotion.
         </p>
-        <div class="visual-placeholder large" id = "wordCloudContainer">
-        </div>
+        <div class="visual-placeholder large" id="wordCloudContainer"></div>
     </section>
 
-    <!-- Final Placeholder Section -->
-    <section class="final-section">
-        <h2 class="animated-title">what brat means to the fans</h2>
+    <!-- Circular Diagram Section -->
+    <section id="diagram-section" class="diagram-section">
+        <h2 class="animated-title">how consistent are key and tempo across the album?</h2>
         <p class="animated-paragraph large-text">
-            charli xcx’s brat is more than music—it’s a cultural movement. from fan art to deep interpretations, discover how brat has inspired an entire generation.
+            explore the musical patterns of brat through this circular visualization. discover how keys and tempos interweave throughout the album, revealing the intricate musical structure that makes each track unique.
         </p>
         <div class="visual-placeholder large">
-            this will be another visualization
+            <div id="visualization"></div>
         </div>
     </section>
 </main>
@@ -149,14 +161,10 @@
 
 <!-- Add JavaScript -->
 <script src="js/PersonalityQuiz.js"></script>
-<script src="js/Scrolliteling.js.js"></script>
-<script src="https://d3js.org/d3.v7.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/d3-cloud@1.2.5/build/d3.layout.cloud.min.js"></script>
-<script src="js/PersonalityQuiz.js"></script>
+<script src="js/Scrollitelling.js"></script>
 <script src="js/WordCloud.js"></script>
 <script src="js/main.js"></script>
-
+<script src="js/Tempo-Key.js"></script>
 </body>
 </html>
-
 

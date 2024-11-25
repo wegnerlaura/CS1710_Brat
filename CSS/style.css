@@ -320,3 +320,46 @@ section {
     stroke-width: 1;
     opacity: 0.3;
 }
+
+/* Table of Contents Styling */
+.toc-container {
+    /* Black with slight transparency */
+    background-color: rgba(0, 0, 0, 0.8);
+    /* Neon green dashed border */
+    border: 2px dashed #c4f24c;
+    padding: 20px;
+    margin: 20px auto;
+    /* Keep consistent width */
+    max-width: 800px;
+    text-align: center;
+}
+
+.toc-title {
+    /* Neon green */
+    color: #c4f24c;
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+.toc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.toc-list li {
+    /* Add spacing between list items */
+    margin: 10px 0;
+}
+
+.toc-list a {
+    color: #FFFFFF;
+    font-size: 1.2rem;
+    text-decoration: none; /
+    transition: color 0.3s;
+}
+
+.toc-list a:hover {
+    /* Neon green on hover */
+    color: #c4f24c;
+}
