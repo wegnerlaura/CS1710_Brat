@@ -76,8 +76,8 @@ section {
     padding: 50px 20px;
     background: #000000;
     text-align: center;
-    position: relative;
-    overflow: hidden;
+    /*position: relative;*/
+    /*overflow: hidden;*/
 }
 
 .timeline {
@@ -94,17 +94,6 @@ section {
     height: 100px;
 }
 
-/* Vertical Line */
-.timeline-line {
-    position: absolute;
-    left: 50%;
-    width: 2px;
-    height: 100%;
-    /* Neon green */
-    background: #c4f24c;
-    transform: translateX(-50%);
-    z-index: 1;
-}
 
 /* Horizontal Lines */
 .horizontal-line {

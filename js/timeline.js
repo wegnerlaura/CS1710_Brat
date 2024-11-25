@@ -19,9 +19,7 @@ class Timeline{
 
         // Set dimensions and margins
         vis.margin = { top: 50, right: 50, bottom: 50, left: 50 };
-        vis.width =
-            document.getElementById(vis.parentContainer).getBoundingClientRect()
-                .width - vis.margin.left - vis.margin.right;
+        vis.width = document.getElementById(vis.parentContainer).getBoundingClientRect().width - vis.margin.left - vis.margin.right;
         vis.height = 200; // Fixed height for the timeline
 
         // Create SVG
@@ -34,6 +32,7 @@ class Timeline{
 
         console.log("svg width:", vis.width + vis.margin.left + vis.margin.right)
         vis.svgWidth = vis.width + vis.margin.left + vis.margin.right;
+        console.log(vis.svgWidth)
 
         // Initialize scales
         vis.xScale = d3.scalePoint()
@@ -76,16 +75,18 @@ class Timeline{
         console.log("xScale domain:", vis.xScale.domain());
         console.log("xScale range:", vis.xScale.range());
 
+        console.log('Container width:', document.getElementById(vis.parentContainer).getBoundingClientRect().width);
+        console.log('Calculated SVG width:', vis.width);
 
         vis.svg.selectAll(".timeline-line").remove();
         // need to center the line before submission
         vis.svg.append("line")
             .attr("class", "timeline-line")
-            .attr("x1", vis.margin.left)
-            .attr("x2", vis.svgWidth)
+            .attr("x1", 0)
+            .attr("x2", vis.width - vis.margin.left)
             .attr("y1", vis.height / 2)
             .attr("y2", vis.height / 2)
-            // .attr("transform", `translate(${vis.margin.left}, 0)`)
+            .attr("transform", `translate(${vis.margin.left}, 0)`)
             .attr("stroke", "#c4f24c")
             .attr("stroke-width", 5)
 
