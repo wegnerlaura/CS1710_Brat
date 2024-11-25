@@ -117,15 +117,11 @@ function createSongKeyVisualization() {
         .style('background', 'rgba(0, 0, 0, 0.9)')
         .style('padding', '10px')
         .style('border', '1px solid #c4f24c')
-        .style('pointer-events', 'all')
+        .style('pointer-events', 'none')
         .style('z-index', '1000');
-
-    let currentNote = null;
 
     // Add note interactivity
     noteGroup.on('mouseover', function(event, d) {
-        event.stopPropagation();
-        currentNote = this;
         const note = d3.select(this);
 
         note.select('ellipse')
@@ -134,34 +130,37 @@ function createSongKeyVisualization() {
             .attr('rx', (d) => d.danceability * 18)
             .attr('ry', (d) => d.danceability * 15);
 
-        tooltip
-            .style('opacity', 0.9)
-            .html(`
-                <strong>Title:</strong> ${d.name}<br>
-                <strong>Key:</strong> ${getKeyName(d.key)}${d.sharp ? '♯' : ''}<br>
-                <strong>Danceability score:</strong> ${d.danceability.toFixed(3)}<br>
-                <a href="${d.videoUrl}" target="_blank" style="color: #c4f24c;">Watch Music Video</a>
-            `)
+        tooltip.transition()
+            .duration(200)
+            .style('opacity', 0.9);
+
+        tooltip.html(`
+            <strong>Title:</strong> ${d.name}<br>
+            <strong>Key:</strong> ${getKeyName(d.key)}${d.sharp ? '♯' : ''}<br>
+            <strong>Danceability score:</strong> ${d.danceability.toFixed(3)}<br>
+            <a href="${d.videoUrl}" target="_blank" style="color: #c4f24c;">Watch Music Video</a>
+        `)
             .style('left', (event.pageX + 10) + 'px')
             .style('top', (event.pageY - 28) + 'px');
-    });
+    })
+        .on('mouseout', function() {
+            d3.select(this).select('ellipse')
+                .transition()
+                .duration(200)
+                .attr('rx', (d) => d.danceability * 15)
+                .attr('ry', (d) => d.danceability * 12);
 
-    // Add tooltip hover behavior
-    tooltip.on('mouseleave', function(event) {
-        const toElement = event.relatedTarget;
-        if (toElement && (toElement === currentNote || currentNote.contains(toElement))) {
-            return;
+            tooltip.transition()
+                .duration(500)
+                .style('opacity', 0);
+        });
+
+    // Make tooltip clickable
+    tooltip.on('click', function() {
+        const link = d3.select(this).select('a').node();
+        if (link) {
+            window.open(link.href, '_blank');
         }
-
-        d3.select(currentNote).select('ellipse')
-            .transition()
-            .duration(200)
-            .attr('rx', (d) => d.danceability * 15)
-            .attr('ry', (d) => d.danceability * 12);
-
-        tooltip.transition()
-            .duration(500)
-            .style('opacity', 0);
     });
 }
 
