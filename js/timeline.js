@@ -9,10 +9,10 @@ class Timeline{
         let vis = this
 
         vis.timelineData = [
-            {year: 2012, description: "Released hit song I Love It"},
-            {year: 2013, description: "Released hit song Boom Clap"},
-            {year: 2020, description: "Released hit song Vroom Vroom "},
-            {year: 2024, description: "Released album Brat"},
+            {year: 2012, description: "released hit song I Love It"},
+            {year: 2013, description: "released hit song Boom Clap"},
+            {year: 2020, description: "released hit song Vroom Vroom "},
+            {year: 2024, description: "released album Brat"},
         ]
 
         console.log(vis.timelineData)
@@ -95,7 +95,7 @@ class Timeline{
         vis.xScale.domain(vis.timelineData.map((d) => d.year));
 
         // Add dashes
-        const dashHeight = 60; // Height of each dash
+        const dashHeight = 100; // Height of each dash
         let dashes = vis.svg.selectAll(".timeline-dash")
             .data(vis.timelineData);
 
@@ -122,7 +122,7 @@ class Timeline{
                     .style("font-size", "40px")
 
                 vis.tooltip
-                    .html(`<strong>${d.year}</strong><br>${d.description}`)
+                    .html(`<strong>In ${d.year}</strong><br>Charli XCX ${d.description}`)
                     .style("font-size", "40px")
                     .style("visibility", "visible")
                     .style("opacity", "1")
@@ -158,11 +158,11 @@ class Timeline{
             .attr("class", "timeline-label")
             .attr("x", d => vis.xScale(d.year))
             .attr("y", (d, i) => i % 2 === 0 ?
-                (vis.height / 2) - (dashHeight / 2) - 10 :
-                (vis.height / 2) + (dashHeight / 2) + 20)
+                (vis.height / 2) - (dashHeight / 2) - 15 :
+                (vis.height / 2) + (dashHeight / 2) + 30)
             .attr("text-anchor", "middle")
             .text(d => d.year)
-            .style("font-size", "20px")
+            .style("font-size", "30px")
             .style("fill", "#c4f24c")
 
     }
