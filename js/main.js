@@ -10,6 +10,12 @@ let promises = [
     d3.csv("data/charli-search.csv")
 ];
 
+let featureMatrix;
+
+d3.csv("data/brat.csv").then(data => {
+    featureMatrix = new FeatureMatrix("feature-matrix", data);
+});
+
 Promise.all(promises)
     .then(function (data) {
         initMainPage(data)
@@ -25,3 +31,9 @@ Promise.all(promises)
      myTimeline = new Timeline ('timelineContainer', data[1])
  }
 
+let circularHeatmap;
+
+// Load the data and create visualization
+d3.csv("data/brat.csv").then(data => {
+    circularHeatmap = new CircularHeatmap("heatmap-visualization", data);
+});
