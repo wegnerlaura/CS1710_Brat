@@ -1,5 +1,3 @@
-<!-- We didn't have time yet to adjust the phone view, but we will do that. -->
-
 <!doctype html>
 <html>
 <head>
@@ -7,15 +5,11 @@
     <meta name="description" content="Charli XCX - Brat">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>cs171 - brat final project</title>
-
     <!-- Load CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
-
     <!-- Load Google Fonts -->
     <link href='https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Satisfy&display=swap' rel='stylesheet'>
-
     <!-- Load D3.js -->
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/d3-cloud@1.2.5/build/d3.layout.cloud.min.js"></script>
@@ -26,7 +20,6 @@
     <div class="visual-placeholder large">
         <img src="media/OpeningScreen.jpeg" alt="Opening Visual" class="opening-visual">
     </div>
-
     <!-- Table of Contents -->
     <div class="toc-container">
         <h2 class="toc-title">Table of Contents</h2>
@@ -40,7 +33,6 @@
         </ul>
     </div>
 </header>
-
 <!-- Main Content -->
 <main>
     <!-- Introduction Section -->
@@ -50,47 +42,15 @@
             Charli XCX, born Charlotte Aitchison, is a <span class="highlight">revolutionary</span> force in modern pop music, blending <span class="highlight">experimental</span> production with infectious hooks to redefine the genre. From her early days uploading music to MySpace and performing at underground raves, to global fame with hits like <em>Boom Clap</em> and <em>I Love It</em>, Charli has always <span class="highlight">pushed boundaries</span>. Her groundbreaking work in hyperpop, notably with albums like <em>Pop 2</em> and <em>Charli</em>, showcases collaborations with avant-garde producers and artists. Now, with the <em>Brat</em> era, she embraces <span class="highlight">raw energy</span> and <span class="highlight">bold themes</span>, solidifying her legacy as a fearless artist uniting mainstream success with experimental edge.
         </p>
     </section>
-
     <!-- Timeline Section -->
     <section id="timeline-section" class="timeline-section">
         <h2>Charli XCX Throughout the Years</h2>
-        <p class = "animated-paragraph large-text">From her early days in <i>True Romance</i> to her rebellious reinvention in <i>Brat</i>, Charli XCX’s journey has been one of reinvention and innovation. Let’s take a visual look at how her music has evolved.</p>
-        <div id="timelineContainer"></div> <!-- Container for the timeline visualization -->
+        <p class="animated-paragraph large-text">From her early days in <i>True Romance</i> to her rebellious reinvention in <i>Brat</i>, Charli XCX's journey has been one of reinvention and innovation. Let's take a visual look at how her music has evolved.</p>
+        <div id="timelineContainer"></div>
     </section>
-
-<!--    <section id="timeline-section" class="timeline-section">-->
-<!--        <h2 class="animated-title">charli xcx throughout the years</h2>-->
-<!--        <p class="animated-paragraph large-text">-->
-<!--            from her early days in true romance to her rebellious reinvention in brat, charli xcx’s journey has been one of reinvention and innovation. let’s take a visual look at how her music has evolved.-->
-<!--        </p>-->
-<!--&lt;!&ndash;        <div class="timeline">&ndash;&gt;-->
-<!--            &lt;!&ndash; Timeline Markers &ndash;&gt;-->
-<!--&lt;!&ndash;            <div class="timeline-item">&ndash;&gt;-->
-<!--&lt;!&ndash;                <div class="timeline-line"></div>&ndash;&gt;-->
-<!--&lt;!&ndash;                <div class="horizontal-line left"></div>&ndash;&gt;-->
-<!--&lt;!&ndash;                <div class="timeline-circle left"></div>&ndash;&gt;-->
-<!--&lt;!&ndash;            </div>&ndash;&gt;-->
-<!--&lt;!&ndash;            <div class="timeline-item">&ndash;&gt;-->
-<!--&lt;!&ndash;                <div class="timeline-line"></div>&ndash;&gt;-->
-<!--&lt;!&ndash;                <div class="horizontal-line right"></div>&ndash;&gt;-->
-<!--&lt;!&ndash;                <div class="timeline-circle right"></div>&ndash;&gt;-->
-<!--&lt;!&ndash;            </div>&ndash;&gt;-->
-<!--&lt;!&ndash;            <div class="timeline-item">&ndash;&gt;-->
-<!--&lt;!&ndash;                <div class="timeline-line"></div>&ndash;&gt;-->
-<!--&lt;!&ndash;                <div class="horizontal-line left"></div>&ndash;&gt;-->
-<!--&lt;!&ndash;                <div class="timeline-circle left"></div>&ndash;&gt;-->
-<!--&lt;!&ndash;            </div>&ndash;&gt;-->
-<!--&lt;!&ndash;            <div class="timeline-item">&ndash;&gt;-->
-<!--&lt;!&ndash;                <div class="timeline-line"></div>&ndash;&gt;-->
-<!--&lt;!&ndash;                <div class="horizontal-line right"></div>&ndash;&gt;-->
-<!--&lt;!&ndash;                <div class="timeline-circle right"></div>&ndash;&gt;-->
-<!--&lt;!&ndash;            </div>&ndash;&gt;-->
-<!--&lt;!&ndash;        </div>&ndash;&gt;-->
-<!--    </section>-->
-
     <!-- Quiz Section -->
     <section id="quiz-section" class="quiz-section">
-        <h2 class="animated-title">what song on the brat album fits your personality?</h2>
+        <h2 class="animated-title">what song on the brat album fits your personality?</h2>...
         <p class="animated-paragraph large-text">
             take this fun quiz to see what fits to your personality. are you raw and unfiltered, or bold and experimental? find out as we connect your vibe to charli's soundscape.
         </p>
@@ -101,38 +61,32 @@
                 <label><input type="radio" name="q1" value="energy"> High Energy</label>
                 <label><input type="radio" name="q1" value="valence"> Emotional</label>
             </div>
-
             <div class="quiz-question">
                 <p>2. What's your ideal vibe?</p>
                 <label><input type="radio" name="q2" value="relax"> Chill and Relaxed</label>
                 <label><input type="radio" name="q2" value="party"> Party and Energetic</label>
                 <label><input type="radio" name="q2" value="experimental"> Experimental and Unique</label>
             </div>
-
             <div class="quiz-question">
                 <p>3. How do you prefer your lyrics?</p>
                 <label><input type="radio" name="q3" value="explicit"> Raw and Explicit</label>
                 <label><input type="radio" name="q3" value="poetic"> Poetic and Subtle</label>
                 <label><input type="radio" name="q3" value="fun"> Fun and Playful</label>
             </div>
-
             <button type="button" id="quiz-submit">Find My Song</button>
         </form>
         <div id="quiz-result" class="hidden">
             <p id="result-song"></p>
             <div id="youtube-video"></div>
-
             <!-- Ranking and Bar Chart -->
             <div id="ranking-container">
                 <h3>Song Rankings:</h3>
                 <div id="ranking-list"></div>
             </div>
-
             <div id="toggle-buttons">
                 <button id="toggle-ranking">Ranking</button>
                 <button id="toggle-bar-chart">Bar Chart</button>
             </div>
-
             <div id="bar-chart-container" class="hidden">
                 <div>
                     <h3>Top 5 Songs:</h3>
@@ -143,35 +97,34 @@
                     <div id="bottom-bar-chart"></div>
                 </div>
             </div>
+        </div>
     </section>
-
-
     <!-- Data Analysis Section -->
-    <section id="analysis-section" class="analysis-section">
-        <h2 class="animated-title">the numbers behind the tracks</h2>
-        <p class="animated-paragraph large-text">
-            beyond the beats and lyrics, there’s data. discover the secrets behind brat—its danceability, rawness, and popularity.
-        </p>
-        <div class="visual-placeholder medium">
-            danceability vs. popularity
-        </div>
-        <div class="visual-placeholder medium">
-            explicit content vs. popularity
-        </div>
-        <div class="visual-placeholder medium">
-            other filters
-        </div>
-    </section>
+        <!--matrix section -->
+        <section id="audio-features-section" class="audio-features-section">
+            <h2 class="animated-title">audio features across the album</h2>
+            <p class="animated-paragraph large-text">
+                explore how each song's unique characteristics create the album's sonic landscape. this visualization shows the intensity of different audio features for each track.
+            </p>
+            <div id="feature-matrix" class="visual-placeholder large"></div>
+        </section>
 
+        <!-- Song Key Section -->
+        <section id="song-key-section" class="song-key-section">
+            <h2 class="animated-title">musical style across the album</h2>
+            <p class="animated-paragraph large-text">
+                musical style, key, tempo, and more varies per song. every note represents a song from the album and lies on the staff line that represents the key it's written in. hover over each note for additional information or to watch the music video!
+            </p>
+            <div id="key-visualization" class="visual-placeholder large"></div>
+        </section>
     <!-- Word Cloud Section -->
     <section id="word-cloud-section" class="word-cloud-section">
         <h2 class="animated-title">themes across charli's work</h2>
         <p class="animated-paragraph large-text">
-            take a closer look at the lyrical themes of brat. this word cloud reveals charli xcx’s storytelling, filled with defiance, empowerment, and emotion.
+            take a closer look at the lyrical themes of brat. this word cloud reveals charli xcx's storytelling, filled with defiance, empowerment, and emotion.
         </p>
         <div class="visual-placeholder large" id="wordCloudContainer"></div>
     </section>
-
     <!-- Circular Diagram Section -->
     <section id="diagram-section" class="diagram-section">
         <h2 class="animated-title">how consistent are key and tempo across the album?</h2>
@@ -189,7 +142,6 @@
                     </div>
                     <div id="key-value" class="slider-value">Key: 11</div>
                 </div>
-
                 <div class="slider-container">
                     <label for="tempo-slider" class="slider-label">Filter by Tempo:</label>
                     <div class="slider-range">
@@ -204,18 +156,18 @@
         </div>
     </section>
 </main>
-
 <!-- Footer -->
 <footer>
     <p>&copy;2024 charli xcx cs171 final project</p>
 </footer>
-
 <!-- Add JavaScript -->
 <script src="js/PersonalityQuiz.js"></script>
 <script src="js/Scrollitelling.js"></script>
 <script src="js/WordCloud.js"></script>
-<script src = "js/timeline.js"></script>
+<script src="js/timeline.js"></script>
 <script src="js/Tempo-Key.js"></script>
+<script src="js/feature_matrix.js"></script>
+<script src="js/song_key.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>

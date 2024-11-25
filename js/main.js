@@ -30,10 +30,3 @@ Promise.all(promises)
      myWordCloud = new WordCloud ('wordCloudContainer', data[0]);
      myTimeline = new Timeline ('timelineContainer')
  }
-
-let circularHeatmap;
-
-// Load the data and create visualization
-d3.csv("data/brat.csv").then(data => {
-    circularHeatmap = new CircularHeatmap("heatmap-visualization", data);
-});
