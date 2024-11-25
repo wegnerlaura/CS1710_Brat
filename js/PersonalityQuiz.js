@@ -1,132 +1,74 @@
-// At first, I planned to do this next week because it involves more planning than the other visualizations,
-// but I decided to just do it now, so that there is more time for iteration later on based on feedback. It currently just
-// has the basic quiz and results, but that will be improved for next time, especially because it currently does not really
-// have an actual "visualization" aspect.
+// Currently, I did something wrong to the algorithm because it only shows Apple or 360, but I will fix that in the next iterations.
 
 document.addEventListener("DOMContentLoaded", function () {
-
+    // Song dataset with normalized attributes
     let songsData = [
-        // Songs and YouTube video IDs (need to add more and need to update this with directly coming from dataset)
-        {
-            name: "360",
-            danceability: 0.857,
-            energy: 0.62,
-            valence: 0.796,
-            lyrics: "I went my own way and I made it...",
-            youtube_id: "WJW-VvmRKsE"
-        },
-        {
-            name: "Club Classics",
-            danceability: 0.716,
-            energy: 0.879,
-            valence: 0.693,
-            lyrics: "When I go to the club, I wanna hear those club classics...",
-            youtube_id: "rd1AZym4lEY"
-        },
-        {
-            name: "Sympathy is a Knife",
-            danceability: 0.718,
-            energy: 0.706,
-            valence: 0.58,
-            lyrics: "I don't wanna share the space...",
-            youtube_id: "S9s4Ckt-aKo"
-        },
-        {
-            name: "I Might Say Something Stupid",
-            danceability: 0.504,
-            energy: 0.3,
-            valence: 0.16,
-            lyrics: "I might say something stupid...",
-            youtube_id: "TD2j1OuHoik"
-        },
-        {
-            name: "Always Forever",
-            danceability: 0.701,
-            energy: 0.82,
-            valence: 0.49,
-            lyrics: "Always forever, I'll be yours...",
-            youtube_id: "COKJ_gdTkIY"
-        },
-        {
-            name: "Brat Anthem",
-            danceability: 0.8,
-            energy: 0.95,
-            valence: 0.6,
-            lyrics: "Brat anthem, raw and unfiltered...",
-            youtube_id: "E6oq5HCzG4c"
-        },
-        {
-            name: "Night Drive",
-            danceability: 0.9,
-            energy: 0.5,
-            valence: 0.7,
-            lyrics: "Driving at night, city lights...",
-            youtube_id: "TxZwCpgxttQ"
-        },
-        {
-            name: "Pink Destruction",
-            danceability: 0.68,
-            energy: 0.75,
-            valence: 0.65,
-            lyrics: "Pink destruction, tearing it apart...",
-            youtube_id: "_FU8xyVC-tk"
-        }
+        { name: "360", youtube_id: "WJW-VvmRKsE", danceability: 0.928, energy: 0.649, valence: 0.951, tempo: 120.042, popularity: 54 },
+        { name: "Club Classics", youtube_id: "bg9EmWTRt3Y", danceability: 0.716, energy: 0.879, valence: 0.693, tempo: 144.95, popularity: 54 },
+        { name: "Sympathy is a Knife", youtube_id: "KrxDhDDXUwQ", danceability: 0.718, energy: 0.706, valence: 0.580, tempo: 131.944, popularity: 54 },
+        { name: "I Might Say Something Stupid", youtube_id: "zw6bA75H2jc", danceability: 0.504, energy: 0.3, valence: 0.16, tempo: 79.25, popularity: 49 },
+        { name: "Talk Talk", youtube_id: "K5jyIoPbu4M", danceability: 0.701, energy: 0.82, valence: 0.49, tempo: 130.146, popularity: 52 },
+        { name: "Von Dutch", youtube_id: "cwZ1L_0QLjw", danceability: 0.8, energy: 0.95, valence: 0.6, tempo: 140.0, popularity: 50 },
+        { name: "Everything is Romantic", youtube_id: "fUr2t-KnILQ", danceability: 0.6, energy: 0.5, valence: 0.4, tempo: 115.0, popularity: 48 },
+        { name: "Rewind", youtube_id: "WlM7nm3TLnY", danceability: 0.55, energy: 0.6, valence: 0.5, tempo: 118.5, popularity: 47 },
+        { name: "So I", youtube_id: "g-PovEJ1qWc", danceability: 0.68, energy: 0.7, valence: 0.65, tempo: 125.0, popularity: 53 },
+        { name: "Girl So Confusing", youtube_id: "0q3K6FPzY18", danceability: 0.7, energy: 0.6, valence: 0.5, tempo: 135.0, popularity: 51 },
+        { name: "Apple", youtube_id: "CPWxExGk7PM", danceability: 0.804, energy: 0.957, valence: 0.962, tempo: 150.0, popularity: 55 },
+        { name: "B2B", youtube_id: "Lp8TaMWU-Ho", danceability: 0.6, energy: 0.8, valence: 0.4, tempo: 120.0, popularity: 50 },
+        { name: "Mean Girls", youtube_id: "IKUQDMEBXN0", danceability: 0.7, energy: 0.75, valence: 0.6, tempo: 140.0, popularity: 52 },
+        { name: "I Think About It All the Time", youtube_id: "Mn0aho8Ayfk", danceability: 0.65, energy: 0.7, valence: 0.55, tempo: 132.0, popularity: 53 },
+        { name: "365", youtube_id: "Ol9CCM240Ag", danceability: 0.75, energy: 0.8, valence: 0.7, tempo: 145.0, popularity: 54 }
     ];
 
-    // Event listener to "Find My Song" button
+    // Event listener for quiz submission
     document.getElementById("quiz-submit").addEventListener("click", function () {
+        const responses = { danceability: 0, energy: 0, valence: 0 };
 
-        // Store the user's quiz responses
-        const responses = {
-            danceability: 0,
-            energy: 0,
-            valence: 0
-        };
-
-        // Access quiz form and collect user responses
-        let form = document.getElementById("quiz-form");
-
-        // Iterate over the form data to update responses object
-        new FormData(form).forEach((value, key) => {
+        // Collect responses
+        new FormData(document.getElementById("quiz-form")).forEach((value, key) => {
             if (value in responses) {
-                // Increment corresponding response value based on user input
                 responses[value]++;
             }
         });
 
-        // Initialize variables to find best-matching song
-        let bestSong = null;
-        let highestScore = -Infinity;
+        // Normalize attributes
+        const maxAttributes = {
+            danceability: Math.max(...songsData.map(s => s.danceability)),
+            energy: Math.max(...songsData.map(s => s.energy)),
+            valence: Math.max(...songsData.map(s => s.valence)),
+            tempo: Math.max(...songsData.map(s => s.tempo)),
+            popularity: Math.max(...songsData.map(s => s.popularity))
+        };
 
-        // Loop through each song in the dataset (need to improve this I think)
-        songsData.forEach((song) => {
-            // Initialize the score for the current song
-            let score = 0;
+        // Calculate scores for each song and store them
+        const scoredSongs = songsData.map(song => {
+            const score =
+                (responses.danceability * song.danceability / maxAttributes.danceability) * 0.4 +
+                (responses.energy * song.energy / maxAttributes.energy) * 0.3 +
+                (responses.valence * song.valence / maxAttributes.valence) * 0.2 +
+                (song.tempo / maxAttributes.tempo) * 0.05 +
+                (song.popularity / maxAttributes.popularity) * 0.05;
 
-            // Calculate the score based on user preferences and song attributes
-            score += responses.danceability * song.danceability;
-            score += responses.energy * song.energy;
-            score += responses.valence * song.valence;
-
-            // Check if this song has the highest score so far
-            if (score > highestScore) {
-                bestSong = song;
-                highestScore = score;
-            }
+            return { ...song, score };
         });
 
-        // Result section
-        let resultSection = document.getElementById("quiz-result");
+        // Sort songs by score in descending order
+        const sortedSongs = scoredSongs.sort((a, b) => b.score - a.score);
+
+        // Get the best song (highest score)
+        const bestSong = sortedSongs[0];
+
+        // Display result
+        const resultSection = document.getElementById("quiz-result");
         resultSection.classList.remove("hidden");
 
-        // If a best-matching song is found, display details (will probably add more details, especially because valence is hard to understand)
+        // Display the top song
         if (bestSong) {
             document.getElementById("result-song").innerHTML = `
                 <h3>${bestSong.name}</h3>
-                <p><strong>Lyrics Preview:</strong> ${bestSong.lyrics}</p>
-                <p><strong>Danceability:</strong> ${bestSong.danceability}</p>
-                <p><strong>Energy:</strong> ${bestSong.energy}</p>
-                <p><strong>Valence:</strong> ${bestSong.valence}</p>
+                <p><strong>Danceability:</strong> ${bestSong.danceability.toFixed(2)}</p>
+                <p><strong>Energy:</strong> ${bestSong.energy.toFixed(2)}</p>
+                <p><strong>Valence:</strong> ${bestSong.valence.toFixed(2)}</p>
                 <div id="youtube-video">
                     <iframe width="560" height="315"
                         src="https://www.youtube.com/embed/${bestSong.youtube_id}"
@@ -136,12 +78,27 @@ document.addEventListener("DOMContentLoaded", function () {
                     </iframe>
                 </div>
             `;
-        } else {
-            // If no match is found, display an appropriate message
-            document.getElementById("result-song").innerText = "No match found. Try again!";
         }
+
+        // Display ranking of all songs without bullet points
+        const rankingList = sortedSongs.map((song, index) => `
+            <div style="display: flex; justify-content: space-between; font-family: 'Roboto', sans-serif;">
+                <span style="width: 30px; text-align: right;">${index + 1}.</span>
+                <span>${song.name}</span>
+            </div>
+        `).join("");
+
+        document.getElementById("song-ranking").innerHTML = `
+            <h4>Song Rankings:</h4>
+            <div style="font-size: 1.1rem;">${rankingList}</div>
+        `;
+
+        // Reset quiz form after displaying the result
+        document.getElementById("quiz-form").reset();
     });
 });
+
+
 
 // The matching logic works by comparing the user's preferences, gathered from their quiz responses, with the attributes of each
 // song in the dataset. Each song has specific values for danceability, energy, and valence, which describe how
