@@ -50,7 +50,7 @@ d3.csv("data/brat.csv").then(data => {
     // Define color scales for key and tempo
     const keyColorScale = d3.scaleSequential()
         .domain([0, 11])
-        .interpolator(d3.interpolateBlues);
+        .interpolator(d3.interpolateGreens);
 
     const tempoColorScale = d3.scaleSequential()
         .domain([d3.min(data, d => d.tempo), d3.max(data, d => d.tempo)])

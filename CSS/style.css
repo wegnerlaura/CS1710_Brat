@@ -262,7 +262,42 @@ section {
     height: 800px;
     margin: 0 auto;
     background-color: #000000;
+    border: none;
 }
+
+/* Remove the border only for the circle diagram */
+#diagram-section .visual-placeholder {
+    /* Remove the dashed border */
+    border: none; +
+}
+
+
+.visual-placeholder.large {
+    border: 2px dashed #c4f24c; /* Ensure a uniform dashed border */
+    padding: 20px; /* Add consistent padding to prevent interruptions */
+    box-sizing: border-box; /* Ensure padding doesn't affect the border */
+}
+
+#visualization {
+    width: 800px;
+    height: 800px;
+    margin: 0 auto;
+    background-color: #000000; /* Ensure no conflicting background */
+    border: none; /* Remove any border from the visualization itself */
+}
+
+.visual-placeholder.large:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: inherit; /* Copy the border style from the parent */
+    z-index: -1; /* Ensure it stays in the background */
+    pointer-events: none; /* Prevent it from interfering with the visualization */
+}
+
 
 .segment-line {
     stroke: #c4f24c;
@@ -362,4 +397,14 @@ section {
 .toc-list a:hover {
     /* Neon green on hover */
     color: #c4f24c;
+}
+
+/* Highlight styling for important keywords in the introduction*/
+.highlight {
+    /* Neon green */
+    color: #c4f24c;
+    /* Emphasize text */
+    font-weight: bold;
+    /* Slightly larger font size for emphasis */
+    font-size: 1.9em;
 }
