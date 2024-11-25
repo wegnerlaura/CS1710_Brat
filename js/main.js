@@ -22,6 +22,6 @@ Promise.all(promises)
 
      // word cloud
      myWordCloud = new WordCloud ('wordCloudContainer', data[0]);
-     myTimeline = new Timeline ('timelineContainer', data[1])
+     myTimeline = new Timeline ('timelineContainer')
  }
 
