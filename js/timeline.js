@@ -123,12 +123,13 @@ class Timeline{
 
                 vis.tooltip
                     .html(`<strong>In ${d.year}</strong><br>Charli XCX ${d.description}`)
-                    .style("font-size", "40px")
+                    .style("font-size", "25px")
                     .style("visibility", "visible")
                     .style("opacity", "1")
                     .style("position", "absolute")
-                    .style("background", "grey")
-                    .style("border", "1px solid black")
+                    .style("background", "rgba(0, 0, 0, 0.8)")
+                    .style("color", "#c4f24c")
+                    .style("border", '1px solid #c4f24c')
                     .style("padding", "8px")
                     .style("z-index", "1000")
                     .style("left", (event.pageX + 10) + "px")
