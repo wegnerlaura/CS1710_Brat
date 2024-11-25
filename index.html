@@ -149,6 +149,27 @@
             explore the musical patterns of brat through this circular visualization. discover how keys and tempos interweave throughout the album, revealing the intricate musical structure that makes each track unique.
         </p>
         <div class="visual-placeholder large">
+            <div id="filters">
+                <div class="slider-container">
+                    <label for="key-slider" class="slider-label">Filter by Key:</label>
+                    <div class="slider-range">
+                        <span class="range-label">0</span>
+                        <input type="range" id="key-slider" min="0" max="11" step="1" value="11">
+                        <span class="range-label">11</span>
+                    </div>
+                    <div id="key-value" class="slider-value">Key: 11</div>
+                </div>
+
+                <div class="slider-container">
+                    <label for="tempo-slider" class="slider-label">Filter by Tempo:</label>
+                    <div class="slider-range">
+                        <span class="range-label">0</span>
+                        <input type="range" id="tempo-slider" min="0" max="200" step="1" value="200">
+                        <span class="range-label">200</span>
+                    </div>
+                    <div id="tempo-value" class="slider-value">Tempo: 200 BPM</div>
+                </div>
+            </div>
             <div id="visualization"></div>
         </div>
     </section>
