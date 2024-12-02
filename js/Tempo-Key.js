@@ -76,11 +76,13 @@ d3.csv("data/brat.csv").then(data => {
                 .endAngle(endAngle)();
         })
         .attr("fill", d => keyColorScale(d.key))
-        .attr("stroke", "none")
+        .attr("stroke", "#000") // Add black stroke here
+        .attr("stroke-width", 1) // Adjust the thickness of the black lines
         .attr("opacity", 1) // Initial opacity
         .on("mouseover", showTooltip)
         .on("mousemove", moveTooltip)
         .on("mouseout", hideTooltip);
+
 
     // Draw tempo arcs (inner red region)
     const tempoArcs = tempoKeySVG.selectAll(".tempo-arc")
@@ -98,11 +100,13 @@ d3.csv("data/brat.csv").then(data => {
                 .endAngle(endAngle)();
         })
         .attr("fill", d => tempoColorScale(d.tempo))
-        .attr("stroke", "none")
+        .attr("stroke", "#000") // Add black stroke here
+        .attr("stroke-width", 1) // Adjust the thickness of the black lines
         .attr("opacity", 1) // Initial opacity
         .on("mouseover", showTooltip)
         .on("mousemove", moveTooltip)
         .on("mouseout", hideTooltip);
+
 
     // Function to update filters dynamically
     function updateFilters() {

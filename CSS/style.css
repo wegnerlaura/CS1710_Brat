@@ -486,4 +486,22 @@ button:hover {
     margin: 20px auto;
 }
 
+#diagram-section .charli-style {
+    color: #c4f24c; /* Neon green to match the title */
+    font-family: 'Roboto', sans-serif; /* Same font as others */
+    font-size: 1.4rem; /* Consistent size with the rest of the content */
+    font-weight: bold; /* Bold for emphasis */
+    letter-spacing: 1px; /* Slight letter spacing for clarity */
+    line-height: 1.8; /* Improve readability */
+    margin-top: 2rem; /* Space above the message */
+    padding: 1rem; /* Padding inside the message block */
+    border-top: 2px solid #c4f24c; /* Green line for separation */
+    border-bottom: 2px solid #c4f24c; /* Matching bottom border */
+    max-width: 850px; /* Center alignment and limit width */
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center; /* Center-align the text */
+}
+
+
 
