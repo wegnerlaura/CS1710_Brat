@@ -3,7 +3,7 @@ let myWordCloud,
 
 // load data using promises
 let promises = [
-    d3.csv("data/brat-lyrics.csv"),
+    d3.csv("data/album_word_frequencies"),
     d3.csv("data/brat.csv"),
     d3.csv("data/brat-search.csv"),
     d3.csv("data/brat_summer-search.csv"),
