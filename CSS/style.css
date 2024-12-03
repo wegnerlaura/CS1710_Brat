@@ -508,5 +508,24 @@ button:hover {
     text-align: center;
 }
 
+#wordCloudContainer-dropdown {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center;    /* Center vertically (if needed) */
+    height: 50px;
+}
+
+select#song-select {
+    text-align: center; /* Centers text */
+    text-align-last: center; /* Ensures the last selected item is centered */
+    font-size: 1.5rem; /* Optional: Adjust font size */
+    padding: 5px 10px; /* Optional: Adjust padding */
+    border-radius: 5px; /* Optional: Add rounded corners */
+    border: 1px solid #ccc; /* Optional: Add border */
+    background-color: #64dd43; /* Optional: Set background color */
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+}
+
 
 

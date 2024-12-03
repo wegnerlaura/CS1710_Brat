@@ -81,7 +81,8 @@ class WordCloud{
                 quantity: row[vis.currentSong]
             }))
             .sort((a, b) => b.quantity - a.quantity)  // Sort by quantity
-            .slice(0, 100);  // Limit to top 100 words to prevent overcrowding
+            .slice(0, vis.currentSong === 'total_quantity' ? 200 : 100);
+        ;  // Limit to top 100 words to prevent overcrowding
 
         vis.updateVis();
     }
