@@ -18,7 +18,7 @@ class WordCloud{
             .style("border", "1px solid black")
             .style("padding", "10px")
             .style("display", "none")
-            .style("pointer-events", "none");
+            .style("pointer-events", "none")
 
         this.createDropdown()
 
@@ -154,11 +154,11 @@ class WordCloud{
         const wordFrequencies = this.songTitles
             .map(song => ({
                 song: song,
-                frequency: this.lyricsData.find(row => row.word === d.text)?.[song] || 0
+                frequency: +this.lyricsData.find(row => row.word === d.text)?.[song] || 0 // Convert to number
             }))
             .filter(item => item.frequency > 0)
             .sort((a, b) => b.frequency - a.frequency)
-            .slice(0, 5)
+            .slice(0, 5);
 
         this.tooltip.html("");
 
@@ -167,9 +167,9 @@ class WordCloud{
             .style("margin-bottom", "10px")
             .text(d.text)
 
-        const tooltipWidth = 300;
-        const tooltipHeight = 200;
-        const margin = {top: 20, right: 20, bottom: 30, left: 40};
+        const tooltipWidth = 500;
+        const tooltipHeight = 400;
+        const margin = { top: 20, right: 20, bottom: 100, left: 60 };
         const graphWidth = tooltipWidth - margin.left - margin.right;
         const graphHeight = tooltipHeight - margin.top - margin.bottom;
 
@@ -177,30 +177,56 @@ class WordCloud{
             .attr("width", tooltipWidth)
             .attr("height", tooltipHeight)
             .append("g")
-            .attr("transform", `translate(${margin.left},${margin.top})`);
+            .attr("transform", `translate(${margin.left},${margin.top})`)
 
+        // tooltip title:
+        this.tooltip.select("svg")
+            .append("text")
+            .attr("x", tooltipWidth / 2)
+            .attr("y", margin.top / 1.2)
+            .attr("text-anchor", "middle")
+            .style("font-size", "16px")
+            .style("font-weight", "bold")
+            .text(`Word Frequency: "${d.text}"`);
+
+        // axes on tooltip:
         const x = d3.scaleBand()
             .domain(wordFrequencies.map(f => f.song))
             .range([0, graphWidth])
-            .padding(0.1)
+            .padding(0.1);
 
         const y = d3.scaleLinear()
             .domain([0, d3.max(wordFrequencies, f => f.frequency)])
+            .nice()
             .range([graphHeight, 0]);
 
-        // X axis
+        // Add X axis
         tooltipSvg.append("g")
             .attr("transform", `translate(0,${graphHeight})`)
             .call(d3.axisBottom(x))
             .selectAll("text")
+            .attr("transform", "rotate(-30)") // Use a smaller angle
             .style("text-anchor", "end")
-            .attr("dx", "-.8em")
-            .attr("dy", ".15em")
-            .attr("transform", "rotate(-45)");
+            .style("fill", "black") // Ensure the text is visible
+            .style("font-size", "12px");
 
-        // Y axis
+        // Add Y axis
         tooltipSvg.append("g")
-            .call(d3.axisLeft(y));
+            .call(d3.axisLeft(y))
+            .selectAll("text")
+            .style("fill", "black")
+            .style("font-size", "12px");
+
+        tooltipSvg.selectAll(".tick line")
+            .style("stroke", "black") // Ensure tick lines are black
+            .style("stroke-width", "1px"); // Set line width
+
+        tooltipSvg.append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("x", -graphHeight / 2)
+            .attr("y", -margin.left + 15)
+            .style("text-anchor", "middle")
+            .text("Quantity");
 
         // Bars
         tooltipSvg.selectAll(".bar")
