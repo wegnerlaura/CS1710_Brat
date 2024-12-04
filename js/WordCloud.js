@@ -100,14 +100,25 @@ class WordCloud{
             .range([10, fontScaleFactor]); // Map to font size range
 
         function draw(words) {
-            vis.svg.selectAll("text")
+            const textSelection = vis.svg.selectAll("text")
                 .data(words)
                 .join("text")
                 .style("font-size", d => `${d.size}px`)
                 .style("fill", (d, i) => vis.colors[i % vis.colors.length])
                 .attr("text-anchor", "middle")
                 .attr("transform", d => `translate(${[d.x, d.y]})rotate(${d.rotate})`)
-                .text(d => d.text);
+                .style("opacity", 0)
+                .text(d => d.text)
+                .transition()  // Apply transition
+                .duration(1000)  // Duration of the transition
+                .style("opacity", 1)  // Fade in the word
+                .attr("transform", d => `translate(${d.x}, ${d.y})rotate(${d.rotate}) scale(1)`)  // Ensure correct positioning
+                .ease(d3.easeBounceOut)  // Apply bounce effect
+                .attr("transform", d => `translate(${d.x}, ${d.y})rotate(${d.rotate}) scale(1.2)`)  // Bounce effect
+                .transition()
+                .duration(500)  // Duration of the bounce
+                .attr("transform", d => `translate(${d.x}, ${d.y})rotate(${d.rotate}) scale(1)`);  // Set scale back to 1
+
         }
 
         // Create and configure the layout

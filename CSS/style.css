@@ -527,5 +527,16 @@ select#song-select {
     font-family: 'Roboto', sans-serif;
 }
 
+@keyframes bounce {
+    0% { transform: scale(0.1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+.text-bounce {
+    animation: bounce 2s ease-in-out; /* Animation duration and easing */
+}
+
+
 
 
