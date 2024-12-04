@@ -167,9 +167,9 @@ class WordCloud{
             .style("margin-bottom", "10px")
             .text(d.text)
 
-        const tooltipWidth = 500;
-        const tooltipHeight = 400;
-        const margin = { top: 20, right: 20, bottom: 100, left: 60 };
+        const tooltipWidth = 600;
+        const tooltipHeight = 500;
+        const margin = { top: 20, right: 20, bottom: 175, left: 100};
         const graphWidth = tooltipWidth - margin.left - margin.right;
         const graphHeight = tooltipHeight - margin.top - margin.bottom;
 
