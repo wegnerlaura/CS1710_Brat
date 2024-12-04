@@ -11,6 +11,15 @@ class WordCloud{
 
         this.currentSong = 'total_quantity';
 
+        this.tooltip = d3.select("body").append("div")
+            .attr("class", "word-cloud-tooltip")
+            .style("position", "absolute")
+            .style("background", "white")
+            .style("border", "1px solid black")
+            .style("padding", "10px")
+            .style("display", "none")
+            .style("pointer-events", "none");
+
         this.createDropdown()
 
         this.initVis()
@@ -109,6 +118,8 @@ class WordCloud{
                 .attr("transform", d => `translate(${[d.x, d.y]})rotate(${d.rotate})`)
                 .style("opacity", 0)
                 .text(d => d.text)
+                .on("mouseover", (event, d) => vis.showWordTooltip(event, d))
+                .on("mouseout", () => vis.hideTooltip())
                 .transition()  // Apply transition
                 .duration(1000)  // Duration of the transition
                 .style("opacity", 1)  // Fade in the word
@@ -136,4 +147,81 @@ class WordCloud{
             .on("end", draw)
             .start();
     }
+
+    showWordTooltip(event, d) {
+        let vis = this;
+
+        const wordFrequencies = this.songTitles
+            .map(song => ({
+                song: song,
+                frequency: this.lyricsData.find(row => row.word === d.text)?.[song] || 0
+            }))
+            .filter(item => item.frequency > 0)
+            .sort((a, b) => b.frequency - a.frequency)
+            .slice(0, 5)
+
+        this.tooltip.html("");
+
+        this.tooltip.append("div")
+            .style("font-weight", "bold")
+            .style("margin-bottom", "10px")
+            .text(d.text)
+
+        const tooltipWidth = 300;
+        const tooltipHeight = 200;
+        const margin = {top: 20, right: 20, bottom: 30, left: 40};
+        const graphWidth = tooltipWidth - margin.left - margin.right;
+        const graphHeight = tooltipHeight - margin.top - margin.bottom;
+
+        const tooltipSvg = this.tooltip.append("svg")
+            .attr("width", tooltipWidth)
+            .attr("height", tooltipHeight)
+            .append("g")
+            .attr("transform", `translate(${margin.left},${margin.top})`);
+
+        const x = d3.scaleBand()
+            .domain(wordFrequencies.map(f => f.song))
+            .range([0, graphWidth])
+            .padding(0.1)
+
+        const y = d3.scaleLinear()
+            .domain([0, d3.max(wordFrequencies, f => f.frequency)])
+            .range([graphHeight, 0]);
+
+        // X axis
+        tooltipSvg.append("g")
+            .attr("transform", `translate(0,${graphHeight})`)
+            .call(d3.axisBottom(x))
+            .selectAll("text")
+            .style("text-anchor", "end")
+            .attr("dx", "-.8em")
+            .attr("dy", ".15em")
+            .attr("transform", "rotate(-45)");
+
+        // Y axis
+        tooltipSvg.append("g")
+            .call(d3.axisLeft(y));
+
+        // Bars
+        tooltipSvg.selectAll(".bar")
+            .data(wordFrequencies)
+            .enter().append("rect")
+            .attr("class", "bar")
+            .attr("x", f => x(f.song))
+            .attr("width", x.bandwidth())
+            .attr("y", f => y(f.frequency))
+            .attr("height", f => graphHeight - y(f.frequency))
+            .attr("fill", "#64dd43");
+
+        // Position and show tooltip
+        this.tooltip
+            .style("display", "block")
+            .style("left", (event.pageX + 10) + "px")
+            .style("top", (event.pageY - 10) + "px");
+    }
+
+    hideTooltip() {
+        this.tooltip.style("display", "none");
+    }
+
 }

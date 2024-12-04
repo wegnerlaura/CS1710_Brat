@@ -26,10 +26,10 @@
         <ul class="toc-list">
             <li><a href="#intro-section">Introduction</a></li>
             <li><a href="#timeline-section">Timeline</a></li>
-            <li><a href="#quiz-section">Quiz</a></li>
             <li><a href="#analysis-section">Popularity</a></li>
             <li><a href="#word-cloud-section">Word Cloud</a></li>
             <li><a href="#diagram-section">Tempo and Key</a></li>
+            <li><a href="#quiz-section">Quiz</a></li>
         </ul>
     </div>
 </header>
@@ -46,8 +46,73 @@
     <section id="timeline-section" class="timeline-section">
         <h2>Charli XCX Throughout the Years</h2>
         <p class="animated-paragraph large-text">From her early days in <i>True Romance</i> to her rebellious reinvention in <i>Brat</i>, Charli XCX's journey has been one of reinvention and innovation. Let's take a visual look at how her music has evolved.</p>
+        <p class="animated-paragraph large-text">Please hover over the lines on the timeline to learn more.</p>
         <div id="timelineContainer"></div>
     </section>
+
+    <!-- Word Cloud Section -->
+    <section id="word-cloud-section" class="word-cloud-section">
+        <h2 class="animated-title">themes across charli's work</h2>
+        <p class="animated-paragraph large-text">take a closer look at the lyrical themes of brat. this word cloud reveals charli xcx's storytelling, filled with defiance, empowerment, and emotion.</p>
+        <div id="wordCloudContainer-dropdown"></div>
+        <p class = "animated-paragraph large-text">select a song from the drop down to delve deeper into the brat album.</p>
+        <div class="visual-placeholder large" id="wordCloudContainer"></div>
+    </section>
+
+    <!-- Data Analysis Section -->
+    <!--matrix section -->
+    <section id="audio-features-section" class="audio-features-section">
+        <h2 class="animated-title">audio features across the album</h2>
+        <p class="animated-paragraph large-text">
+            explore how each song's unique characteristics create the album's sonic landscape. this visualization shows the intensity of different audio features for each track.
+        </p>
+        <div id="feature-matrix" class="visual-placeholder large"></div>
+    </section>
+
+    <!-- Song Key Section -->
+    <section id="song-key-section" class="song-key-section">
+        <h2 class="animated-title">musical style across the album</h2>
+        <p class="animated-paragraph large-text">
+            musical style, key, tempo, and more varies per song. every note represents a song from the album and lies on the staff line that represents the key it's written in. hover over each note for additional information or to watch the music video!
+        </p>
+        <div id="key-visualization" class="visual-placeholder large"></div>
+    </section>
+
+
+    <!-- Circular Diagram Section -->
+    <section id="diagram-section" class="diagram-section">
+        <h2 class="animated-title">how consistent are key and tempo across the album?</h2>
+        <p class="animated-paragraph large-text">
+            explore the musical patterns of brat through this circular visualization. discover how keys and tempos interweave throughout the album, revealing the intricate musical structure that makes each track unique.
+        </p>
+        <div class="visual-placeholder large">
+            <div id="filters">
+                <div class="slider-container">
+                    <label for="key-slider" class="slider-label">Filter by Key:</label>
+                    <div class="slider-range">
+                        <span class="range-label">0</span>
+                        <input type="range" id="key-slider" min="0" max="11" step="1" value="11">
+                        <span class="range-label">11</span>
+                    </div>
+                    <div id="key-value" class="slider-value">Key: 11</div>
+                </div>
+                <div class="slider-container">
+                    <label for="tempo-slider" class="slider-label">Filter by Tempo:</label>
+                    <div class="slider-range">
+                        <span class="range-label">0</span>
+                        <input type="range" id="tempo-slider" min="0" max="200" step="1" value="200">
+                        <span class="range-label">200</span>
+                    </div>
+                    <div id="tempo-value" class="slider-value">Tempo: 200 BPM</div>
+                </div>
+            </div>
+            <div id="visualization"></div>
+        </div>
+        <p class="charli-style paragraph about the main message">
+            Ok but like… this graph is totally showing how key and tempo come together to create the music’s vibe! The green outer ring is giving us all the key energy, and the red inner arcs are pure tempo drama—dark reds for the slow, moody moments, and bright reds for the fast bops. It’s serving diversity and balance, a full-on spectrum of sound. Iconic!
+        </p>
+    </section>
+
     <!-- Quiz Section -->
     <section id="quiz-section" class="quiz-section">
         <h2 class="animated-title">what song on the brat album fits your personality?</h2>
@@ -99,66 +164,7 @@
             </div>
         </div>
     </section>
-    <!-- Data Analysis Section -->
-        <!--matrix section -->
-        <section id="audio-features-section" class="audio-features-section">
-            <h2 class="animated-title">audio features across the album</h2>
-            <p class="animated-paragraph large-text">
-                explore how each song's unique characteristics create the album's sonic landscape. this visualization shows the intensity of different audio features for each track.
-            </p>
-            <div id="feature-matrix" class="visual-placeholder large"></div>
-        </section>
 
-        <!-- Song Key Section -->
-        <section id="song-key-section" class="song-key-section">
-            <h2 class="animated-title">musical style across the album</h2>
-            <p class="animated-paragraph large-text">
-                musical style, key, tempo, and more varies per song. every note represents a song from the album and lies on the staff line that represents the key it's written in. hover over each note for additional information or to watch the music video!
-            </p>
-            <div id="key-visualization" class="visual-placeholder large"></div>
-        </section>
-    <!-- Word Cloud Section -->
-    <section id="word-cloud-section" class="word-cloud-section">
-        <h2 class="animated-title">themes across charli's work</h2>
-        <p class="animated-paragraph large-text">
-            take a closer look at the lyrical themes of brat. this word cloud reveals charli xcx's storytelling, filled with defiance, empowerment, and emotion.
-        </p>
-        <div id="wordCloudContainer-dropdown"></div>
-        <div class="visual-placeholder large" id="wordCloudContainer"></div>
-    </section>
-    <!-- Circular Diagram Section -->
-    <section id="diagram-section" class="diagram-section">
-        <h2 class="animated-title">how consistent are key and tempo across the album?</h2>
-        <p class="animated-paragraph large-text">
-            explore the musical patterns of brat through this circular visualization. discover how keys and tempos interweave throughout the album, revealing the intricate musical structure that makes each track unique.
-        </p>
-        <div class="visual-placeholder large">
-            <div id="filters">
-                <div class="slider-container">
-                    <label for="key-slider" class="slider-label">Filter by Key:</label>
-                    <div class="slider-range">
-                        <span class="range-label">0</span>
-                        <input type="range" id="key-slider" min="0" max="11" step="1" value="11">
-                        <span class="range-label">11</span>
-                    </div>
-                    <div id="key-value" class="slider-value">Key: 11</div>
-                </div>
-                <div class="slider-container">
-                    <label for="tempo-slider" class="slider-label">Filter by Tempo:</label>
-                    <div class="slider-range">
-                        <span class="range-label">0</span>
-                        <input type="range" id="tempo-slider" min="0" max="200" step="1" value="200">
-                        <span class="range-label">200</span>
-                    </div>
-                    <div id="tempo-value" class="slider-value">Tempo: 200 BPM</div>
-                </div>
-            </div>
-            <div id="visualization"></div>
-        </div>
-        <p class="charli-style paragraph about the main message">
-            Ok but like… this graph is totally showing how key and tempo come together to create the music’s vibe! The green outer ring is giving us all the key energy, and the red inner arcs are pure tempo drama—dark reds for the slow, moody moments, and bright reds for the fast bops. It’s serving diversity and balance, a full-on spectrum of sound. Iconic!
-        </p>
-    </section>
 </main>
 <!-- Footer -->
 <footer>
