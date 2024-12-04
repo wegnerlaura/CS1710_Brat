@@ -87,7 +87,7 @@ class Timeline{
             .attr("y1", vis.height / 2)
             .attr("y2", vis.height / 2)
             .attr("transform", `translate(${vis.margin.left}, 0)`)
-            .attr("stroke", "#c4f24c")
+            .attr("stroke", "#64dd43")
             .attr("stroke-width", 5)
 
         console.log("line width:", vis.width + vis.margin.left + vis.margin.right)
@@ -114,12 +114,12 @@ class Timeline{
             .attr("y2", (d, i) => i % 2 === 0 ?
                 (vis.height / 2) + (dashHeight / 2) :
                 (vis.height / 2) + (dashHeight / 2))
-            .attr("stroke", "#c4f24c")
+            .attr("stroke", "#64dd43")
             .attr("stroke-width", 10)
             .on("mouseover", function(event, d) {
                 console.log("hover triggered", d);  // Make sure this is firing for each year
                 d3.select(this)
-                    .style("fill", "#c4f24c")
+                    .style("fill", "#64dd43")
                     .style("font-size", "40px")
 
                 vis.tooltip
@@ -129,8 +129,8 @@ class Timeline{
                     .style("opacity", "1")
                     .style("position", "absolute")
                     .style("background", "rgba(0, 0, 0, 0.8)")
-                    .style("color", "#c4f24c")
-                    .style("border", '1px solid #c4f24c')
+                    .style("color", "#64dd43")
+                    .style("border", '1px solid #64dd43')
                     .style("padding", "8px")
                     .style("z-index", "1000")
                     .style("left", (event.pageX + 10) + "px")
@@ -165,7 +165,7 @@ class Timeline{
             .attr("text-anchor", "middle")
             .text(d => d.year)
             .style("font-size", "30px")
-            .style("fill", "#c4f24c")
+            .style("fill", "#64dd43")
 
     }
 }

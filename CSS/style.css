@@ -14,7 +14,7 @@ body {
 
 h1, h2 {
     /* Neon green */
-    color: #c4f24c;
+    color: #64dd43;
     text-align: center;
     margin-bottom: 20px;
 }
@@ -22,14 +22,14 @@ h1, h2 {
 header {
     text-align: center;
     padding: 100px 20px;
-    border-bottom: 2px solid #c4f24c;
+    border-bottom: 2px solid #64dd43;
 }
 
 footer {
     /* Black footer */
     background-color: #000000;
     /* Neon green text */
-    color: #c4f24c;
+    color: #64dd43;
     text-align: center;
     padding: 10px;
 }
@@ -40,7 +40,7 @@ footer {
     justify-content: center;
     align-items: center;
     background: none;
-    border: 2px dashed #c4f24c;
+    border: 2px dashed #64dd43;
     color: #FFFFFF;
     margin: 20px auto;
     text-align: center;
@@ -70,7 +70,7 @@ footer {
 section {
     padding: 50px 20px;
     /* Section separator */
-    border-bottom: 2px solid #c4f24c;
+    border-bottom: 2px solid #64dd43;
 }
 
 /* Timeline Section */
@@ -103,7 +103,7 @@ section {
     /* Length of the horizontal lines */
     width: 100px;
     height: 2px;
-    background: #c4f24c;
+    background: #64dd43;
     top: 50%;
     transform: translateY(-50%);
 }
@@ -126,7 +126,7 @@ section {
     position: absolute;
     width: 20px;
     height: 20px;
-    background: #c4f24c;
+    background: #64dd43;
     border-radius: 50%;
     top: 50%;
     z-index: 2;
@@ -148,7 +148,7 @@ section {
     top: 0;
     bottom: 0;
     width: 2px;
-    background: #c4f24c;
+    background: #64dd43;
     transform: translateX(-50%);
 }
 
@@ -176,12 +176,12 @@ section {
 #quiz-section {
     padding: 50px;
     text-align: center;
-    color: #c4f24c;
+    color: #64dd43;
 }
 
 .quiz-placeholder {
     background: none;
-    border: 2px dashed #c4f24c;
+    border: 2px dashed #64dd43;
     margin: 20px auto;
     padding: 20px 30px;
     text-align: center;
@@ -207,7 +207,7 @@ section {
     margin-top: 20px;
     margin-bottom: 1px;
     padding: 10px 20px;
-    background-color: #c4f24c;
+    background-color: #64dd43;
     color: #000000;
     border: none;
     font-size: 1.2rem;
@@ -230,12 +230,12 @@ section {
 }
 \#excontent-popularity-visualization {
     background-color: #000000;
-    border: 2px solid #c4f24c;
+    border: 2px solid #64dd43;
 }
 
 #excontent-popularity-visualization .domain,
 #excontent-popularity-visualization .tick line {
-    stroke: #c4f24c;
+    stroke: #64dd43;
 }
 
 .tooltip {
@@ -244,8 +244,8 @@ section {
     padding: 8px;
     font: 12px sans-serif;
     background: rgba(0, 0, 0, 0.8);
-    color: #c4f24c;
-    border: 1px solid #c4f24c;
+    color: #64dd43;
+    border: 1px solid #64dd43;
     border-radius: 4px;
     pointer-events: none;
 }
@@ -267,7 +267,7 @@ section {
 
 
 .visual-placeholder.large {
-    border: 2px dashed #c4f24c;
+    border: 2px dashed #64dd43;
     padding: 20px;
     box-sizing: border-box;
 }
@@ -294,14 +294,14 @@ section {
 
 
 .segment-line {
-    stroke: #c4f24c;
+    stroke: #64dd43;
     stroke-width: 1;
     opacity: 0.3;
 }
 
 .key-path {
     fill: rgba(196, 242, 76, 0.2);
-    stroke: #c4f24c;
+    stroke: #64dd43;
     stroke-width: 2;
 }
 
@@ -328,7 +328,7 @@ section {
 
 .legend-box.key {
     fill: rgba(196, 242, 76, 0.2);
-    stroke: #c4f24c;
+    stroke: #64dd43;
 }
 
 .legend-box.tempo {
@@ -338,14 +338,14 @@ section {
 
 .outer-circle {
     fill: none;
-    stroke: #c4f24c;
+    stroke: #64dd43;
     stroke-width: 1;
     opacity: 0.3;
 }
 
 .inner-circle {
     fill: none;
-    stroke: #c4f24c;
+    stroke: #64dd43;
     stroke-width: 1;
     opacity: 0.3;
 }
@@ -355,7 +355,7 @@ section {
     /* Black with slight transparency */
     background-color: rgba(0, 0, 0, 0.8);
     /* Neon green dashed border */
-    border: 2px dashed #c4f24c;
+    border: 2px dashed #64dd43;
     padding: 20px;
     margin: 20px auto;
     /* Keep consistent width */
@@ -365,7 +365,7 @@ section {
 
 .toc-title {
     /* Neon green */
-    color: #c4f24c;
+    color: #64dd43;
     font-size: 1.8rem;
     margin-bottom: 10px;
 }
@@ -390,13 +390,13 @@ section {
 
 .toc-list a:hover {
     /* Neon green on hover */
-    color: #c4f24c;
+    color: #64dd43;
 }
 
 /* Highlight styling for important keywords in the introduction*/
 .highlight {
     /* Neon green */
-    color: #c4f24c;
+    color: #64dd43;
     /* Emphasize text */
     font-weight: bold;
     /* Slightly larger font size for emphasis */
@@ -414,14 +414,14 @@ section {
 .slider-label {
     margin-top: 10px;
     font-size: 1.2rem;
-    color: #c4f24c;
+    color: #64dd43;
 }
 
 input[type="range"] {
     -webkit-appearance: none;
     width: 80%;
     margin: 10px 0;
-    background: #c4f24c;
+    background: #64dd43;
     height: 5px;
     border-radius: 5px;
     outline: none;
@@ -456,7 +456,7 @@ button {
     padding: 10px 20px;
     margin: 5px;
     border: none;
-    background-color: #c4f24c;
+    background-color: #64dd43;
     color: #000;
     cursor: pointer;
     font-size: 1rem;
@@ -487,12 +487,12 @@ button:hover {
     width: 100%;
     height: 300px; /* Adjust height as needed */
     background-color: #000000;
-    border: 2px dashed #c4f24c;
+    border: 2px dashed #64dd43;
     margin: 20px auto;
 }
 
 #diagram-section .charli-style {
-    color: #c4f24c;
+    color: #64dd43;
     font-family: 'Roboto', sans-serif;
     font-size: 1.4rem;
     font-weight: bold;
@@ -500,8 +500,8 @@ button:hover {
     line-height: 1.8;
     margin-top: 2rem;
     padding: 1rem;
-    border-top: 2px solid #c4f24c;
-    border-bottom: 2px solid #c4f24c;
+    border-top: 2px solid #64dd43;
+    border-bottom: 2px solid #64dd43;
     max-width: 850px;
     margin-left: auto;
     margin-right: auto;
