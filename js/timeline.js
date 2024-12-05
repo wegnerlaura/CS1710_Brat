@@ -9,10 +9,33 @@ class Timeline{
         let vis = this
 
         vis.timelineData = [
-            {year: 2012, description: "released hit song I Love It"},
-            {year: 2013, description: "released hit song Boom Clap"},
-            {year: 2020, description: "released hit song Vroom Vroom "},
-            {year: 2024, description: "released album Brat"},
+            {year: 2012,
+                description: "The song, I love it, featuring Charli XCX was her first breakout song and first hit in the United States. <br> Charli wrote and contributed vocals to this song. The song gained prominence when it was featured in the \"cocaine dance club\" scene on the HBO show <i>Girls</i>.",
+            youtubeLink:"https://www.youtube.com/watch?v=UxxajLWwzqY&ab_channel=IconaPop"
+            },
+            {year: 2013,
+                description: "Next, Charli XCX released the hit song \"Boom Clap\" which was one of the first singles for the smash movie <i> Fault in Our Stars </i>. <br>The song was originally written for Hillary Duff, Charli was told it wasn't <i>cool</i> enough for Duff.",
+            youtubeLink: "https://www.youtube.com/watch?v=AOPMlIIg_38&ab_channel=Charlixcx"},
+            {year: 2014,
+                description: "Charli released her album <i>Sucker</i> which incorporated some of her smash hits and introduced her audience to her ballad prowess. Her song, Break the Rules, became a huge single for the artist.",
+            youtubeLink: "https://www.youtube.com/watch?v=ABhDiXbUaBE&ab_channel=Charlixcx"},
+            {year: 2016,
+            description: "Perhaps the most significant project of her career, <i>Vroom Vroom</i> marked Charli’s first foray away from conventional pop tropes in favor of  experimental electronic production",
+            youtubeLink: "https://www.youtube.com/watch?v=qfAqtFuGjWM&ab_channel=VroomVroomRecordings",},
+            {year: 2017,
+            description: "After releasing her mixtape <i>Number 1 Angel</i>, Charli released her second mixtape of the year, <i>Pop 2</i>. This album contained a number of collaborations, representing a continued mastery of her sound and fresh collaborative abilities.</i>",
+            youtubeLink: "https://www.youtube.com/watch?v=wI1GcWaZELQ&ab_channel=Charlixcx",},
+            {year: 2020,
+                description: "Charli released her most stripped-down album yet, forgoing any bombastic elements in favor of A.G. Cook’s familiar electronic-heavy production for <i>how i'm feeling now</i>.<br>Declaring this a quarantine album, Charli obliterated her comfort zone for this personal album.",
+                youtubeLink: "https://www.youtube.com/watch?v=TbJE-KVZvTA&pp=ygUSZm9yZXZlciBjaGFybGkgeGN4",},
+
+            {year: 2022,
+                description: "Charli created a novel hyperpop experience that she has become known for, giving her an edge over her pop contemporaries, through her album titled, <i>Crash</i>. Her standout tracks from Crash include <i>Good Ones</i> and <i>Beg for You (feat. Rina Sawayama)</i>.",
+                youtubeLink: "https://www.youtube.com/watch?v=kjAuUXdSFaM&ab_channel=Charlixcx",},
+
+            {year: 2024,
+                description: "The <i>Brat</i> album declared Charli XCX as an international superstar. From her viral marketing strategy, to hedonistic aesthetic, and her collaborations with other superstars, including Lorde and Billie Eilish, Charli has solidifed her place as a creative and groundbreaking artist.",
+            youtubeLink: "https://www.youtube.com/watch?v=huGd4efgdPA&ab_channel=Charlixcx"},
         ]
 
         console.log(vis.timelineData)
@@ -116,14 +139,32 @@ class Timeline{
                 (vis.height / 2) + (dashHeight / 2))
             .attr("stroke", "#64dd43")
             .attr("stroke-width", 10)
+
             .on("mouseover", function(event, d) {
-                console.log("hover triggered", d);  // Make sure this is firing for each year
-                d3.select(this)
-                    .style("fill", "#64dd43")
-                    .style("font-size", "40px")
+                // Extract YouTube video ID from the full URL
+                let youtubeVideoId = null;
+                if (d.youtubeLink) {
+                    const urlParams = new URL(d.youtubeLink);
+                    youtubeVideoId = urlParams.searchParams.get('v');
+                }
+
+                // Create the base tooltip HTML
+                let tooltipHTML = `<strong>${d.year}: </strong><br>${d.description} <br><br>Listen to the song below!`;
+
+                // Add YouTube thumbnail if video ID is available
+                if (youtubeVideoId) {
+                    const thumbnailUrl = `https://img.youtube.com/vi/${youtubeVideoId}/0.jpg`;
+                    tooltipHTML += `
+            <br>
+            <a href="${d.youtubeLink}" target="_blank">
+                <img src="${thumbnailUrl}" 
+                     style="max-width: 300px; max-height: 200px; object-fit: cover; margin-top: 10px; border: 2px solid #64dd43;">
+            </a>
+        `;
+                }
 
                 vis.tooltip
-                    .html(`<strong>In ${d.year}</strong><br>Charli XCX ${d.description}`)
+                    .html(tooltipHTML)
                     .style("font-size", "25px")
                     .style("visibility", "visible")
                     .style("opacity", "1")
@@ -132,19 +173,23 @@ class Timeline{
                     .style("color", "#64dd43")
                     .style("border", '1px solid #64dd43')
                     .style("padding", "8px")
+                    .style("pointer-events", "auto") // Allow interaction with tooltip content
                     .style("z-index", "1000")
                     .style("left", (event.pageX + 10) + "px")
                     .style("top", (event.pageY) + "px");
             })
-            .on("mousemove", function(event, d) {
-                vis.tooltip
-                    .style("left", (event.pageX + 10) + "px")
-                    .style("top", (event.pageY - 10) + "px");
-            })
+
             .on("mouseout", function(event, d) {
-                vis.tooltip
-                    .style("visibility", "hidden")
-            });
+                // Use a small delay to check if mouse has left the tooltip
+                setTimeout(() => {
+                    // Check if the mouse is not currently over the tooltip
+                    if (!vis.tooltip.node().matches(':hover')) {
+                        vis.tooltip
+                            .style("visibility", "hidden")
+                            .style("opacity", "0");
+                    }
+                }, 0); // 100ms delay allows for smoother interaction
+            })
 
 
         let labels = vis.svg.selectAll(".timeline-label")

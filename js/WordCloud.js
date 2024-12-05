@@ -29,8 +29,6 @@ class WordCloud{
         let vis = this
 
         const dropdownContainer = d3.select(`#${vis.parentContainer}-dropdown`);
-        console.log("Dropdown Container:", dropdownContainer.node() )
-
         const dropdown = dropdownContainer.append('select')
             .attr('id', 'song-select')
             .on('change', (event) => {
@@ -53,7 +51,6 @@ class WordCloud{
     }
 
     initVis() {
-        console.log("initVis");
         let vis = this
 
         // set margin / width / height
@@ -79,7 +76,6 @@ class WordCloud{
     }
 
     wrangleData() {
-        console.log("wrangleData");
         let vis = this;
 
         // Process data based on current song selection
@@ -98,7 +94,6 @@ class WordCloud{
 
 
     updateVis() {
-        // console.log("updateVis")
 
         let vis = this
 
