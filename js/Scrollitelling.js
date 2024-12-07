@@ -3,14 +3,14 @@
 
 // No Scrollitelling updates because I was working on the table of contents and my two visualizations.
 
-document.addEventListener('DOMContentLoaded', function() {
-    AOS.init({
-        duration: 1000,
-        easing: 'ease-in-out',
-        once: false,
-        mirror: false
-    });
-});
+//document.addEventListener('DOMContentLoaded', function() {
+ //   AOS.init({
+   //     duration: 1000,
+     //   easing: 'ease-in-out',
+       // once: false,
+        //mirror: false
+    //});
+//});
 
 
 

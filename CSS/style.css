@@ -289,7 +289,8 @@ section {
     height: 100%;
     border: inherit;
     z-index: -1;
-    pointer-events: none;
+  /*  pointer-events: none;
+  */
 }
 
 
@@ -534,9 +535,96 @@ select#song-select {
 }
 
 .text-bounce {
-    animation: bounce 2s ease-in-out; /* Animation duration and easing */
+    animation: bounce 2s ease-in-out;
+}
+
+#flower-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    padding: 1px;
+    height: auto;
+    overflow: visible;
+}
+
+.flower-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 0;
+    padding: 5px;
+}
+
+/* Target only the first three flower containers */
+.flower-container:nth-child(-n+3) {
+    margin-top: -400px;  /* Negative margin to pull first row up */
+}
+
+/* Add new rule for second row (flowers 4-6) */
+.flower-container:nth-child(n+4):nth-child(-n+6) {
+    margin-top: -600px;  /* Adjust this value as needed */
+}
+
+/* Add new rule for second row (flowers 4-6) */
+.flower-container:nth-child(n+4):nth-child(-n+9) {
+    margin-top: -600px;  /* Adjust this value as needed */
+}
+
+.flower-container:nth-child(n+4):nth-child(-n+12) {
+    margin-top: -600px;  /* Adjust this value as needed */
 }
 
 
 
+.flower {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.2s ease-in-out;
+}
 
+.flower path:hover {
+    opacity: 0.9;
+}
+.flower path:hover {
+    opacity: 0.9;
+}
+
+.song-name {
+    font-size: 16px;
+    fill: #c4f24c;
+}
+
+.flower-tooltip {
+    font-size: 14px;
+    line-height: 1.4;
+    z-index: 1000;
+}
+
+.legend h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+#tooltip {
+    position: absolute;
+    text-align: center;
+    padding: 8px;
+    font: 12px sans-serif;
+    background: lightsteelblue;
+    border: 0;
+    border-radius: 8px;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.flower-group {
+    transition: transform 0.2s ease-in-out;
+}
