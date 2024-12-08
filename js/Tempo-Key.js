@@ -31,17 +31,13 @@ d3.csv("data/brat.csv").then(data => {
         d.key = +d.key;
     });
 
-    // Find the index of the fastest tempo
-    const maxTempoIndex = data.findIndex(d => d.tempo === d3.max(data, d => d.tempo));
-
-// Rotate the data to place the fastest tempo at 12 o'clock
-    const rotatedData = [...data.slice(maxTempoIndex), ...data.slice(0, maxTempoIndex)];
-
-
+    // Sort data by tempo in descending order (highest tempo first)
     const sortedData = data.sort((a, b) => b.tempo - a.tempo);
+
+    // Define scales
     const angleScale = d3.scaleLinear()
         .domain([0, sortedData.length]) // Map sorted data indices to angles
-        .range([-Math.PI / 2, 3 * Math.PI / 2]);
+        .range([-Math.PI / 2 + Math.PI / 2, 3 * Math.PI / 2 + Math.PI / 2]); // Start at 12 o’clock (-90 degrees)
 
     const keyScale = d3.scaleLinear()
         // Musical keys range from 0 to 11
@@ -69,7 +65,7 @@ d3.csv("data/brat.csv").then(data => {
 
     // Draw key arcs (outer green ring)
     const keyArcs = tempoKeySVG.selectAll(".key-arc")
-        .data(data)
+        .data(sortedData) // Use sortedData for consistent order
         .enter()
         .append("path")
         .attr("class", "key-arc")
@@ -90,10 +86,9 @@ d3.csv("data/brat.csv").then(data => {
         .on("mousemove", moveTooltip)
         .on("mouseout", hideTooltip);
 
-
     // Draw tempo arcs (inner red region)
     const tempoArcs = tempoKeySVG.selectAll(".tempo-arc")
-        .data(rotatedData) // Use rotatedData here
+        .data(sortedData) // Use sortedData for consistent order
         .enter()
         .append("path")
         .attr("class", "tempo-arc")
@@ -114,7 +109,6 @@ d3.csv("data/brat.csv").then(data => {
         .on("mousemove", moveTooltip)
         .on("mouseout", hideTooltip);
 
-
     // Function to update filters dynamically
     function updateFilters() {
         // Get slider value for keys
@@ -132,8 +126,6 @@ d3.csv("data/brat.csv").then(data => {
         // Update tempo arcs (inner circle)
         tempoArcs.attr("opacity", d => d.tempo <= tempoThreshold ? 1 : 0.1);
     }
-
-
 
     // Attach event listeners for sliders
     keySlider.on("input", updateFilters);
@@ -161,12 +153,12 @@ d3.csv("data/brat.csv").then(data => {
         tooltip.style("opacity", 0);
     }
 
-// Add gradient-based legend
-    const legendWidth = 120; // Adjust the width of the gradient
-    const legendHeight = 20; // Adjust the height of the gradient
-    const legendPadding = 10; // Padding between legend items
+    // Gradient-based legend (unchanged)
+    const legendWidth = 120;
+    const legendHeight = 20;
+    const legendPadding = 10;
 
-// Key gradient legend
+    // Key gradient legend
     const keyGradient = tempoKeySVG.append("defs")
         .append("linearGradient")
         .attr("id", "keyGradient")
@@ -177,28 +169,28 @@ d3.csv("data/brat.csv").then(data => {
 
     keyGradient.append("stop")
         .attr("offset", "0%")
-        .attr("stop-color", keyColorScale(0)); // Start color of key gradient
+        .attr("stop-color", keyColorScale(0));
 
     keyGradient.append("stop")
         .attr("offset", "100%")
-        .attr("stop-color", keyColorScale(11)); // End color of key gradient
+        .attr("stop-color", keyColorScale(11));
 
     tempoKeySVG.append("rect")
-        .attr("x", diagramRadius + 50) // Adjust position
-        .attr("y", -diagramRadius + 20) // Adjust position
+        .attr("x", diagramRadius + 50)
+        .attr("y", -diagramRadius + 20)
         .attr("width", legendWidth)
         .attr("height", legendHeight)
         .style("fill", "url(#keyGradient)");
 
     tempoKeySVG.append("text")
         .attr("x", diagramRadius + 50 + legendWidth / 2)
-        .attr("y", -diagramRadius + 15) // Position above the rectangle
+        .attr("y", -diagramRadius + 15)
         .attr("text-anchor", "middle")
         .attr("fill", "#FFFFFF")
         .style("font-size", "12px")
         .text("Key (outer circle)");
 
-// Tempo gradient legend
+    // Tempo gradient legend
     const tempoGradient = tempoKeySVG.append("defs")
         .append("linearGradient")
         .attr("id", "tempoGradient")
@@ -209,25 +201,25 @@ d3.csv("data/brat.csv").then(data => {
 
     tempoGradient.append("stop")
         .attr("offset", "0%")
-        .attr("stop-color", tempoColorScale(d3.min(data, d => d.tempo))); // Start color of tempo gradient
+        .attr("stop-color", tempoColorScale(d3.min(data, d => d.tempo)));
 
     tempoGradient.append("stop")
         .attr("offset", "100%")
-        .attr("stop-color", tempoColorScale(d3.max(data, d => d.tempo))); // End color of tempo gradient
+        .attr("stop-color", tempoColorScale(d3.max(data, d => d.tempo)));
 
     tempoKeySVG.append("rect")
-        .attr("x", diagramRadius + 50) // Adjust position
-        .attr("y", -diagramRadius + 50 + legendPadding) // Adjust position
+        .attr("x", diagramRadius + 50)
+        .attr("y", -diagramRadius + 50 + legendPadding)
         .attr("width", legendWidth)
         .attr("height", legendHeight)
         .style("fill", "url(#tempoGradient)");
 
     tempoKeySVG.append("text")
         .attr("x", diagramRadius + 50 + legendWidth / 2)
-        .attr("y", -diagramRadius + 45 + legendPadding) // Position above the rectangle
+        .attr("y", -diagramRadius + 45 + legendPadding)
         .attr("text-anchor", "middle")
         .attr("fill", "#FFFFFF")
         .style("font-size", "12px")
         .text("Tempo (inner circle)");
-
 });
+
