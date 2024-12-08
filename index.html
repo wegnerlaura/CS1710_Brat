@@ -28,7 +28,7 @@
             <li><a href="#timeline-section">Timeline</a></li>
             <li><a href="#analysis-section">Popularity</a></li>
             <li><a href="#word-cloud-section">Word Cloud</a></li>
-            <li><a href="#diagram-section">Tempo and Key</a></li>
+            <li><a href="#diagram-section">Tempo and Popularity</a></li>
             <li><a href="#quiz-section">Quiz</a></li>
         </ul>
     </div>
@@ -81,20 +81,20 @@
 
     <!-- Circular Diagram Section -->
     <section id="diagram-section" class="diagram-section">
-        <h2 class="animated-title">how consistent are key and tempo across the album?</h2>
+        <h2 class="animated-title">are faster songs also more popular?</h2>
         <p class="animated-paragraph large-text">
-            explore the musical patterns of brat through this circular visualization. discover how keys and tempos interweave throughout the album, revealing the intricate musical structure that makes each track unique.
+            explore the musical patterns of brat through this circular visualization. discover how popularity and tempos interweave throughout the album, revealing the intricate musical structure that makes each track unique.
         </p>
         <div class="visual-placeholder large">
             <div id="filters">
                 <div class="slider-container">
-                    <label for="key-slider" class="slider-label">Filter by Key:</label>
+                    <label for="popularity-slider" class="slider-label">Filter by popularity:</label>
                     <div class="slider-range">
                         <span class="range-label">0</span>
-                        <input type="range" id="key-slider" min="0" max="11" step="1" value="11">
-                        <span class="range-label">11</span>
+                        <input type="range" id="popularity-slider" min="0" max="68" step="1" value="68">
+                        <span class="range-label">68</span>
                     </div>
-                    <div id="key-value" class="slider-value">Key: 11</div>
+                    <div id="popularity-value" class="slider-value">68</div>
                 </div>
                 <div class="slider-container">
                     <label for="tempo-slider" class="slider-label">Filter by Tempo:</label>
@@ -103,13 +103,15 @@
                         <input type="range" id="tempo-slider" min="0" max="200" step="1" value="200">
                         <span class="range-label">200</span>
                     </div>
-                    <div id="tempo-value" class="slider-value">Tempo: 200 BPM</div>
+                    <div id="tempo-value" class="slider-value">200</div>
                 </div>
             </div>
+
+
             <div id="visualization"></div>
         </div>
         <p class="charli-style paragraph about the main message">
-            Ok but like… this graph is totally showing how key and tempo come together to create the music’s vibe! The green outer ring is giving us all the key energy, and the red inner arcs are pure tempo drama—dark reds for the slow, moody moments, and bright reds for the fast bops. It’s serving diversity and balance, a full-on spectrum of sound. Iconic!
+            Ok but like… this graph is spilling the tea on tempo and popularity! Deep greens for hits, lighter for the chill tracks. Dark reds for slower moments, bright reds for fast bops. And guess what? Faster songs don’t always dominate popularity—it’s all about the mix. Slower tracks can shine just as bright, proving that tempo and popularity are more about balance and vibe than a perfect match. Iconic!
         </p>
     </section>
 
@@ -167,7 +169,7 @@
 <script src="js/Scrollitelling.js"></script>
 <script src="js/WordCloud.js"></script>
 <script src="js/timeline.js"></script>
-<script src="js/Tempo-Key.js"></script>
+<script src="js/Tempo-Popularity.js"></script>
 <script src="js/SongFlower.js"></script>
 <script src="js/song_key.js"></script>
 <script src="js/main.js"></script>

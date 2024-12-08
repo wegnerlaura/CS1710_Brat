@@ -25,10 +25,10 @@ const tooltip = d3.select("#visualization")
 
 // Load data
 d3.csv("data/brat.csv").then(data => {
-    // Ensure numerical values for key and tempo
+    // Ensure numerical values for tempo, popularity
     data.forEach(d => {
         d.tempo = +d.tempo;
-        d.key = +d.key;
+        d.popularity = +d.popularity; // Ensure popularity is numeric
     });
 
     // Sort data by tempo in descending order (highest tempo first)
@@ -37,20 +37,19 @@ d3.csv("data/brat.csv").then(data => {
     // Define scales
     const angleScale = d3.scaleLinear()
         .domain([0, sortedData.length]) // Map sorted data indices to angles
-        .range([-Math.PI / 2 + Math.PI / 2, 3 * Math.PI / 2 + Math.PI / 2]); // Start at 12 o’clock (-90 degrees)
+        .range([-Math.PI / 2, 4 * Math.PI / 2]); // Start at 12 o’clock (-90 degrees)
 
-    const keyScale = d3.scaleLinear()
-        // Musical keys range from 0 to 11
-        .domain([0, 11])
+    const popularityScale = d3.scaleLinear()
+        .domain([d3.min(sortedData, d => d.popularity), d3.max(sortedData, d => d.popularity)]) // Use popularity data
         .range([diagramRadius * 0.7, diagramRadius * 0.9]);
 
     const tempoScale = d3.scaleLinear()
         .domain([d3.min(data, d => d.tempo), d3.max(data, d => d.tempo)])
         .range([0, diagramRadius * 0.7]);
 
-    // Define color scales for key and tempo
-    const keyColorScale = d3.scaleSequential()
-        .domain([0, 11])
+    // Define color scales for popularity (green) and tempo
+    const popularityColorScale = d3.scaleSequential()
+        .domain([d3.min(sortedData, d => d.popularity), d3.max(sortedData, d => d.popularity)]) // Use popularity range
         .interpolator(d3.interpolateGreens);
 
     const tempoColorScale = d3.scaleSequential()
@@ -58,17 +57,17 @@ d3.csv("data/brat.csv").then(data => {
         .interpolator(d3.interpolateReds);
 
     // Select sliders and value display containers
-    const keySlider = d3.select("#key-slider");
-    const tempoSlider = d3.select("#tempo-slider");
-    const keyValueDisplay = d3.select("#key-value");
+    const popularitySlider = d3.select("#popularity-slider").node();
+    const tempoSlider = d3.select("#tempo-slider").node();
+    const popularityValueDisplay = d3.select("#popularity-value");
     const tempoValueDisplay = d3.select("#tempo-value");
 
-    // Draw key arcs (outer green ring)
-    const keyArcs = tempoKeySVG.selectAll(".key-arc")
+    // Draw popularity arcs (outer green ring)
+    const popularityArcs = tempoKeySVG.selectAll(".popularity-arc")
         .data(sortedData) // Use sortedData for consistent order
         .enter()
         .append("path")
-        .attr("class", "key-arc")
+        .attr("class", "popularity-arc")
         .attr("d", (d, i) => {
             const startAngle = angleScale(i);
             const endAngle = angleScale(i + 1);
@@ -78,7 +77,7 @@ d3.csv("data/brat.csv").then(data => {
                 .startAngle(startAngle)
                 .endAngle(endAngle)();
         })
-        .attr("fill", d => keyColorScale(d.key))
+        .attr("fill", d => popularityColorScale(d.popularity)) // Use popularity color scale
         .attr("stroke", "#000") // Add black stroke here
         .attr("stroke-width", 1) // Adjust the thickness of the black lines
         .attr("opacity", 1) // Initial opacity
@@ -111,25 +110,25 @@ d3.csv("data/brat.csv").then(data => {
 
     // Function to update filters dynamically
     function updateFilters() {
-        // Get slider value for keys
-        const keyThreshold = +keySlider.node().value;
-        // Get slider value for tempo
-        const tempoThreshold = +tempoSlider.node().value;
+        // Get slider values
+        const popularityThreshold = popularitySlider ? +popularitySlider.value : d3.max(sortedData, d => d.popularity);
+        const tempoThreshold = tempoSlider ? +tempoSlider.value : d3.max(sortedData, d => d.tempo);
 
         // Update value displays dynamically
-        keyValueDisplay.text(`Key: ${keyThreshold}`);
+        popularityValueDisplay.text(`Popularity: ${popularityThreshold}`);
         tempoValueDisplay.text(`Tempo: ${tempoThreshold} BPM`);
 
-        // Update key arcs (outer circle)
-        keyArcs.attr("opacity", d => d.key <= keyThreshold ? 1 : 0.1);
+        // Update popularity arcs (outer circle)
+        popularityArcs.attr("opacity", d => d.popularity <= popularityThreshold ? 1 : 0.1);
+
 
         // Update tempo arcs (inner circle)
         tempoArcs.attr("opacity", d => d.tempo <= tempoThreshold ? 1 : 0.1);
     }
 
     // Attach event listeners for sliders
-    keySlider.on("input", updateFilters);
-    tempoSlider.on("input", updateFilters);
+    d3.select("#popularity-slider").on("input", updateFilters);
+    d3.select("#tempo-slider").on("input", updateFilters);
 
     // Initialize with default slider values
     updateFilters();
@@ -140,7 +139,7 @@ d3.csv("data/brat.csv").then(data => {
             .html(`
                 <strong>${d.name}</strong><br>
                 <span>Tempo: ${d.tempo}</span><br>
-                <span>Key: ${d.key}</span>
+                <span>Popularity: ${d.popularity}</span>
             `);
     }
 
@@ -153,34 +152,34 @@ d3.csv("data/brat.csv").then(data => {
         tooltip.style("opacity", 0);
     }
 
-    // Gradient-based legend (unchanged)
+    // Gradient-based legend
     const legendWidth = 120;
     const legendHeight = 20;
     const legendPadding = 10;
 
-    // Key gradient legend
-    const keyGradient = tempoKeySVG.append("defs")
+    // Popularity gradient legend
+    const popularityGradient = tempoKeySVG.append("defs")
         .append("linearGradient")
-        .attr("id", "keyGradient")
+        .attr("id", "popularityGradient")
         .attr("x1", "0%")
         .attr("x2", "100%")
         .attr("y1", "0%")
         .attr("y2", "0%");
 
-    keyGradient.append("stop")
+    popularityGradient.append("stop")
         .attr("offset", "0%")
-        .attr("stop-color", keyColorScale(0));
+        .attr("stop-color", popularityColorScale(d3.min(data, d => d.popularity)));
 
-    keyGradient.append("stop")
+    popularityGradient.append("stop")
         .attr("offset", "100%")
-        .attr("stop-color", keyColorScale(11));
+        .attr("stop-color", popularityColorScale(d3.max(data, d => d.popularity)));
 
     tempoKeySVG.append("rect")
         .attr("x", diagramRadius + 50)
         .attr("y", -diagramRadius + 20)
         .attr("width", legendWidth)
         .attr("height", legendHeight)
-        .style("fill", "url(#keyGradient)");
+        .style("fill", "url(#popularityGradient)");
 
     tempoKeySVG.append("text")
         .attr("x", diagramRadius + 50 + legendWidth / 2)
@@ -188,7 +187,7 @@ d3.csv("data/brat.csv").then(data => {
         .attr("text-anchor", "middle")
         .attr("fill", "#FFFFFF")
         .style("font-size", "12px")
-        .text("Key (outer circle)");
+        .text("Popularity (outer circle)");
 
     // Tempo gradient legend
     const tempoGradient = tempoKeySVG.append("defs")

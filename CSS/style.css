@@ -244,8 +244,8 @@ section {
     opacity: 0.3;
 }
 
-.key-path {
-    fill: rgba(196, 242, 76, 0.2);
+.popularity-path {
+    fill: rgba(196, 242, 76, 0.2); /* Same green color */
     stroke: #64dd43;
     stroke-width: 2;
 }
@@ -271,8 +271,8 @@ section {
     stroke-width: 1;
 }
 
-.legend-box.key {
-    fill: rgba(196, 242, 76, 0.2);
+.legend-box.popularity {
+    fill: rgba(196, 242, 76, 0.2); /* Ensure it matches popularity's color scale */
     stroke: #64dd43;
 }
 
@@ -709,3 +709,41 @@ select#song-select {
     color: #64dd43;
     text-align: center;
 }
+
+/* Ensure the layout aligns properly */
+#filters {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.slider-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.slider-range {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.range-label {
+    font-size: 14px;
+    color: white;
+}
+
+input[type="range"] {
+    flex-grow: 1;
+    margin: 0 10px;
+}
+
+.slider-value {
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+}
+
