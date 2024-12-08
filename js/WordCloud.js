@@ -20,6 +20,9 @@ class WordCloud{
             .style("display", "none")
             .style("pointer-events", "none")
 
+        // Clear any existing dropdowns before creating a new one
+        d3.select(`#${this.parentContainer}-dropdown`).selectAll("*").remove();
+
         this.createDropdown()
 
         this.initVis()
@@ -52,6 +55,9 @@ class WordCloud{
 
     initVis() {
         let vis = this
+
+        // Clear any existing content in the container
+        d3.select("#" + vis.parentContainer).selectAll("*").remove();
 
         // set margin / width / height
         vis.margin = {top: 20, right: 20, bottom: 20, left: 20};
