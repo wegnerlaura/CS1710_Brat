@@ -120,50 +120,41 @@
             take this fun quiz to see what fits to your personality. are you raw and unfiltered, or bold and experimental? find out as we connect your vibe to charli's soundscape.
         </p>
         <form id="quiz-form" class="quiz-placeholder full-width">
-            <div class="quiz-question">
-                <p>1. How do you like your music?</p>
-                <label><input type="radio" name="q1" value="danceability"> Danceable</label>
-                <label><input type="radio" name="q1" value="energy"> High Energy</label>
-                <label><input type="radio" name="q1" value="valence"> Emotional</label>
+            <!-- Question 1 -->
+            <div class="quiz-question" id="question-1">
+                <p>1. how do you like your music?</p>
+                <div class="answer-container">
+                    <button type="button" class="star-button" data-value="danceability"></button>
+                    <button type="button" class="star-button" data-value="energy"></button>
+                    <button type="button" class="star-button" data-value="valence"></button>
+                </div>
             </div>
-            <div class="quiz-question">
-                <p>2. What's your ideal vibe?</p>
-                <label><input type="radio" name="q2" value="relax"> Chill and Relaxed</label>
-                <label><input type="radio" name="q2" value="party"> Party and Energetic</label>
-                <label><input type="radio" name="q2" value="experimental"> Experimental and Unique</label>
+            <!-- Question 2 -->
+            <div class="quiz-question hidden" id="question-2">
+                <p>2. what's your ideal vibe?</p>
+                <div>
+                    <button type="button" class="star-button" data-value="relax"></button>
+                    <button type="button" class="star-button" data-value="party"></button>
+                    <button type="button" class="star-button" data-value="experimental"></button>
+                </div>
             </div>
-            <div class="quiz-question">
-                <p>3. How do you prefer your lyrics?</p>
-                <label><input type="radio" name="q3" value="explicit"> Raw and Explicit</label>
-                <label><input type="radio" name="q3" value="poetic"> Poetic and Subtle</label>
-                <label><input type="radio" name="q3" value="fun"> Fun and Playful</label>
+            <!-- Question 3 -->
+            <div class="quiz-question hidden" id="question-3">
+                <p>3. how do you prefer your lyrics?</p>
+                <div>
+                    <button type="button" class="star-button" data-value="explicit"></button>
+                    <button type="button" class="star-button" data-value="poetic"></button>
+                    <button type="button" class="star-button" data-value="fun"></button>
+                </div>
             </div>
-            <button type="button" id="quiz-submit">Find My Song</button>
+            <!-- Navigation Buttons -->
+            <button type="button" id="next-button">Next</button>
+            <button type="button" id="quiz-submit" class="hidden">Find My Song</button>
         </form>
-        <div id="quiz-result" class="hidden">
-            <p id="result-song"></p>
-            <div id="youtube-video"></div>
-            <!-- Ranking and Bar Chart -->
-            <div id="ranking-container">
-                <h3>Song Rankings:</h3>
-                <div id="ranking-list"></div>
-            </div>
-            <div id="toggle-buttons">
-                <button id="toggle-ranking">Ranking</button>
-                <button id="toggle-bar-chart">Bar Chart</button>
-            </div>
-            <div id="bar-chart-container" class="hidden">
-                <div>
-                    <h3>Top 5 Songs:</h3>
-                    <div id="top-bar-chart"></div>
-                </div>
-                <div>
-                    <h3>Bottom 5 Songs:</h3>
-                    <div id="bottom-bar-chart"></div>
-                </div>
-            </div>
-        </div>
     </section>
+
+
+
 
 </main>
 <!-- Footer -->

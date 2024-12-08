@@ -59,11 +59,7 @@ footer {
     width: 45%;
 }
 
-.quiz-placeholder.full-width {
-    height: auto;
-    width: 100%;
-    padding-bottom: 10px;
-}
+
 
 
 /* Section Styling */
@@ -172,58 +168,6 @@ section {
     margin-right: auto;
 }
 
-/* Quiz Section Styling */
-#quiz-section {
-    padding: 50px;
-    text-align: center;
-    color: #64dd43;
-}
-
-.quiz-placeholder {
-    background: none;
-    border: 2px dashed #64dd43;
-    margin: 20px auto;
-    padding: 20px 30px;
-    text-align: center;
-    height: auto;
-    overflow: hidden;
-}
-
-
-.quiz-question {
-    margin: 20px 0;
-    font-size: 1.2rem;
-}
-
-.quiz-question label {
-    display: block;
-    margin: 10px 0;
-    font-size: 1rem;
-    /* White text */
-    color: #FFFFFF;
-}
-
-#quiz-submit {
-    margin-top: 20px;
-    margin-bottom: 1px;
-    padding: 10px 20px;
-    background-color: #64dd43;
-    color: #000000;
-    border: none;
-    font-size: 1.2rem;
-    cursor: pointer;
-}
-
-
-#quiz-submit:hover {
-    /* Slightly darker green on hover */
-    background-color: #a6d43c;
-}
-
-#quiz-result {
-    margin-top: 1px;
-    color: #FFFFFF;
-}
 
 .hidden {
     display: none;
@@ -470,8 +414,8 @@ button:hover {
 
 #bar-chart-container {
     display: flex;
-    justify-content: space-around;
-    align-items: flex-start;
+    justify-content: center;
+    align-items: center;
     flex-wrap: wrap;
     margin-top: 20px;
 }
@@ -481,7 +425,9 @@ button:hover {
 }
 
 #ranking-container {
-    display: block;
+    display: none; /* Initially hide the ranking */
+    text-align: left;
+    margin-top: 20px;
 }
 
 #key-visualization {
@@ -627,4 +573,139 @@ select#song-select {
 
 .flower-group {
     transition: transform 0.2s ease-in-out;
+}
+
+
+* Quiz Section Styling *
+.quiz-question {
+    width: 80%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center horizontally */
+    justify-content: center;
+    text-align: left; /* Keep text left-aligned */
+    margin-bottom: 20px;
+}
+
+.quiz-question label {
+    display: block;
+    margin: 10px 0;
+    font-size: 1rem;
+    /* White text */
+    color: #FFFFFF;
+}
+
+.quiz-question p {
+    margin-left: 0;
+    text-align: left;
+}
+
+/* Star button styling */
+.quiz-question button {
+    background-color: transparent;
+    border: none;
+    color: #64dd43;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0;
+    margin-right: 10px;
+}
+
+.quiz-question button::before {
+    content: "\2605"; /* Unicode for star */
+}
+
+.quiz-question button.selected::before {
+    content: "\2606"; /* Unicode for filled star */
+}
+
+.answer-container {
+    display: flex;
+    justify-content: center; /* Center the stars horizontally */
+    gap: 20px; /* Add spacing between the stars */
+    margin-top: 10px;
+}
+
+/* New styles for star buttons */
+.star-button {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    background-color: transparent;
+    border: 2px solid #FFFFFF;
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+}
+
+
+.star-button:before {
+    content: "★";
+    font-size: 36px;
+    color: #FFFFFF;
+    display: block;
+    text-align: center;
+    line-height: 50px;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.star-button:hover:before {
+    color: #64dd43; /* Neon green on hover */
+    transform: scale(1.2);
+}
+
+.star-button.selected:before {
+    color: #64dd43;
+}
+
+/* Submit and Next buttons */
+#quiz-submit, #next-button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #64dd43;
+    color: #000000;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#quiz-submit:hover, #next-button:hover {
+    background-color: #a6d43c; /* Slightly darker green */
+}
+
+/* Hidden class for showing one question at a time */
+.hidden {
+    display: none;
+}
+
+/* Centering the quiz result container */
+#quiz-result {
+    display: none;
+    text-align: center;
+    margin-top: 20px;
+    width: 80%;
+    max-width: 600px;
+}
+
+/* Countdown container */
+#countdown-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+#countdown-container div {
+    font-size: 200px;
+    color: #64dd43;
+    text-align: center;
 }
