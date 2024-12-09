@@ -571,174 +571,57 @@ select#song-select {
 
 
 
-* Quiz Section Styling *
-.quiz-question {
-    width: 80%;
-    max-width: 600px;
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Center horizontally */
-    justify-content: center;
-    text-align: left; /* Keep text left-aligned */
-    margin-bottom: 20px;
-}
 
-.quiz-question label {
-    display: block;
-    margin: 10px 0;
-    font-size: 1rem;
-    /* White text */
-    color: #FFFFFF;
-}
 
-.quiz-question p {
-    margin-left: 0;
-    text-align: left;
-}
 
-/* Star button styling */
-.quiz-question button {
-    background-color: transparent;
-    border: none;
+/* Quiz Section Styling */
+.star-button.selected {
     color: #64dd43;
-    font-size: 24px;
-    cursor: pointer;
-    padding: 0;
-    margin-right: 10px;
-}
-
-.quiz-question button::before {
-    content: "\2605"; /* Unicode for star */
-}
-
-.quiz-question button.selected::before {
-    content: "\2606"; /* Unicode for filled star */
-}
-
-.answer-container {
-    display: flex;
-    justify-content: center; /* Center the stars horizontally */
-    gap: 20px; /* Add spacing between the stars */
-    margin-top: 10px;
-}
-
-/* New styles for star buttons */
-.star-button {
-    display: inline-block;
-    width: 50px;
-    height: 50px;
-    background-color: transparent;
-    border: 2px solid #FFFFFF;
-    border-radius: 50%;
-    cursor: pointer;
-    position: relative;
-}
-
-
-.star-button:before {
-    content: "★";
-    font-size: 36px;
-    color: #FFFFFF;
-    display: block;
-    text-align: center;
-    line-height: 50px;
-    transition: color 0.3s ease, transform 0.3s ease;
-}
-
-.star-button:hover:before {
-    color: #64dd43; /* Neon green on hover */
     transform: scale(1.2);
 }
 
-.star-button.selected:before {
-    color: #64dd43;
-}
-
-/* Submit and Next buttons */
-#quiz-submit, #next-button {
-    display: block;
-    margin: 20px auto;
-    padding: 10px 20px;
-    background-color: #64dd43;
-    color: #000000;
-    border: none;
-    font-size: 1.2rem;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-#quiz-submit:hover, #next-button:hover {
-    background-color: #a6d43c; /* Slightly darker green */
-}
-
-/* Hidden class for showing one question at a time */
-.hidden {
-    display: none;
-}
-
-/* Centering the quiz result container */
-#quiz-result {
-    display: none;
+#countdown {
+    font-size: 120px;
     text-align: center;
-    margin-top: 20px;
-    width: 80%;
-    max-width: 600px;
+    color: #64dd43;
+    animation: pulse 1s infinite;
 }
 
-/* Countdown container */
-#countdown-container {
-    position: fixed;
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    margin: 20px 0;
+}
+
+.video-container iframe {
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
 }
 
-#countdown-container div {
-    font-size: 200px;
-    color: #64dd43;
-    text-align: center;
+#rankings-container, #graphs-container {
+    margin-top: 20px;
 }
 
-/* Ensure the layout aligns properly */
-#filters {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+.song-rank {
+    padding: 10px;
+    margin: 5px 0;
+    background: rgba(100, 221, 67, 0.1);
+    border: 1px solid #64dd43;
+    border-radius: 4px;
 }
 
-.slider-container {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+.nav-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
-
-.slider-range {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-}
-
-.range-label {
-    font-size: 14px;
-    color: white;
-}
-
-input[type="range"] {
-    flex-grow: 1;
-    margin: 0 10px;
-}
-
-.slider-value {
-    text-align: center;
-    font-size: 16px;
-    font-weight: bold;
-    color: white;
-}
-

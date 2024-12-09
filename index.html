@@ -127,32 +127,106 @@
             <div class="quiz-question" id="question-1">
                 <p>1. how do you like your music?</p>
                 <div class="answer-container">
-                    <button type="button" class="star-button" data-value="danceability"></button>
-                    <button type="button" class="star-button" data-value="energy"></button>
-                    <button type="button" class="star-button" data-value="valence"></button>
+                    <div class="option-wrapper">
+                        <button type="button" class="star-button" data-value="danceability">★</button>
+                        <span class="option-label">danceable<br>&<br>groovy</span>
+                    </div>
+                    <div class="option-wrapper">
+                        <button type="button" class="star-button" data-value="energy">★</button>
+                        <span class="option-label">high<br>energy &<br>intense</span>
+                    </div>
+                    <div class="option-wrapper">
+                        <button type="button" class="star-button" data-value="valence">★</button>
+                        <span class="option-label">upbeat<br>&<br>happy</span>
+                    </div>
                 </div>
             </div>
+
             <!-- Question 2 -->
             <div class="quiz-question hidden" id="question-2">
                 <p>2. what's your ideal vibe?</p>
-                <div>
-                    <button type="button" class="star-button" data-value="relax"></button>
-                    <button type="button" class="star-button" data-value="party"></button>
-                    <button type="button" class="star-button" data-value="experimental"></button>
+                <div class="answer-container">
+                    <div class="option-wrapper">
+                        <button type="button" class="star-button" data-value="acousticness">★</button>
+                        <span class="option-label">chill<br>&<br>relaxed</span>
+                    </div>
+                    <div class="option-wrapper">
+                        <button type="button" class="star-button" data-value="danceability">★</button>
+                        <span class="option-label">party<br>&<br>fun</span>
+                    </div>
+                    <div class="option-wrapper">
+                        <button type="button" class="star-button" data-value="instrumentalness">★</button>
+                        <span class="option-label">experimental<br>&<br>unique</span>
+                    </div>
                 </div>
             </div>
+
             <!-- Question 3 -->
             <div class="quiz-question hidden" id="question-3">
-                <p>3. how do you prefer your lyrics?</p>
-                <div>
-                    <button type="button" class="star-button" data-value="explicit"></button>
-                    <button type="button" class="star-button" data-value="poetic"></button>
-                    <button type="button" class="star-button" data-value="fun"></button>
+                <p>3. how do you express yourself?</p>
+                <div class="answer-container">
+                    <div class="option-wrapper">
+                        <button type="button" class="star-button" data-value="explicit">★</button>
+                        <span class="option-label">raw<br>&<br>unfiltered</span>
+                    </div>
+                    <div class="option-wrapper">
+                        <button type="button" class="star-button" data-value="speechiness">★</button>
+                        <span class="option-label">deep<br>&<br>emotional</span>
+                    </div>
+                    <div class="option-wrapper">
+                        <button type="button" class="star-button" data-value="valence">★</button>
+                        <span class="option-label">playful<br>&<br>light</span>
+                    </div>
                 </div>
             </div>
+
+            <!-- Question 4 -->
+            <div class="quiz-question hidden" id="question-4">
+                <p>4. pick your perfect tempo:</p>
+                <div class="answer-container">
+                    <div class="option-wrapper">
+                        <button type="button" class="star-button" data-value="slow">★</button>
+                        <span class="option-label">slow<br>&<br>steady</span>
+                    </div>
+                    <div class="option-wrapper">
+                        <button type="button" class="star-button" data-value="medium">★</button>
+                        <span class="option-label">medium<br>pace</span>
+                    </div>
+                    <div class="option-wrapper">
+                        <button type="button" class="star-button" data-value="fast">★</button>
+                        <span class="option-label">fast<br>&<br>energetic</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="quiz-question hidden" id="question-5">
+                <p>5. what matters most in a song?</p>
+                <div class="answer-container">
+                    <div class="option-wrapper">
+                        <button type="button" class="star-button" data-value="danceability">★</button>
+                        <span class="option-label">the<br>beat</span>
+                    </div>
+                    <div class="option-wrapper">
+                        <button type="button" class="star-button" data-value="valence">★</button>
+                        <span class="option-label">the<br>mood</span>
+                    </div>
+                    <div class="option-wrapper">
+                        <button type="button" class="star-button" data-value="energy">★</button>
+                        <span class="option-label">the<br>production</span>
+                    </div>
+                </div>
+            </div>
+
             <!-- Navigation Buttons -->
-            <button type="button" id="next-button">Next</button>
-            <button type="button" id="quiz-submit" class="hidden">Find My Song</button>
+            <button type="button" id="next-button" class="nav-button" disabled>Next</button>
+            <button type="button" id="quiz-submit" class="nav-button hidden">Find My Song</button>
+
+            <!-- Results Container -->
+            <div id="quiz-result" class="hidden">
+                <div id="countdown" class="hidden"></div>
+                <div id="result-content"></div>
+            </div>
         </form>
     </section>
 
