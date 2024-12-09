@@ -195,9 +195,9 @@ class SongFlower {
 
         // Add the descriptive sentence
         const descriptions = {
-            speechiness: "represents presence of spoken words. This is usually extremely present in rap, some R&B, Latin music, but is also present in any song with words in it.",
-            acousticness: "measures the presence of more acoustic/melodic melodies and instruments. Typically, acoustic songs have more of a raw feeling to them, meaning less production and editing.",
-            instrumentalness: "measures how much instrumentation vs. vocal presence is in a song.In Charli's album, most of the instrumentation comes from studio work, mixing and editing."
+            speechiness: "represents presence of spoken words. This is usually extremely present in rap, some R&B, Latin music, but is also present in any song with words in it",
+            acousticness: "measures the presence of more acoustic/melodic melodies and instruments. Typically, acoustic songs have more of a raw feeling to them, meaning less production and editing",
+            instrumentalness: "measures how much instrumentation vs. vocal presence is in a song.In Charli's album, most of the instrumentation comes from studio work, mixing and editing"
         };
 
         tooltipContent += `<br>The most prominent musical feature in "${d.name}" is ${mostProminent.name}, 
