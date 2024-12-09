@@ -505,26 +505,21 @@ select#song-select {
     padding: 5px;
 }
 
-/* Target only the first three flower containers */
 .flower-container:nth-child(-n+3) {
-    margin-top: -400px;  /* Negative margin to pull first row up */
+    margin-top: -400px;
 }
 
-/* Add new rule for second row (flowers 4-6) */
 .flower-container:nth-child(n+4):nth-child(-n+6) {
-    margin-top: -600px;  /* Adjust this value as needed */
+    margin-top: -400px;
 }
 
-/* Add new rule for second row (flowers 4-6) */
 .flower-container:nth-child(n+4):nth-child(-n+9) {
-    margin-top: -600px;  /* Adjust this value as needed */
+    margin-top: -400px;
 }
 
 .flower-container:nth-child(n+4):nth-child(-n+12) {
-    margin-top: -600px;  /* Adjust this value as needed */
+    margin-top: -400px;
 }
-
-
 
 .flower {
     width: 100%;
@@ -532,9 +527,6 @@ select#song-select {
     transition: transform 0.2s ease-in-out;
 }
 
-.flower path:hover {
-    opacity: 0.9;
-}
 .flower path:hover {
     opacity: 0.9;
 }
@@ -569,11 +561,14 @@ select#song-select {
     border: 0;
     border-radius: 8px;
     transition: opacity 0.2s ease-in-out;
+    z-index: 9999;
 }
 
 .flower-group {
     transition: transform 0.2s ease-in-out;
 }
+
+
 
 
 * Quiz Section Styling *

@@ -53,7 +53,8 @@ class SongFlower {
                 .style("border", "solid")
                 .style("border-width", "1px")
                 .style("border-radius", "5px")
-                .style("padding", "10px");
+                .style("padding", "10px")
+                .style("pointer-events", "none"); // Add this line
         }
 
         vis.svg = vis.container
@@ -122,18 +123,11 @@ class SongFlower {
                                 .duration(200)
                                 .attr("transform", `scale(${vis.hoverScaleFactor})`);
 
-                            d3.select(this)
-                                .transition()
-                                .duration(200)
-                                .attr("opacity", 1);
-
                             tooltip.transition()
                                 .duration(200)
                                 .style("opacity", .9);
                             tooltip.html(`
-                            <strong>${songData.name}</strong><br/>
-                            ${feature}: ${songData[feature]}<br/>
-                            ${vis.featureDescriptions[feature]}
+                            <strong>${songData.name}</strong>
                         `)
                                 .style("left", (event.pageX + 10) + "px")
                                 .style("top", (event.pageY - 28) + "px");
@@ -143,11 +137,6 @@ class SongFlower {
                                 .transition()
                                 .duration(200)
                                 .attr("transform", "scale(1)");
-
-                            d3.select(this)
-                                .transition()
-                                .duration(200)
-                                .attr("opacity", 0.7);
 
                             tooltip.transition()
                                 .duration(500)
@@ -166,5 +155,4 @@ class SongFlower {
                 .style("font-weight", "bold")
                 .text(songData.name);
         });
-    }
-}
+    }}

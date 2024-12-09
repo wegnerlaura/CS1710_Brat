@@ -44,20 +44,7 @@ function initMainPage(data) {
     ];
 
     const filteredData = data[1].filter(d => selectedSongs.includes(d.name.toLowerCase()));
+    console.log("Filtered Data:", filteredData);
+
     flowerVis = new SongFlower("flower-container", filteredData);
-
-
-Promise.all(promises)
-    .then(function (data) {
-        initMainPage(data)
-    })
-    .catch(function (err) {
-        console.log(err)
-    });
-
-function initMainPage(data) {
-    // word cloud
-    myWordCloud = new WordCloud('wordCloudContainer', data[0]);
-    myTimeline = new Timeline('timelineContainer');
-}
 }
