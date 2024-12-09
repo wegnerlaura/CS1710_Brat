@@ -488,140 +488,55 @@ select#song-select {
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    padding: 1px;
-    height: auto;
-    overflow: visible;
-}
-
-.flower-container {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
-    width: 100%;
-    margin-bottom: 0;
-    padding: 5px;
-}
-
-.flower-container:nth-child(-n+3) {
-    margin-top: -400px;
-}
-
-.flower-container:nth-child(n+4):nth-child(-n+6) {
-    margin-top: -400px;
-}
-
-.flower-container:nth-child(n+4):nth-child(-n+9) {
-    margin-top: -400px;
-}
-
-.flower-container:nth-child(n+4):nth-child(-n+12) {
-    margin-top: -400px;
+    gap: 20px;
+    padding: 20px;
 }
 
 .flower {
-    width: 100%;
-    height: 100%;
+    width: 200px;
+    height: 200px;
     transition: transform 0.2s ease-in-out;
 }
 
+.flower:hover {
+    transform: scale(1.1);
+}
+
+.flower path {
+    transition: opacity 0.2s ease-in-out;
+}
+
 .flower path:hover {
-    opacity: 0.9;
+    opacity: 0.8;
 }
 
 .song-name {
-    font-size: 16px;
+    font-size: 12px;
     fill: #c4f24c;
+    text-anchor: middle;
 }
 
-.flower-tooltip {
-    font-size: 14px;
-    line-height: 1.4;
-    z-index: 1000;
-}
-
-.legend h3 {
-    font-size: 16px;
-    margin-bottom: 10px;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-#tooltip {
+.tooltip {
     position: absolute;
     text-align: center;
     padding: 8px;
     font: 12px sans-serif;
-    background: lightsteelblue;
-    border: 0;
+    background: rgba(0, 0, 0, 0.8);
+    color: #c4f24c;
+    border: 1px solid #c4f24c;
     border-radius: 8px;
-    transition: opacity 0.2s ease-in-out;
+    pointer-events: none;
     z-index: 9999;
 }
 
-.flower-group {
-    transition: transform 0.2s ease-in-out;
+.legend {
+    margin-bottom: 20px;
 }
 
-
-
-
-
-
-
-/* Quiz Section Styling */
-.star-button.selected {
-    color: #64dd43;
-    transform: scale(1.2);
-}
-
-#countdown {
-    font-size: 120px;
-    text-align: center;
-    color: #64dd43;
-    animation: pulse 1s infinite;
-}
-
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.2); }
-    100% { transform: scale(1); }
-}
-
-.video-container {
-    position: relative;
-    padding-bottom: 56.25%;
-    height: 0;
-    overflow: hidden;
-    margin: 20px 0;
-}
-
-.video-container iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
-#rankings-container, #graphs-container {
-    margin-top: 20px;
-}
-
-.song-rank {
-    padding: 10px;
-    margin: 5px 0;
-    background: rgba(100, 221, 67, 0.1);
-    border: 1px solid #64dd43;
-    border-radius: 4px;
-}
-
-.nav-button:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
+.legend text {
+    font-size: 12px;
+    fill: #c4f24c;
 }

@@ -1,158 +1,239 @@
 class SongFlower {
-    constructor(parentElement, data) {
-        this.parentElement = parentElement;
+    constructor(containerId, data) {
+        this.containerId = containerId;
         this.data = data;
+        this.width = 1000;
+        this.height = 800;
+        this.margin = { top: 100, right: 50, bottom: 50, left: 50 };
 
-        this.features = {
-            primary: ["speechiness", "acousticness", "instrumentalness"],
-            weight: ["liveness", "valence", "tempo"]
-        };
-
+        this.features = ["speechiness", "acousticness", "instrumentalness"];
         this.colors = {
-            speechiness: "#64dd43",    // Light green
-            acousticness: "#04530a",   // Dark green
-            instrumentalness: "#7b807c" // Gray
+            speechiness: "#64dd43",
+            acousticness: "#04530a",
+            instrumentalness: "#7b807c"
         };
 
-        this.featureDescriptions = {
-            speechiness: "represents presence of spoken words",
-            acousticness: "measures likelihood of acoustic instruments",
-            instrumentalness: "predicts whether a track contains no vocals",
-            liveness: "detects presence of live audience",
-            valence: "describes musical positiveness",
-            tempo: "represents overall estimated pace"
-        };
-
-        this.hoverScaleFactor = 1.1; // Add this line
         this.initVis();
     }
 
     initVis() {
-        let vis = this;
+        d3.select(`#${this.containerId}`).selectAll("*").remove();
 
-        vis.margin = {top: 60, right: 60, bottom: 115, left: 60};
-        vis.width = 400 - vis.margin.left - vis.margin.right;
-        vis.height = 1225 - vis.margin.top - vis.margin.bottom;
-
-        vis.container = d3.select("#flower-container")
-            .style("display", "grid")
-            .style("grid-template-columns", "repeat(3, 1fr)")
-            .style("gap", "60px") // Increase gap to allow for growth
-            .style("padding", "60px") // Increase padding
-            .style("width", "100%")
-            .style("max-width", "1200px")
-            .style("min-height", "1425px")
-            .style("margin", "0 auto");
-
-        if (!d3.select("#tooltip").node()) {
-            d3.select("body").append("div")
-                .attr("id", "tooltip")
-                .style("opacity", 0)
-                .style("position", "absolute")
-                .style("background-color", "white")
-                .style("border", "solid")
-                .style("border-width", "1px")
-                .style("border-radius", "5px")
-                .style("padding", "10px")
-                .style("pointer-events", "none"); // Add this line
-        }
-
-        vis.svg = vis.container
-            .selectAll(".flower-container")
-            .data(vis.data)
-            .join("div")
-            .attr("class", "flower-container")
+        this.svg = d3.select(`#${this.containerId}`)
             .append("svg")
-            .attr("class", "flower")
-            .attr("width", vis.width + vis.margin.left + vis.margin.right)
-            .attr("height", vis.height + vis.margin.top + vis.margin.bottom)
-            .append("g")
-            .attr("transform", `translate(${vis.width/2 + vis.margin.left},${vis.height/2 + vis.margin.top})`);
+            .attr("width", "100%")
+            .attr("height", "100%")
+            .attr("viewBox", `0 0 ${this.width} ${this.height}`)
+            .attr("preserveAspectRatio", "xMidYMid meet")
+            .style("background-color", "black");
 
-        vis.updateVis();
+        this.createLegend();
+        this.updateVis();
     }
 
-    createPetal(value, angle, scale) {
-        const petalPath = d3.path();
-        const petalSize = value * scale;
-        const width = petalSize * 0.5;
+    createLegend() {
+        const legend = this.svg.append("g")
+            .attr("class", "legend")
+            .attr("transform", `translate(20, 20)`);
 
-        petalPath.moveTo(0, 0);
-        petalPath.bezierCurveTo(
-            width * Math.cos(angle - 0.5), width * Math.sin(angle - 0.5),
-            petalSize * Math.cos(angle), petalSize * Math.sin(angle),
-            0, 0
+        this.features.forEach((feature, i) => {
+            const legendRow = legend.append("g")
+                .attr("transform", `translate(0, ${i * 25})`);
+
+            legendRow.append("circle")
+                .attr("r", 6)
+                .attr("fill", this.colors[feature]);
+
+            legendRow.append("text")
+                .attr("x", 15)
+                .attr("y", 4)
+                .text(feature)
+                .attr("fill", "#c4f24c")
+                .style("font-size", "12px");
+        });
+    }
+
+    createLeaf(radius, angle) {
+        const path = d3.path();
+        const leafWidth = radius * 0.4;
+        const leafLength = radius;
+
+        path.moveTo(0, 0);
+        path.bezierCurveTo(
+            Math.cos(angle - Math.PI/6) * leafWidth,
+            Math.sin(angle - Math.PI/6) * leafWidth,
+            Math.cos(angle) * leafLength * 0.6,
+            Math.sin(angle) * leafLength * 0.6,
+            Math.cos(angle) * leafLength,
+            Math.sin(angle) * leafLength
+        );
+        path.bezierCurveTo(
+            Math.cos(angle) * leafLength * 0.6,
+            Math.sin(angle) * leafLength * 0.6,
+            Math.cos(angle + Math.PI/6) * leafWidth,
+            Math.sin(angle + Math.PI/6) * leafWidth,
+            0,
+            0
         );
 
-        return petalPath.toString();
+        return path.toString();
+    }
+
+    createFlower(d, x, y) {
+        if (!d) return;
+
+        const flowerGroup = this.svg.append("g")
+            .attr("class", "flower-group")
+            .attr("transform", `translate(${x}, ${y})`);
+
+        // Create petals for each feature
+        this.features.forEach((feature, i) => {
+            const baseRadius = 40; // Fixed size for all petals
+            const totalPetals = 42; // Total possible petal positions
+
+            // Calculate number of petals to draw based on feature value
+            const numPetals = Math.max(1, Math.round(d[feature] * totalPetals));
+
+            // Define starting angles for each feature (in radians)
+            const startAngles = {
+                speechiness: Math.PI * 1.5,    // Points left
+                acousticness: Math.PI * 0.8,    // Points right
+                instrumentalness: 0.5            // Points up
+            };
+
+            // Create petals
+            for (let j = 0; j < numPetals; j++) {
+                const angle = startAngles[feature] + (j * Math.PI/5); // Smaller angle for tighter grouping
+
+                // Create petal using the leaf shape
+                const path = d3.path();
+                const leafWidth = baseRadius * 0.4;
+                const leafLength = baseRadius;
+
+                path.moveTo(0, 0);
+                path.bezierCurveTo(
+                    Math.cos(angle - Math.PI/6) * leafWidth,
+                    Math.sin(angle - Math.PI/6) * leafWidth,
+                    Math.cos(angle) * leafLength * 0.6,
+                    Math.sin(angle) * leafLength * 0.6,
+                    Math.cos(angle) * leafLength,
+                    Math.sin(angle) * leafLength
+                );
+                path.bezierCurveTo(
+                    Math.cos(angle) * leafLength * 0.6,
+                    Math.sin(angle) * leafLength * 0.6,
+                    Math.cos(angle + Math.PI/6) * leafWidth,
+                    Math.sin(angle + Math.PI/6) * leafWidth,
+                    0,
+                    0
+                );
+
+                flowerGroup.append("path")
+                    .attr("d", path.toString())
+                    .attr("fill", this.colors[feature])
+                    .attr("stroke", "#fff")
+                    .attr("stroke-width", 0.5)
+                    .attr("opacity", 0.7);
+            }
+        });
+
+        // Add song name
+        flowerGroup.append("text")
+            .attr("class", "song-name")
+            .attr("text-anchor", "middle")
+            .attr("y", 80)
+            .attr("fill", "#c4f24c")
+            .style("font-size", "12px")
+            .text(d.name);
+
+        // Add interactivity
+        flowerGroup
+            .on("mouseover", (event) => {
+                this.showTooltip(event, d);
+                d3.select(event.currentTarget)
+                    .transition()
+                    .duration(200)
+                    .attr("transform", `translate(${x}, ${y}) scale(1.1)`);
+            })
+            .on("mouseout", (event) => {
+                this.hideTooltip();
+                d3.select(event.currentTarget)
+                    .transition()
+                    .duration(200)
+                    .attr("transform", `translate(${x}, ${y})`);
+            });
+    }
+
+    showTooltip(event, d) {
+        if (!d) return;
+
+        const tooltip = d3.select("body")
+            .append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0)
+            .style("position", "absolute")
+            .style("background-color", "rgba(0, 0, 0, 0.8)")
+            .style("color", "#c4f24c")
+            .style("padding", "10px")
+            .style("border", "1px solid #c4f24c")
+            .style("border-radius", "5px");
+
+        // Find the most prominent feature
+        const featureValues = this.features.map(feature => ({
+            name: feature,
+            value: d[feature]
+        }));
+        const mostProminent = featureValues.reduce((max, obj) =>
+            obj.value > max.value ? obj : max, featureValues[0]);
+
+        // Create tooltip content
+        let tooltipContent = `<strong>${d.name}</strong><br><br>`;
+        this.features.forEach(feature => {
+            const percentage = Math.round(d[feature] * 100);
+            tooltipContent += `${feature}: ${percentage}/100<br>`;
+        });
+
+        // Add the descriptive sentence
+        const descriptions = {
+            speechiness: "represents presence of spoken words. This is usually extremely present in rap, some R&B, Latin music, but is also present in any song with words in it.",
+            acousticness: "measures the presence of more acoustic/melodic melodies and instruments. Typically, acoustic songs have more of a raw feeling to them, meaning less production and editing.",
+            instrumentalness: "measures how much instrumentation vs. vocal presence is in a song.In Charli's album, most of the instrumentation comes from studio work, mixing and editing."
+        };
+
+        tooltipContent += `<br>The most prominent musical feature in "${d.name}" is ${mostProminent.name}, 
+        with a score of ${Math.round(mostProminent.value * 100)}/100. 
+        ${mostProminent.name} ${descriptions[mostProminent.name]}.`;
+
+        tooltip.html(tooltipContent)
+            .style("left", (event.pageX + 10) + "px")
+            .style("top", (event.pageY - 10) + "px")
+            .transition()
+            .duration(200)
+            .style("opacity", 1);
+    }
+
+    hideTooltip() {
+        d3.selectAll(".tooltip")
+            .transition()
+            .duration(200)
+            .style("opacity", 0)
+            .remove();
     }
 
     updateVis() {
-        let vis = this;
+        const numCols = 3;
+        const numRows = Math.ceil(this.data.length / numCols);
+        const cellWidth = (this.width - this.margin.left - this.margin.right) / numCols;
+        const cellHeight = (this.height - this.margin.top - this.margin.bottom) / numRows;
 
-        let tooltip = d3.select("#tooltip");
-
-        vis.svg.each(function(songData, index) {
-            const flower = d3.select(this);
-            const flowerGroup = flower.append("g")
-                .attr("class", "flower-group");
-
-            const petalCounts = vis.features.weight.map(feature =>
-                Math.max(5, Math.floor(songData[feature] * 15))
-            );
-
-            vis.features.primary.forEach((feature, layerIndex) => {
-                const numPetals = petalCounts[layerIndex];
-                const angles = d3.range(numPetals)
-                    .map(i => (i * 2 * Math.PI) / numPetals);
-
-                angles.forEach(angle => {
-                    flowerGroup.append("path")
-                        .attr("d", vis.createPetal(
-                            songData[feature],
-                            angle,
-                            250 + (layerIndex * 40)
-                        ))
-                        .attr("fill", vis.colors[feature])
-                        .attr("opacity", 0.7)
-                        .attr("stroke", "#fff")
-                        .attr("stroke-width", 0.5)
-                        .on("mouseover", function(event) {
-                            d3.select(this.parentNode) // Select the flower group
-                                .transition()
-                                .duration(200)
-                                .attr("transform", `scale(${vis.hoverScaleFactor})`);
-
-                            tooltip.transition()
-                                .duration(200)
-                                .style("opacity", .9);
-                            tooltip.html(`
-                            <strong>${songData.name}</strong>
-                        `)
-                                .style("left", (event.pageX + 10) + "px")
-                                .style("top", (event.pageY - 28) + "px");
-                        })
-                        .on("mouseout", function() {
-                            d3.select(this.parentNode) // Select the flower group
-                                .transition()
-                                .duration(200)
-                                .attr("transform", "scale(1)");
-
-                            tooltip.transition()
-                                .duration(500)
-                                .style("opacity", 0);
-                        });
-                });
-            });
-
-            flower.append("text")
-                .attr("y", -vis.height/2 + 370)
-                .attr("x", 0)
-                .attr("text-anchor", "middle")
-                .attr("class", "song-name")
-                .style("fill", "#c4f24c")
-                .style("font-size", "16px")
-                .style("font-weight", "bold")
-                .text(songData.name);
+        this.data.forEach((d, i) => {
+            if (d) {
+                const col = i % numCols;
+                const row = Math.floor(i / numCols);
+                const x = this.margin.left + col * cellWidth + cellWidth / 2;
+                const y = this.margin.top + row * cellHeight + cellHeight / 2;
+                this.createFlower(d, x, y);
+            }
         });
-    }}
+    }
+}
