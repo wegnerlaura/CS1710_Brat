@@ -11,7 +11,7 @@ class LineChart{
     initVis() {
         let vis = this
 
-        vis.margin = { top: 50, right: 50, bottom: 50, left: 50 };
+        vis.margin = {top: 50, right: 50, bottom: 50, left: 50};
         vis.width = document.getElementById(vis.parentContainer).getBoundingClientRect().width - vis.margin.left - vis.margin.right;
         vis.height = 200; // Fixed height for the timeline
 
