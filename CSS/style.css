@@ -182,7 +182,7 @@ section {
     stroke: #64dd43;
 }
 
-.tooltip {
+#timeline-tooltip {
     position: absolute;
     text-align: center;
     padding: 8px;
@@ -191,7 +191,8 @@ section {
     color: #64dd43;
     border: 1px solid #64dd43;
     border-radius: 4px;
-    pointer-events: none;
+    pointer-events: auto;
+    z-index: 1000;
 }
 
 /* Circular Diagram Styling */

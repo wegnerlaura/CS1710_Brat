@@ -66,14 +66,14 @@ class Timeline{
         if (!d3.select("#timeline-tooltip").node()) {
             vis.tooltip = d3.select("body").append("div")
                 .attr("id", "timeline-tooltip")
-                .attr("class", "tooltip")
+                .attr("class", "timeline-tooltip")
                 .style("position", "absolute")
                 .style("visibility", "hidden")
                 .style("background", "white")
                 .style("border", "1px solid black")
                 .style("padding", "8px")
                 .style("border-radius", "4px")
-                .style("pointer-events", "none");
+                .style("pointer-events", "auto");
         }
 
         console.log(vis.tooltip.node()); // Check if tooltip exists
@@ -141,26 +141,23 @@ class Timeline{
             .attr("stroke-width", 10)
 
             .on("mouseover", function(event, d) {
-                // Extract YouTube video ID from the full URL
                 let youtubeVideoId = null;
                 if (d.youtubeLink) {
                     const urlParams = new URL(d.youtubeLink);
                     youtubeVideoId = urlParams.searchParams.get('v');
                 }
 
-                // Create the base tooltip HTML
                 let tooltipHTML = `<strong>${d.year}: </strong><br>${d.description} <br><br>Listen to the song below!`;
 
-                // Add YouTube thumbnail if video ID is available
                 if (youtubeVideoId) {
                     const thumbnailUrl = `https://img.youtube.com/vi/${youtubeVideoId}/0.jpg`;
                     tooltipHTML += `
-            <br>
-            <a href="${d.youtubeLink}" target="_blank">
-                <img src="${thumbnailUrl}" 
-                     style="max-width: 300px; max-height: 200px; object-fit: cover; margin-top: 10px; border: 2px solid #64dd43;">
-            </a>
-        `;
+                <br>
+                <a href="${d.youtubeLink}" target="_blank">
+                    <img src="${thumbnailUrl}" 
+                         style="max-width: 300px; max-height: 200px; object-fit: cover; margin-top: 10px; border: 2px solid #64dd43;">
+                </a>
+            `;
                 }
 
                 vis.tooltip
@@ -173,12 +170,18 @@ class Timeline{
                     .style("color", "#64dd43")
                     .style("border", '1px solid #64dd43')
                     .style("padding", "8px")
-                    .style("pointer-events", "auto") // Allow interaction with tooltip content
+                    .style("pointer-events", "auto")
                     .style("z-index", "1000")
                     .style("left", (event.pageX + 10) + "px")
-                    .style("top", (event.pageY) + "px");
+                    .style("top", (event.pageY) + "px")
+                    .on("mouseenter", function () {
+                        vis.tooltip.style("visibility", "visible");
+                    })
+                    .on("mouseleave", function () {
+                        vis.tooltip.style("visibility", "hidden").style("opacity", 0);
+                    });
             })
-
+            
             .on("mouseout", function(event, d) {
                 // Use a small delay to check if mouse has left the tooltip
                 setTimeout(() => {
@@ -190,6 +193,7 @@ class Timeline{
                     }
                 }, 0); // 100ms delay allows for smoother interaction
             })
+
 
 
         let labels = vis.svg.selectAll(".timeline-label")

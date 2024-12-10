@@ -48,7 +48,7 @@ class SongFlower {
                 .attr("x", 15)
                 .attr("y", 4)
                 .text(feature)
-                .attr("fill", "#c4f24c")
+                .attr("fill", "#64dd43")
                 .style("font-size", "12px");
         });
     }
@@ -142,7 +142,7 @@ class SongFlower {
             .attr("class", "song-name")
             .attr("text-anchor", "middle")
             .attr("y", 80)
-            .attr("fill", "#c4f24c")
+            .attr("fill", "#64dd43")
             .style("font-size", "12px")
             .text(d.name);
 
@@ -167,17 +167,21 @@ class SongFlower {
     }
 
     showTooltip(event, d) {
-        if (!d) return;
-
         const tooltip = d3.select("body")
             .append("div")
-            .attr("class", "tooltip")
+            .attr("class", "song-flower-tooltip")
+
+        // if (!d) return;
+
+        // const tooltip = d3.select("body")
+        //     .append("div")
+        //     .attr("class", "tooltip")
             .style("opacity", 0)
             .style("position", "absolute")
             .style("background-color", "rgba(0, 0, 0, 0.8)")
-            .style("color", "#c4f24c")
+            .style("color", "#64dd43")
             .style("padding", "10px")
-            .style("border", "1px solid #c4f24c")
+            .style("border", "1px solid #64dd43")
             .style("border-radius", "5px");
 
         // Find the most prominent feature
@@ -214,17 +218,44 @@ class SongFlower {
             .style("opacity", 1);
     }
 
-    hideTooltip() {
-        if (this.tooltip) {
-            this.tooltip
+    // hideTooltip() {
+    //     if (this.tooltip) {
+    //         this.tooltip
+    //             .transition()
+    //             .duration(200)
+    //             .style("opacity", 0)
+    //             .on("end", () => {
+    //                 this.tooltip.style("visibility", "hidden");
+    //             });
+    //     }
+    //     hideTooltip() {
+    //         const flowerTooltip = d3.select("body").selectAll(".tooltip");
+    //
+    //         flowerTooltip
+    //             .transition()
+    //             .duration(200)
+    //             .style("opacity", 0)
+    //             .on("end", function() {
+    //                 // Only remove if not hovering over the tooltip
+    //                 if (!d3.select(this).node().matches(':hover')) {
+    //                     d3.select(this).remove();
+    //                 }
+    //             });
+    //     }
+        hideTooltip() {
+            const flowerTooltip = d3.select("body").selectAll(".song-flower-tooltip");
+
+            flowerTooltip
                 .transition()
                 .duration(200)
                 .style("opacity", 0)
-                .on("end", () => {
-                    this.tooltip.style("visibility", "hidden");
+                .on("end", function() {
+                    // Only remove if not hovering over the tooltip
+                    if (!d3.select(this).node().matches(':hover')) {
+                        d3.select(this).remove();
+                    }
                 });
         }
-    }
     
 
     updateVis() {
