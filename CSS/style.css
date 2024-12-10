@@ -510,7 +510,7 @@ select#song-select {
 
 .song-name {
     font-size: 12px;
-    fill: #c4f24c;
+    fill: #64dd43;
     text-anchor: middle;
 }
 
@@ -520,8 +520,8 @@ select#song-select {
     padding: 8px;
     font: 12px sans-serif;
     background: rgba(0, 0, 0, 0.8);
-    color: #c4f24c;
-    border: 1px solid #c4f24c;
+    color: #64dd43;
+    border: 1px solid #64dd43;
     border-radius: 8px;
     pointer-events: none;
     z-index: 9999;
@@ -533,7 +533,7 @@ select#song-select {
 
 .legend text {
     font-size: 12px;
-    fill: #c4f24c;
+    fill: #64dd43;
 }
 
 
@@ -541,7 +541,7 @@ select#song-select {
 #quiz-section {
     padding: 50px 20px;
     text-align: center;
-    color: #c4f24c;
+    color: #64dd43;
 }
 
 /* Placeholder for the Quiz */
@@ -607,7 +607,7 @@ select#song-select {
     margin-top: 20px;
     margin-bottom: 10px;
     padding: 10px 20px;
-    background-color: #c4f24c;
+    background-color: #64dd43;
     color: #000000;
     border: none;
     font-size: 1.2rem;
@@ -634,7 +634,7 @@ select#song-select {
 
 #countdown {
     font-size: 8rem;
-    color: #c4f24c;
+    color: #64dd43;
     text-align: center;
     animation: pulse 1s infinite;
     position: absolute;
@@ -657,7 +657,7 @@ select#song-select {
 #result-song {
     margin-top: 20px;
     font-size: 1.2rem;
-    color: #c4f24c;
+    color: #64dd43;
     text-align: center;
 }
 
@@ -670,7 +670,7 @@ select#song-select {
 
 .ranking-container h3 {
     font-size: 1.5rem;
-    color: #c4f24c;
+    color: #64dd43;
     margin-bottom: 10px;
 }
 
@@ -690,7 +690,7 @@ select#song-select {
 
 /* Bar Chart Titles */
 #bar-chart-container h3 {
-    color: #c4f24c;
+    color: #64dd43;
     font-size: 1.5rem; 
     text-align: center;
     margin-bottom: 10px;
@@ -698,7 +698,7 @@ select#song-select {
 
 /* Bar Chart Styling */
 .bar {
-    fill: #c4f24c;
+    fill: #64dd43;
     transition: all 0.3s ease;
 }
 
@@ -717,7 +717,7 @@ select#song-select {
     padding: 10px 20px;
     margin: 5px;
     border: none;
-    background-color: #c4f24c;
+    background-color: #64dd43;
     color: #000000;
     font-size: 1rem;
     cursor: pointer;
@@ -744,7 +744,7 @@ select#song-select {
     flex-shrink: 0;
     width: 50px;
     height: 50px;
-    background-color: #c4f24c;
+    background-color: #64dd43;
     border: none;
     color: #000;
     font-size: 1.5rem;
@@ -760,11 +760,11 @@ select#song-select {
 
 .star-button.selected {
     background-color: #000;
-    color: #c4f24c;
+    color: #64dd43;
 }
 
 .nav-button {
-    background-color: #c4f24c;
+    background-color: #64dd43;
     color: #000;
     border: none;
     padding: 10px 20px;
@@ -797,7 +797,7 @@ select#song-select {
 #play-again {
     margin-top: 20px;
     margin-bottom: 20px;
-    background-color: #c4f24c;
+    background-color: #64dd43;
     color: #000;
     border: none;
     padding: 10px 20px;

@@ -238,7 +238,7 @@ class WordCloud{
             .attr("width", x.bandwidth())
             .attr("y", f => y(f.frequency))
             .attr("height", f => graphHeight - y(f.frequency))
-            .attr("fill", "#64dd43");
+            .attr("fill", "#64DD43");
 
         // Position and show tooltip
         this.tooltip
