@@ -68,6 +68,7 @@
             explore how each song's unique characteristics create the album's sonic landscape through these flower visualizations, where petal shapes and colors represent different audio features.
         </p>
         <div id="flower-container"></div>
+    </section>
 
     <!-- Song Key Section -->
     <section id="song-key-section" class="song-key-section">
@@ -128,18 +129,19 @@
                 <div class="answer-container">
                     <div class="option-wrapper">
                         <button type="button" class="star-button" data-value="danceability">★</button>
-                        <span class="option-label">danceable<br>&<br>groovy</span>
+                        <span class="option-label">danceable & groovy</span>
                     </div>
                     <div class="option-wrapper">
                         <button type="button" class="star-button" data-value="energy">★</button>
-                        <span class="option-label">high<br>energy &<br>intense</span>
+                        <span class="option-label">high energy & intense</span>
                     </div>
                     <div class="option-wrapper">
                         <button type="button" class="star-button" data-value="valence">★</button>
-                        <span class="option-label">upbeat<br>&<br>happy</span>
+                        <span class="option-label">upbeat & happy</span>
                     </div>
                 </div>
             </div>
+
 
             <!-- Question 2 -->
             <div class="quiz-question hidden" id="question-2">
@@ -147,18 +149,19 @@
                 <div class="answer-container">
                     <div class="option-wrapper">
                         <button type="button" class="star-button" data-value="acousticness">★</button>
-                        <span class="option-label">chill<br>&<br>relaxed</span>
+                        <span class="option-label">chill & relaxed</span>
                     </div>
                     <div class="option-wrapper">
                         <button type="button" class="star-button" data-value="danceability">★</button>
-                        <span class="option-label">party<br>&<br>fun</span>
+                        <span class="option-label">party & fun</span>
                     </div>
                     <div class="option-wrapper">
                         <button type="button" class="star-button" data-value="instrumentalness">★</button>
-                        <span class="option-label">experimental<br>&<br>unique</span>
+                        <span class="option-label">experimental & unique</span>
                     </div>
                 </div>
             </div>
+
 
             <!-- Question 3 -->
             <div class="quiz-question hidden" id="question-3">
@@ -166,18 +169,19 @@
                 <div class="answer-container">
                     <div class="option-wrapper">
                         <button type="button" class="star-button" data-value="explicit">★</button>
-                        <span class="option-label">raw<br>&<br>unfiltered</span>
+                        <span class="option-label">raw & unfiltered</span>
                     </div>
                     <div class="option-wrapper">
                         <button type="button" class="star-button" data-value="speechiness">★</button>
-                        <span class="option-label">deep<br>&<br>emotional</span>
+                        <span class="option-label">deep & emotional</span>
                     </div>
                     <div class="option-wrapper">
                         <button type="button" class="star-button" data-value="valence">★</button>
-                        <span class="option-label">playful<br>&<br>light</span>
+                        <span class="option-label">playful & light</span>
                     </div>
                 </div>
             </div>
+
 
             <!-- Question 4 -->
             <div class="quiz-question hidden" id="question-4">
@@ -185,18 +189,19 @@
                 <div class="answer-container">
                     <div class="option-wrapper">
                         <button type="button" class="star-button" data-value="slow">★</button>
-                        <span class="option-label">slow<br>&<br>steady</span>
+                        <span class="option-label">slow & steady</span>
                     </div>
                     <div class="option-wrapper">
                         <button type="button" class="star-button" data-value="medium">★</button>
-                        <span class="option-label">medium<br>pace</span>
+                        <span class="option-label">medium pace</span>
                     </div>
                     <div class="option-wrapper">
                         <button type="button" class="star-button" data-value="fast">★</button>
-                        <span class="option-label">fast<br>&<br>energetic</span>
+                        <span class="option-label">fast & energetic</span>
                     </div>
                 </div>
             </div>
+
 
             <!-- Question 5 -->
             <div class="quiz-question hidden" id="question-5">
@@ -204,18 +209,19 @@
                 <div class="answer-container">
                     <div class="option-wrapper">
                         <button type="button" class="star-button" data-value="danceability">★</button>
-                        <span class="option-label">the<br>beat</span>
+                        <span class="option-label">the beat</span>
                     </div>
                     <div class="option-wrapper">
                         <button type="button" class="star-button" data-value="valence">★</button>
-                        <span class="option-label">the<br>mood</span>
+                        <span class="option-label">the mood</span>
                     </div>
                     <div class="option-wrapper">
                         <button type="button" class="star-button" data-value="energy">★</button>
-                        <span class="option-label">the<br>production</span>
+                        <span class="option-label">the production</span>
                     </div>
                 </div>
             </div>
+
 
             <!-- Navigation Buttons -->
             <button type="button" id="next-button" class="nav-button" disabled>Next</button>
@@ -224,7 +230,24 @@
             <!-- Results Container -->
             <div id="quiz-result" class="hidden">
                 <div id="countdown" class="hidden"></div>
-                <div id="result-content"></div>
+                <div id="result-content" class="hidden">
+                    <h2>Your Song:</h2>
+                    <h3></h3>
+                    <div class="stats-text">
+        <pre>
+Danceability:
+Energy:
+Valence:
+        </pre>
+                    </div>
+                    <div id="youtube-video">
+                        <iframe width="560" height="315" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <button id="play-again" class="nav-button">Play Again</button>
+                </div>
             </div>
         </form>
     </section>
