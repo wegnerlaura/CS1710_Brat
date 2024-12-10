@@ -155,7 +155,9 @@ class SongFlower {
                     .duration(200)
                     .attr("transform", `translate(${x}, ${y}) scale(1.1)`);
             })
-            .on("mouseout", (event) => {
+
+
+        .on("mouseout", (event) => {
                 this.hideTooltip();
                 d3.select(event.currentTarget)
                     .transition()
@@ -213,12 +215,17 @@ class SongFlower {
     }
 
     hideTooltip() {
-        d3.selectAll(".tooltip")
-            .transition()
-            .duration(200)
-            .style("opacity", 0)
-            .remove();
+        if (this.tooltip) {
+            this.tooltip
+                .transition()
+                .duration(200)
+                .style("opacity", 0)
+                .on("end", () => {
+                    this.tooltip.style("visibility", "hidden");
+                });
+        }
     }
+    
 
     updateVis() {
         const numCols = 3;
