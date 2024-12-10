@@ -1,4 +1,4 @@
-let myWordCloud, myPersonalityQuiz, flowerVis, myTimeline;
+let myWordCloud, myPersonalityQuiz, flowerVis, myTimeline, myLineChart;
 
 // Load data using promises
 let promises = [
@@ -20,6 +20,9 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function initMainPage(data) {
+    // popularity
+    myLineChart = new LineChart('lineChartContainer', data[2], data[3], data[4]);
+
     // Word cloud
     myWordCloud = new WordCloud('wordCloudContainer', data[0]);
 
