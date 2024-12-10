@@ -247,8 +247,27 @@ Valence:
                                 allowfullscreen>
                         </iframe>
                     </div>
+
+                    <!-- Add Buttons to Toggle Views -->
+                    <div style="margin-top: 20px;">
+                        <button id="barChartsButton" onclick="showBarCharts()" style="background-color: #ddd; border: 1px solid #ccc;">Bar Charts</button>
+                        <button id="rankingButton" onclick="showRanking()" style="border: 1px solid #ccc;">Ranking</button>
+                    </div>
+
+                    <!-- Bar Charts Section -->
+                    <div id="barChartsSection" style="margin-top: 20px;">
+                        <div id="top-songs-chart"></div>
+                        <div id="bottom-songs-chart"></div>
+                    </div>
+
+                    <!-- Ranking Section (Initially Hidden) -->
+                    <div id="rankingSection" style="margin-top: 20px; display: none;">
+                        <ol id="rankingList"></ol>
+                    </div>
+
                     <button id="play-again" class="nav-button">Play Again</button>
                 </div>
+
             </div>
         </form>
     </section>

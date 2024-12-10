@@ -1,26 +1,26 @@
 document.addEventListener("DOMContentLoaded", function () {
-    let currentQuestionIndex = 0; // Track the current question
+    let currentQuestionIndex = 0;
     const questions = document.querySelectorAll(".quiz-question");
     const nextButton = document.getElementById("next-button");
     const findSongButton = document.getElementById("quiz-submit");
-    const answers = {}; // Store user's selected answers
+    const answers = {};
 
     // Song dataset with normalized attributes
     const songsData = [
         { name: "360", youtube_id: "WJW-VvmRKsE", danceability: 0.928, energy: 0.649, valence: 0.951, tempo: 120.042, popularity: 54 },
         { name: "Club Classics", youtube_id: "bg9EmWTRt3Y", danceability: 0.716, energy: 0.879, valence: 0.693, tempo: 144.95, popularity: 54 },
         { name: "Sympathy is a Knife", youtube_id: "KrxDhDDXUwQ", danceability: 0.718, energy: 0.706, valence: 0.580, tempo: 131.944, popularity: 54 },
-        { name: "Stupid", youtube_id: "zw6bA75H2jc", danceability: 0.504, energy: 0.3, valence: 0.16, tempo: 79.25, popularity: 49 },
+        { name: "Something Stupid", youtube_id: "zw6bA75H2jc", danceability: 0.504, energy: 0.3, valence: 0.16, tempo: 79.25, popularity: 49 },
         { name: "Talk Talk", youtube_id: "K5jyIoPbu4M", danceability: 0.701, energy: 0.82, valence: 0.49, tempo: 130.146, popularity: 52 },
         { name: "Von Dutch", youtube_id: "cwZ1L_0QLjw", danceability: 0.8, energy: 0.95, valence: 0.6, tempo: 140.0, popularity: 50 },
-        { name: "Romantic", youtube_id: "fUr2t-KnILQ", danceability: 0.6, energy: 0.5, valence: 0.4, tempo: 115.0, popularity: 48 },
+        { name: "Everything Is Romantic", youtube_id: "fUr2t-KnILQ", danceability: 0.6, energy: 0.5, valence: 0.4, tempo: 115.0, popularity: 48 },
         { name: "Rewind", youtube_id: "WlM7nm3TLnY", danceability: 0.55, energy: 0.6, valence: 0.5, tempo: 118.5, popularity: 47 },
         { name: "So I", youtube_id: "g-PovEJ1qWc", danceability: 0.68, energy: 0.7, valence: 0.65, tempo: 125.0, popularity: 53 },
         { name: "Girl So Confusing", youtube_id: "0q3K6FPzY18", danceability: 0.7, energy: 0.6, valence: 0.5, tempo: 135.0, popularity: 51 },
         { name: "Apple", youtube_id: "CPWxExGk7PM", danceability: 0.804, energy: 0.957, valence: 0.962, tempo: 150.0, popularity: 55 },
         { name: "B2B", youtube_id: "Lp8TaMWU-Ho", danceability: 0.6, energy: 0.8, valence: 0.4, tempo: 120.0, popularity: 50 },
         { name: "Mean Girls", youtube_id: "IKUQDMEBXN0", danceability: 0.7, energy: 0.75, valence: 0.6, tempo: 140.0, popularity: 52 },
-        { name: "Think", youtube_id: "Mn0aho8Ayfk", danceability: 0.65, energy: 0.7, valence: 0.55, tempo: 132.0, popularity: 53 },
+        { name: "Think About It All The Time", youtube_id: "Mn0aho8Ayfk", danceability: 0.65, energy: 0.7, valence: 0.55, tempo: 132.0, popularity: 53 },
         { name: "365", youtube_id: "Ol9CCM240Ag", danceability: 0.75, energy: 0.8, valence: 0.7, tempo: 145.0, popularity: 54 }
     ];
 
@@ -123,11 +123,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 // Update the stats
                 const pre = resultContent.querySelector('pre');
                 pre.innerHTML = `
-Danceability: ${bestSong.danceability.toFixed(2)}
-Energy:       ${bestSong.energy.toFixed(2)}
-Valence:      ${bestSong.valence.toFixed(2)}
-            `;
+<div style="display: flex; justify-content: center; align-items: center; height: 12vh;">
+  <div style="display: grid; grid-template-columns: 120px auto; gap: 3px; text-align: left;">
+    <div>Danceability:</div><div>${bestSong.danceability.toFixed(2)}</div>
+    <div>Energy:</div><div>${bestSong.energy.toFixed(2)}</div>
+    <div>Valence:</div><div>${bestSong.valence.toFixed(2)}</div>
+  </div>
+</div>
 
+`;
                 // Update video
                 const iframe = resultContent.querySelector('iframe');
                 iframe.src = `https://www.youtube.com/embed/${bestSong.youtube_id}`;
@@ -136,8 +140,182 @@ Valence:      ${bestSong.valence.toFixed(2)}
                 // Show results
                 resultContent.classList.remove("hidden");
                 resultContent.style.display = 'block';
+
+                // Create bar charts
+                createBarCharts(songScores);
             }
         }, 1000);
+    }
+
+// Function to create bar charts
+    function createBarCharts(songScores) {
+        // Clear previous charts if they exist
+        d3.select("#top-songs-chart").html("");
+        d3.select("#bottom-songs-chart").html("");
+
+        // Add tooltip div
+        const tooltip = d3.select("body").append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0)
+            .style("position", "absolute")
+            .style("background-color", "black")
+            .style("color", "white")
+            .style("border", "solid")
+            .style("border-color", "#64dd43")
+            .style("border-width", "2px")
+            .style("border-radius", "5px")
+            .style("padding", "10px");
+
+        const margin = { top: 80, right: 40, bottom: 150, left: 60 };
+        const width = 800 - margin.left - margin.right;
+        const height = 400 - margin.top - margin.bottom;
+
+        // Get global maximum score for consistent scaling on both bar charts
+        const maxScore = d3.max(songScores, d => d.score);
+
+        // Top 5 songs
+        const topSongs = songScores.slice(0, 5);
+        createChart("#top-songs-chart", topSongs, "Top 5 Songs for you", "#64dd43", maxScore);
+
+        // Create charts for bottom 5 songs
+        const bottomSongs = songScores.slice(-5).reverse();
+        createChart("#bottom-songs-chart", bottomSongs, "Bottom 5 Songs based on your answers", "#ff6b6b", maxScore);
+
+        function createChart(selector, data, title, color, maxScore) {
+            // Create SVG
+            const svg = d3.select(selector)
+                .append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                .attr("transform", `translate(${margin.left},${margin.top})`);
+
+            // Create scales
+            const x = d3.scaleBand()
+                .domain(data.map(d => d.name))
+                .range([0, width])
+                .padding(0.2);
+
+            const y = d3.scaleLinear()
+                .domain([0, maxScore])
+                .range([height, 0]);
+
+            // Add the y-axis label (Brat Score)
+            svg.append("text")
+                .attr("transform", "rotate(-90)")
+                .attr("y", -margin.left + 20)
+                .attr("x", -(height / 2))
+                .attr("text-anchor", "middle")
+                .attr("fill", "#FFFFFF")
+                .attr("font-size", "24px")
+                .text("Brat Score");
+
+            // Add bars with tooltip interaction
+            svg.selectAll("rect")
+                .data(data)
+                .enter()
+                .append("rect")
+                .attr("x", d => x(d.name))
+                .attr("y", d => y(d.score))
+                .attr("width", x.bandwidth())
+                .attr("height", d => height - y(d.score))
+                .attr("fill", color)
+                .attr("opacity", 0.8)
+                .on("mouseover", function(event, d) {
+                    tooltip.transition()
+                        .duration(200)
+                        .style("opacity", .9);
+                    tooltip.html(
+                        `<div style="display: grid; grid-template-columns: 120px auto; gap: 10px;">
+            <div style="text-align: left;">danceability:</div><div>${d.danceability.toFixed(2)}</div>
+            <div style="text-align: left;">energy:</div><div>${d.energy.toFixed(2)}</div>
+            <div style="text-align: left;">valence:</div><div>${d.valence.toFixed(2)}</div>
+        </div>`
+                    )
+                        .style("left", (event.pageX + 10) + "px")
+                        .style("top", (event.pageY - 28) + "px");
+
+                    d3.select(this)
+                        .attr("opacity", 1);
+                })
+                .on("mouseout", function(d) {
+                    tooltip.transition()
+                        .duration(500)
+                        .style("opacity", 0);
+
+                    d3.select(this)
+                        .attr("opacity", 0.8);
+                })
+                .on("mousemove", function(event) {
+                    tooltip.style("left", (event.pageX + 10) + "px")
+                        .style("top", (event.pageY - 28) + "px");
+                });
+
+            svg.selectAll(".song-label")
+                .data(data)
+                .enter()
+                .append("text")
+                .attr("class", "song-label")
+                .attr("x", d => x(d.name) + x.bandwidth() / 2)
+                .attr("y", height + 40)
+                .attr("text-anchor", "middle")
+                .attr("fill", "#FFFFFF")
+                .style("font-size", "22px")
+                .each(function(d) {
+                    const text = d3.select(this);
+                    const words = d.name.split(' ');
+
+                    text.text('');
+
+                    let tspan = text.append('tspan')
+                        .attr("x", x(d.name) + x.bandwidth() / 2)
+                        .attr("dy", 0)
+                        .style("font-size", "22px")
+                        .text(words[0]);
+
+                    let lineNumber = 0;
+                    let line = words[0];
+
+                    for(let i = 1; i < words.length; i++) {
+                        let testLine = line + " " + words[i];
+                        if (testLine.length * 12 > x.bandwidth()) {
+                            lineNumber++;
+                            line = words[i];
+                            tspan = text.append('tspan')
+                                .attr("x", x(d.name) + x.bandwidth() / 2)
+                                .attr("dy", "1.4em")
+                                .style("font-size", "22px")
+                                .text(words[i]);
+                        } else {
+                            line = testLine;
+                            tspan.text(line);
+                        }
+                    }
+                });
+
+            // Add scores above bars
+            svg.selectAll(".score-label")
+                .data(data)
+                .enter()
+                .append("text")
+                .attr("class", "score-label")
+                .attr("x", d => x(d.name) + x.bandwidth() / 2)
+                .attr("y", d => y(d.score) - 10)
+                .attr("text-anchor", "middle")
+                .attr("fill", "#FFFFFF")
+                .attr("font-size", "14px")
+                .text(d => d.score.toFixed(2));
+
+            // Add title
+            svg.append("text")
+                .attr("x", width / 2)
+                .attr("y", -40)
+                .attr("text-anchor", "middle")
+                .attr("fill", "#FFFFFF")
+                .attr("font-size", "32px")
+                .attr("font-weight", "bold")
+                .text(title);
+        }
     }
 
     // Function to calculate scores based on answers
@@ -201,6 +379,43 @@ Valence:      ${bestSong.valence.toFixed(2)}
         }).sort((a, b) => b.score - a.score);
     }
 });
+
+function showBarCharts() {
+    // Show the Bar Charts section and hide the Ranking section
+    document.getElementById('barChartsSection').style.display = 'block';
+    document.getElementById('rankingSection').style.display = 'none';
+
+    // Highlight the active button
+    document.getElementById('barChartsButton').style.backgroundColor = '#ddd';
+    document.getElementById('rankingButton').style.backgroundColor = '';
+}
+
+
+function showRanking() {
+    // Hide the Bar Charts section and show the Ranking section
+    document.getElementById('barChartsSection').style.display = 'none';
+    document.getElementById('rankingSection').style.display = 'block';
+
+    // Highlight the active button
+    document.getElementById('barChartsButton').style.backgroundColor = '';
+    document.getElementById('rankingButton').style.backgroundColor = '#ddd';
+
+    // Dynamically populate the ranking list
+    const rankingList = document.getElementById('rankingList');
+    rankingList.innerHTML = '';
+
+    // Use the quiz answers to get the scores
+    const songScores = calculateScores(answers);
+
+    // Sort the songs by score and generate the ranked list
+    songScores.forEach((song, index) => {
+        const listItem = document.createElement('li');
+        listItem.textContent = `${index + 1}. ${song.name} - ${song.score.toFixed(2)}`;
+        rankingList.appendChild(listItem);
+    });
+}
+
+
 
 function resetQuiz(event) {
     event.preventDefault();
