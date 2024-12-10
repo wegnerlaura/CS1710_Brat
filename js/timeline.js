@@ -172,7 +172,7 @@ class Timeline{
                     .style("padding", "8px")
                     .style("pointer-events", "auto")
                     .style("z-index", "1000")
-                    .style("left", (event.pageX + 10) + "px")
+                    .style("left", (event.pageX) + "px")
                     .style("top", (event.pageY) + "px")
                     .on("mouseenter", function () {
                         vis.tooltip.style("visibility", "visible");
