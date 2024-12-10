@@ -2,9 +2,6 @@ class SongFlower {
     constructor(containerId, data) {
         this.containerId = containerId;
         this.data = data;
-        this.width = 1000;
-        this.height = 800;
-        this.margin = { top: 100, right: 50, bottom: 50, left: 50 };
 
         this.features = ["speechiness", "acousticness", "instrumentalness"];
         this.colors = {
@@ -17,13 +14,21 @@ class SongFlower {
     }
 
     initVis() {
+        let vis = this;
+
         d3.select(`#${this.containerId}`).selectAll("*").remove();
+
+        vis.margin = { top: 100, right: 50, bottom: 50, left: 50 };
+        vis.width = document.getElementById(vis.containerId).getBoundingClientRect().width - vis.margin.left - vis.margin.right;
+        vis.height = 800;
+
+        console.log(vis.width);
 
         this.svg = d3.select(`#${this.containerId}`)
             .append("svg")
-            .attr("width", "100%")
-            .attr("height", "100%")
-            .attr("viewBox", `0 0 ${this.width} ${this.height}`)
+            .attr("width", vis.width + vis.margin.left + vis.margin.right)
+            .attr("height", vis.height)
+            .attr("viewBox", `0 0 ${vis.width} ${vis.height}`)
             .attr("preserveAspectRatio", "xMidYMid meet")
             .style("background-color", "black");
 
@@ -49,7 +54,7 @@ class SongFlower {
                 .attr("y", 4)
                 .text(feature)
                 .attr("fill", "#64dd43")
-                .style("font-size", "12px");
+                .style("font-size", "20px");
         });
     }
 
@@ -143,7 +148,7 @@ class SongFlower {
             .attr("text-anchor", "middle")
             .attr("y", 80)
             .attr("fill", "#64dd43")
-            .style("font-size", "12px")
+            .style("font-size", "20px")
             .text(d.name);
 
         // Add interactivity
@@ -215,7 +220,8 @@ class SongFlower {
             .style("top", (event.pageY - 10) + "px")
             .transition()
             .duration(200)
-            .style("opacity", 1);
+            .style("opacity", 1)
+            .style("font-size", "20px");
     }
 
     // hideTooltip() {

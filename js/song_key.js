@@ -120,7 +120,7 @@ function createSongKeyVisualization() {
         .style('border', '2px solid #c4f24c')
         .style('pointer-events', 'auto')
         .style('z-index', '1000')
-        .style('font-size', '16px');
+        .style('font-size', '25px');
 
     noteGroup
         .on('mouseover', function(event, d) {
@@ -153,7 +153,7 @@ function createSongKeyVisualization() {
                 <strong>Title:</strong> ${d.name}<br>
                 <strong>Key:</strong> ${getKeyName(d.key)}${d.sharp ? '♯' : ''}<br>
                 <strong>Danceability score:</strong> ${(d.danceability * 10).toFixed(1)}/10<br>
-                <a href="${d.videoUrl}" target="_blank" style="color: #c4f24c;">Watch Music Video</a>
+                <a href="${d.videoUrl}" target="_blank" style="color: #64dd43;">Watch Music Video</a>
             `)
                 .style('left', (event.pageX + 10) + 'px')
                 .style('top', (event.pageY - 28) + 'px');

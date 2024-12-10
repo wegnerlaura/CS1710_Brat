@@ -21,7 +21,7 @@ const tooltip = d3.select("#visualization")
     .style("border-radius", "5px")
     .style("pointer-events", "none")
     .style("opacity", 0)
-    .style("font-size", "12px");
+    .style("font-size", "25px");
 
 // Load data
 d3.csv("data/brat.csv").then(data => {
@@ -186,7 +186,7 @@ d3.csv("data/brat.csv").then(data => {
         .attr("y", -diagramRadius + 15)
         .attr("text-anchor", "middle")
         .attr("fill", "#FFFFFF")
-        .style("font-size", "12px")
+        .style("font-size", "20px")
         .text("Popularity (outer circle)");
 
     // Tempo gradient legend
@@ -218,7 +218,7 @@ d3.csv("data/brat.csv").then(data => {
         .attr("y", -diagramRadius + 45 + legendPadding)
         .attr("text-anchor", "middle")
         .attr("fill", "#FFFFFF")
-        .style("font-size", "12px")
+        .style("font-size", "20px")
         .text("Tempo (inner circle)");
 });
 
