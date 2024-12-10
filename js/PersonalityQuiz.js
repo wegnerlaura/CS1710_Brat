@@ -401,25 +401,26 @@ function showRanking() {
     document.getElementById('rankingButton').style.backgroundColor = '#ddd';
 
     // Dynamically populate the ranking list
+    console.log("test")
     const rankingList = document.getElementById('rankingList');
     rankingList.innerHTML = '';
 
     // Use the quiz answers to get the scores
-    const songScores = calculateScores(answers);
+    //const songScores = calculateScores(answers);
 
     // Sort the songs by score and generate the ranked list
-    songScores.forEach((song, index) => {
-        const listItem = document.createElement('li');
-        listItem.textContent = `${index + 1}. ${song.name} - ${song.score.toFixed(2)}`;
-        rankingList.appendChild(listItem);
-    });
+    //songScores.forEach((song, index) => {
+    //const listItem = document.createElement('li');
+    //listItem.textContent = `${index + 1}. ${song.name} - ${song.score.toFixed(2)}`;
+    //rankingList.appendChild(listItem);
+    //});
 }
 
 
 
 function resetQuiz(event) {
-    event.preventDefault();
-
+    //event.preventDefault();
+    console.log("test")
     // Reset quiz to initial state
     currentQuestionIndex = 0;
     answers = {};
