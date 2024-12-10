@@ -181,7 +181,7 @@ class Timeline{
                         vis.tooltip.style("visibility", "hidden").style("opacity", 0);
                     });
             })
-            
+
             .on("mouseout", function(event, d) {
                 // Use a small delay to check if mouse has left the tooltip
                 setTimeout(() => {
