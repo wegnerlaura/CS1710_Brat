@@ -1,252 +1,130 @@
-class PersonalityQuiz {
-    constructor() {
-        this.currentQuestion = 1;
-        this.totalQuestions = 5;
-        this.answers = {};
-        this.songsData = [];
+document.addEventListener("DOMContentLoaded", function () {
+    const questions = document.querySelectorAll(".quiz-question");
+    const nextButton = document.getElementById("next-button");
+    const submitButton = document.getElementById("quiz-submit");
+    const resultContainer = document.getElementById("quiz-result");
+    const countdownContainer = document.getElementById("countdown");
+    const resultContent = document.getElementById("result-content");
+    let currentQuestionIndex = 0;
 
-        // Load the song data
-        d3.csv("data/brat.csv").then(data => {
-            this.songsData = data.filter(song => !song.name.includes("featuring"));
-            this.initializeQuiz();
+    const responses = {};
+
+    // Mock song dataset
+    const songsData = [
+        { name: "360", youtube_id: "WJW-VvmRKsE", danceability: 0.9, energy: 0.7, valence: 0.8, tempo: 120 },
+        { name: "Club Classics", youtube_id: "bg9EmWTRt3Y", danceability: 0.7, energy: 0.8, valence: 0.6, tempo: 145 },
+        { name: "Stupid", youtube_id: "zw6bA75H2jc", danceability: 0.5, energy: 0.3, valence: 0.2, tempo: 80 },
+        // Add more songs here
+    ];
+
+    function showQuestion(index) {
+        questions.forEach((question, i) => {
+            question.classList.toggle("hidden", i !== index);
         });
-    }
 
-    initializeQuiz() {
-        // Hide all questions except the first
-        for (let i = 2; i <= this.totalQuestions; i++) {
-            document.getElementById(`question-${i}`).classList.add('hidden');
-        }
-
-        // Add event listeners
-        this.addOptionListeners();
-        this.addButtonListeners();
-    }
-
-    addOptionListeners() {
-        const buttons = document.querySelectorAll('.star-button');
-        buttons.forEach(button => {
-            button.addEventListener('click', (e) => {
-                // Remove selection from other buttons in same question
-                const currentQuestion = e.target.closest('.quiz-question');
-                currentQuestion.querySelectorAll('.star-button').forEach(btn => {
-                    btn.classList.remove('selected');
-                });
-
-                // Add selection to clicked button
-                button.classList.add('selected');
-
-                // Store the answer
-                this.answers[this.currentQuestion] = button.dataset.value;
-
-                // Enable next/submit button
-                const nextButton = document.getElementById('next-button');
-                const submitButton = document.getElementById('quiz-submit');
-                if (this.currentQuestion === this.totalQuestions) {
-                    submitButton.disabled = false;
-                } else {
-                    nextButton.disabled = false;
-                }
-            });
-        });
-    }
-
-    addButtonListeners() {
-        const nextButton = document.getElementById('next-button');
-        const submitButton = document.getElementById('quiz-submit');
-
-        nextButton.addEventListener('click', () => this.nextQuestion());
-        submitButton.addEventListener('click', () => this.showResults());
-    }
-
-    nextQuestion() {
-        if (this.currentQuestion < this.totalQuestions) {
-            // Hide current question
-            document.getElementById(`question-${this.currentQuestion}`).classList.add('hidden');
-
-            // Show next question
-            this.currentQuestion++;
-            document.getElementById(`question-${this.currentQuestion}`).classList.remove('hidden');
-
-            // Update buttons
-            if (this.currentQuestion === this.totalQuestions) {
-                document.getElementById('next-button').classList.add('hidden');
-                document.getElementById('quiz-submit').classList.remove('hidden');
-            }
-
-            // Disable next button until an option is selected
-            document.getElementById('next-button').disabled = true;
+        // If it's the last question, hide "Next" and show "Find My Song"
+        if (index === questions.length - 1) {
+            nextButton.classList.add("hidden");
+            submitButton.classList.remove("hidden");
+        } else {
+            nextButton.classList.remove("hidden");
+            submitButton.classList.add("hidden");
         }
     }
 
-    startCountdown() {
-        const countdown = document.getElementById('countdown');
-        countdown.classList.remove('hidden');
-        let count = 3;
-
-        return new Promise(resolve => {
-            const interval = setInterval(() => {
-                countdown.textContent = count;
-                count--;
-
-                if (count < 0) {
-                    clearInterval(interval);
-                    countdown.classList.add('hidden');
-                    resolve();
-                }
-            }, 1000);
-        });
-    }
-
-    calculateResult() {
-        const weights = {
-            danceability: 0.25,
-            energy: 0.2,
-            valence: 0.2,
-            tempo: 0.15,
-            acousticness: 0.1,
-            instrumentalness: 0.05,
-            speechiness: 0.05
-        };
-
-        const tempoRanges = {
-            slow: { min: 0, max: 100 },
-            medium: { min: 100, max: 130 },
-            fast: { min: 130, max: Infinity }
-        };
-
-        return this.songsData.map(song => {
+    function calculateResults() {
+        const rankedSongs = songsData.map(song => {
             let score = 0;
-            Object.entries(this.answers).forEach(([_, answer]) => {
-                if (answer === 'slow' || answer === 'medium' || answer === 'fast') {
-                    const tempo = parseFloat(song.tempo);
-                    const range = tempoRanges[answer];
-                    if (tempo >= range.min && tempo <= range.max) {
-                        score += weights.tempo;
-                    }
-                } else if (answer === 'explicit') {
-                    if (song.explicit === "TRUE") {
-                        score += 0.1;
-                    }
-                } else if (song[answer]) {
-                    score += parseFloat(song[answer]) * (weights[answer] || 0.1);
+            for (const [key, value] of Object.entries(responses)) {
+                if (song[key] !== undefined) {
+                    score += song[key] * value;
                 }
-            });
-
-            return {
-                name: song.name,
-                score: score
-            };
+            }
+            return { ...song, score };
         }).sort((a, b) => b.score - a.score);
+
+        return rankedSongs;
     }
 
-    async showResults() {
-        // Hide the quiz form
-        document.getElementById('quiz-form').classList.add('hidden');
+    function displayResults(rankedSongs) {
+        const bestSong = rankedSongs[0];
 
-        // Show countdown
-        await this.startCountdown();
-
-        // Calculate results
-        const results = this.calculateResult();
-        const bestMatch = results[0];
-        const topFive = results.slice(0, 5);
-        const bottomFive = results.slice(-5);
-
-        // Show results
-        const resultContent = document.getElementById('result-content');
         resultContent.innerHTML = `
-            <h2>Your song is: ${bestMatch.name}</h2>
-            <div class="video-container">
-                <iframe src="https://www.youtube.com/embed/${this.getVideoId(bestMatch.name)}" 
-                        frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                        allowfullscreen>
-                </iframe>
-            </div>
-            
-            <div class="view-toggle">
-                <button class="toggle-button active" data-view="rankings">Show Rankings</button>
-                <button class="toggle-button" data-view="graphs">Show Graphs</button>
-            </div>
-            
-            <div id="rankings-container">
-                <h3>Top 5 Songs:</h3>
-                ${topFive.map((song, index) => `
-                    <div class="song-rank">${index + 1}. ${song.name}</div>
-                `).join('')}
-                
-                <h3>Bottom 5 Songs:</h3>
-                ${bottomFive.map((song, index) => `
-                    <div class="song-rank">${index + 1}. ${song.name}</div>
-                `).join('')}
-            </div>
-            
-            <div id="graphs-container" class="hidden">
-                <div id="top-songs-chart"></div>
-                <div id="bottom-songs-chart"></div>
+            <h2>Your Result:</h2>
+            <h3>${bestSong.name}</h3>
+            <p><strong>Danceability:</strong> ${bestSong.danceability}</p>
+            <p><strong>Energy:</strong> ${bestSong.energy}</p>
+            <p><strong>Valence:</strong> ${bestSong.valence}</p>
+            <p><strong>Tempo:</strong> ${bestSong.tempo}</p>
+            <div id="youtube-video">
+                <iframe width="560" height="315"
+                    src="https://www.youtube.com/embed/${bestSong.youtube_id}"
+                    title="${bestSong.name}" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
             </div>
         `;
 
-        document.getElementById('quiz-result').classList.remove('hidden');
-        this.initializeResultsView();
+        // Display full rankings
+        const rankings = rankedSongs.map((song, index) => `
+            <p>${index + 1}. ${song.name} (Score: ${song.score.toFixed(2)})</p>
+        `).join("");
+
+        resultContent.innerHTML += `
+            <h3>Full Rankings:</h3>
+            <div>${rankings}</div>
+        `;
     }
 
-    getVideoId(songName) {
-        const videoIds = {
-            "360": "WJW-VvmRKsE",
-            "Club classics": "bg9EmWTRt3Y",
-            "Sympathy is a knife": "KrxDhDDXUwQ",
-            "I might say something stupid": "zw6bA75H2jc",
-            "Talk talk": "K5jyIoPbu4M",
-            "Von dutch": "cwZ1L_0QLjw",
-            "Everything is romantic": "fUr2t-KnILQ",
-            "Rewind": "WlM7nm3TLnY",
-            "So I": "g-PovEJ1qWc",
-            "Girl, so confusing": "0q3K6FPzY18",
-            "Apple": "CPWxExGk7PM",
-            "B2b": "Lp8TaMWU-Ho",
-            "Mean girls": "IKUQDMEBXN0",
-            "I think about it all the time": "Mn0aho8Ayfk",
-            "365": "Ol9CCM240Ag",
-            "Hello goodbye": "your-video-id",
-            "Guess": "your-video-id",
-            "Spring breakers": "your-video-id"
-        };
-        return videoIds[songName] || "dQw4w9WgXcQ";
+    function startCountdown(callback) {
+        let countdown = 3;
+        countdownContainer.classList.remove("hidden");
+        countdownContainer.textContent = countdown;
+
+        const interval = setInterval(() => {
+            countdown -= 1;
+            countdownContainer.textContent = countdown;
+            if (countdown <= 0) {
+                clearInterval(interval);
+                countdownContainer.classList.add("hidden");
+                callback();
+            }
+        }, 1000);
     }
 
-    initializeResultsView() {
-        const toggleButtons = document.querySelectorAll('.toggle-button');
-        const rankingsContainer = document.getElementById('rankings-container');
-        const graphsContainer = document.getElementById('graphs-container');
+    // Event Listeners
+    nextButton.addEventListener("click", () => {
+        showQuestion(++currentQuestionIndex);
+    });
 
-        toggleButtons.forEach(button => {
-            button.addEventListener('click', (e) => {
-                toggleButtons.forEach(btn => btn.classList.remove('active'));
-                e.target.classList.add('active');
-
-                if (e.target.dataset.view === 'rankings') {
-                    rankingsContainer.classList.remove('hidden');
-                    graphsContainer.classList.add('hidden');
-                } else {
-                    rankingsContainer.classList.add('hidden');
-                    graphsContainer.classList.remove('hidden');
-                    this.createCharts();
-                }
-            });
+    submitButton.addEventListener("click", () => {
+        // Start the countdown before showing results
+        startCountdown(() => {
+            const rankedSongs = calculateResults();
+            resultContainer.classList.remove("hidden");
+            displayResults(rankedSongs);
         });
-    }
+    });
 
-    createCharts() {
-        // Implement D3.js charts here if needed
-    }
-}
+    document.querySelectorAll(".star-button").forEach(button => {
+        button.addEventListener("click", () => {
+            const value = button.getAttribute("data-value");
+            responses[value] = (responses[value] || 0) + 1;
 
-// Initialize the quiz when the DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-    new PersonalityQuiz();
+            // Highlight selected button
+            button.classList.add("selected");
+
+            // Enable "Next" button
+            nextButton.disabled = false;
+        });
+    });
+
+    // Initialize the first question
+    showQuestion(currentQuestionIndex);
 });
+
+
+
 
 
 
