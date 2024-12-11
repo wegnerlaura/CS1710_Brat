@@ -1,9 +1,9 @@
+const answers = {};
 document.addEventListener("DOMContentLoaded", function () {
     let currentQuestionIndex = 0;
     const questions = document.querySelectorAll(".quiz-question");
     const nextButton = document.getElementById("next-button");
     const findSongButton = document.getElementById("quiz-submit");
-    const answers = {};
 
     // Song dataset with normalized attributes
     const songsData = [
@@ -32,6 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
             question.classList.add("hidden");
         }
     });
+
 
     // Add event listeners to all buttons for single selection logic
     document.querySelectorAll(".star-button").forEach((button) => {
@@ -88,6 +89,8 @@ document.addEventListener("DOMContentLoaded", function () {
         const quizResult = document.getElementById("quiz-result");
         const countdown = document.getElementById("countdown");
         const nextButton = document.getElementById("next-button");
+
+        document.querySelectorAll(".quiz-question")[4].classList.add("hidden");
 
         if (!resultContent || !quizResult || !countdown || !nextButton) {
             console.error("Required elements not found");
@@ -418,14 +421,19 @@ function showRanking() {
 
 
 
-function resetQuiz(event) {
-    //event.preventDefault();
-    console.log("test")
-    // Reset quiz to initial state
+function resetQuiz() {
     currentQuestionIndex = 0;
-    answers = {};
+    userScore = 0;
+    usersAnswers = [];
+    usersGuess = -1;
 
-    // Reload all questions to initial state
+    // Reset UI elements
+    document.getElementById("quiz-result").classList.add("hidden");
+    document.getElementById("result-content").style.display = "none";
+    document.getElementById("countdown").classList.add("hidden");
+
+    // Reset question visibility
+    const questions = document.querySelectorAll(".quiz-question");
     questions.forEach((question, index) => {
         if (index === 0) {
             question.classList.remove("hidden");
@@ -434,23 +442,31 @@ function resetQuiz(event) {
         }
     });
 
-    // Reset next button to initial state
+    // Reset the "Next" button
     const nextButton = document.getElementById("next-button");
     nextButton.textContent = "Next";
     nextButton.style.display = "block";
     nextButton.disabled = true;
 
-    // Hide results section
-    document.getElementById("quiz-result").classList.add("hidden");
+    nextButton.onclick = null; // Clear the old event handler
+    nextButton.onclick = function() { // Add the default next question handler
+        questions[currentQuestionIndex].classList.add("hidden");
+        currentQuestionIndex++;
+        if (currentQuestionIndex < questions.length) {
+            questions[currentQuestionIndex].classList.remove("hidden");
+            nextButton.disabled = true;
+        }
+    };
 
     // Reset all selected buttons
-    document.querySelectorAll(".star-button").forEach(btn => {
-        btn.classList.remove("selected");
-    });
+    const starButtons = document.querySelectorAll(".star-button");
+    starButtons.forEach((btn) => btn.classList.remove("selected"));
 
-    // Stay in quiz section
-    document.getElementById("quiz-section").scrollIntoView({ behavior: "smooth" });
+    // Load the first question
+    addQuizQuestion(questions[0].question);
+    addQuizAnswers(questions[0].choices);
 }
+
 
 
 
