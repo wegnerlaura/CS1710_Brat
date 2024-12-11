@@ -5,7 +5,6 @@ let promises = [
     d3.csv("data/album_word_frequencies.csv"),
     d3.csv("data/brat.csv"),
     d3.csv("data/brat-search.csv"),
-    d3.csv("data/brat_summer-search.csv"),
     d3.csv("data/charli-search.csv")
 ];
 
@@ -21,7 +20,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function initMainPage(data) {
     // popularity
-    myLineChart = new LineChart('lineChartContainer', data[2], data[3], data[4]);
+    console.log("BRAT Search Data:", data[2]);
+    console.log("Charli XCX Search Data:", data[3]);
+
+
+    myLineChart = new LineChart('lineChartContainer', data[2], data[3]);
 
     // Word cloud
     myWordCloud = new WordCloud('wordCloudContainer', data[0]);
