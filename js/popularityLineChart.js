@@ -84,7 +84,7 @@ class LineChart{
             vis.bratSearchData,
             createScales(vis.bratSearchData),
             createLineGenerator,
-            "BRAT Search"
+            "Searches for Brat"
         );
 
 
@@ -93,7 +93,7 @@ class LineChart{
             vis.charliSearchData,
             createScales(vis.charliSearchData),
             createLineGenerator,
-            "Charli XCX Search"
+            "Searches for Charli XCX"
         );
     }
 
