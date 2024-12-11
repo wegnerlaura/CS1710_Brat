@@ -428,8 +428,8 @@ button:hover {
 
 #key-visualization {
     width: 100%;
-    height: 300px; /* Adjust height as needed */
-    background-color: #000000;
+    height: 500px; // Increased from 300px
+background-color: #000000;
     border: 2px dashed #64dd43;
     margin: 20px auto;
 }
@@ -482,19 +482,17 @@ select#song-select {
 
 #flower-container {
     width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
+    max-width: 1400px; // Increased from 1200px margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 20px;
-    padding: 20px;
+    gap: 30px; // Increased from 20px padding: 30px; // Increased from 20px
 }
 
 .flower {
-    width: 200px;
-    height: 200px;
-    transition: transform 0.2s ease-in-out;
+    width: 300px; // Increased from 200px
+height: 300px; // Increased from 200px
+transition: transform 0.2s ease-in-out;
 }
 
 .flower:hover {

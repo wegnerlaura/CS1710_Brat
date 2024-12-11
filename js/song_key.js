@@ -17,8 +17,8 @@ const songData = [
 ];
 
 function createSongKeyVisualization() {
-    const width = 2000;
-    const height = 800;
+    const width = 2500;
+    const height = 1000;
     const margin = { top: 40, right: 40, bottom: 40, left: 40 };
     const colors = ["#64dd43", "#04530a", "#7b807c", "#c4f24c"];
 
@@ -33,7 +33,8 @@ function createSongKeyVisualization() {
         .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
     const staffLines = [0, 1, 2, 3, 4];
-    const lineSpacing = 40;
+    const lineSpacing = 50;
+
     staffLines.forEach(line => {
         vizGroup.append("line")
             .attr("x1", 0)
@@ -47,7 +48,7 @@ function createSongKeyVisualization() {
     vizGroup.append("text")
         .attr("x", 60)
         .attr("y", height/2 + 90)
-        .attr("font-size", "240px")
+        .attr("font-size", "300px")
         .attr("font-family", "Arial Unicode MS, sans-serif")
         .attr("fill", "#c4f24c")
         .text("\u{1D11E}");
@@ -76,7 +77,7 @@ function createSongKeyVisualization() {
         .enter()
         .append("g")
         .attr("class", "note")
-        .attr("transform", (d, i) => `translate(${240 + i * ((width - 300) / songData.length)}, ${keyToStaffPosition(d.key)})`);
+        .attr("transform", (d, i) => `translate(${300 + i * ((width - 400) / songData.length)}, ${keyToStaffPosition(d.key)})`);
 
     noteGroup.append('rect')
         .attr('class', 'hover-area')
@@ -90,23 +91,23 @@ function createSongKeyVisualization() {
     noteGroup.append('ellipse')
         .attr('cx', 0)
         .attr('cy', 0)
-        .attr('rx', (d) => (d.danceability * 10) * 2.5)
-        .attr('ry', (d) => (d.danceability * 10) * 2)
+        .attr('rx', (d) => (d.danceability * 10) * 3)
+        .attr('ry', (d) => (d.danceability * 10) * 2.5)
         .attr('fill', (d, i) => colors[i % colors.length]);
 
     noteGroup.append("line")
-        .attr("x1", (d) => (d.danceability * 10) * 2.5)
+        .attr("x1", (d) => (d.danceability * 10) * 3)
         .attr("y1", 0)
-        .attr("x2", (d) => (d.danceability * 10) * 2.5)
+        .attr("x2", (d) => (d.danceability * 10) * 3)
         .attr("y2", -160)
         .attr('stroke', (d, i) => colors[i % colors.length])
-        .attr('stroke-width', 5);
+        .attr('stroke-width', 6);
 
     noteGroup.filter((d) => [1, 3, 6, 8, 10].includes(d.key) || d.sharp)
         .append('text')
-        .attr('x', (d) => (d.danceability * 10) * 3)
-        .attr('y', 16)
-        .attr('font-size', "60px")
+        .attr('x', (d) => (d.danceability * 10) * 3.5)
+        .attr('y', 20)
+        .attr('font-size', "75px")
         .attr('fill', (d, i) => colors[i % colors.length])
         .text('♯');
 
@@ -125,30 +126,28 @@ function createSongKeyVisualization() {
     noteGroup
         .on('mouseover', function(event, d) {
             const note = d3.select(this);
-
             note.select('ellipse')
                 .transition()
                 .duration(200)
-                .attr('rx', (d) => (d.danceability * 10) * 2.8)
-                .attr('ry', (d) => (d.danceability * 10) * 2.3);
+                .attr('rx', (d) => (d.danceability * 10) * 3.3)
+                .attr('ry', (d) => (d.danceability * 10) * 2.8);
 
             note.select('line')
                 .transition()
                 .duration(200)
-                .attr('x1', (d) => (d.danceability * 10) * 2.8)
-                .attr('x2', (d) => (d.danceability * 10) * 2.8)
-                .attr('stroke-width', 6);
+                .attr('x1', (d) => (d.danceability * 10) * 3.3)
+                .attr('x2', (d) => (d.danceability * 10) * 3.3)
+                .attr('stroke-width', 7);
 
             note.select('text')
                 .transition()
                 .duration(200)
-                .attr('x', (d) => (d.danceability * 10) * 3.3)
-                .attr('font-size', "70px");
+                .attr('x', (d) => (d.danceability * 10) * 3.8)
+                .attr('font-size', "85px");
 
             tooltip.transition()
                 .duration(200)
                 .style('opacity', 0.9);
-
             tooltip.html(`
                 <strong>Title:</strong> ${d.name}<br>
                 <strong>Key:</strong> ${getKeyName(d.key)}${d.sharp ? '♯' : ''}<br>
@@ -160,25 +159,24 @@ function createSongKeyVisualization() {
         })
         .on('mouseout', function() {
             const note = d3.select(this);
-
             note.select('ellipse')
                 .transition()
                 .duration(200)
-                .attr('rx', (d) => (d.danceability * 10) * 2.5)
-                .attr('ry', (d) => (d.danceability * 10) * 2);
+                .attr('rx', (d) => (d.danceability * 10) * 3)
+                .attr('ry', (d) => (d.danceability * 10) * 2.5);
 
             note.select('line')
                 .transition()
                 .duration(200)
-                .attr('x1', (d) => (d.danceability * 10) * 2.5)
-                .attr('x2', (d) => (d.danceability * 10) * 2.5)
-                .attr('stroke-width', 5);
+                .attr('x1', (d) => (d.danceability * 10) * 3)
+                .attr('x2', (d) => (d.danceability * 10) * 3)
+                .attr('stroke-width', 6);
 
             note.select('text')
                 .transition()
                 .duration(200)
-                .attr('x', (d) => (d.danceability * 10) * 3)
-                .attr('font-size', "60px");
+                .attr('x', (d) => (d.danceability * 10) * 3.5)
+                .attr('font-size', "75px");
 
             tooltip.transition()
                 .delay(300)
