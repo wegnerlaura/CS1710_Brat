@@ -87,6 +87,7 @@ class LineChart{
             "BRAT Search"
         );
 
+
         this.renderChart(
             vis.svgCharli,
             vis.charliSearchData,
