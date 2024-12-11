@@ -830,8 +830,4 @@ select#song-select {
     justify-content: center;
 }
 
-.tooltip {
-    font-size: 14px;
-    line-height: 1.4;
-    font-family: inherit;
-}
+

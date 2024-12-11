@@ -1,27 +1,34 @@
 // Visualization dimensions
 const diagramWidth = 800;
 const diagramHeight = 800;
-const diagramRadius = Math.min(diagramWidth, diagramHeight) / 2;
+const diagramRadius = (Math.min(diagramWidth, diagramHeight) / 2) * 0.9;
 
 // Create SVG container
 const tempoKeySVG = d3.select("#visualization")
     .append("svg")
     .attr("width", diagramWidth + 200)
-    .attr("height", diagramHeight + 100) // Extra height for the sliders
+    .attr("height", diagramHeight + 400)
     .append("g")
-    .attr("transform", `translate(${diagramWidth / 2}, ${diagramHeight / 2})`);
+    .attr("transform", `translate(${diagramWidth / 2 - 80}, ${diagramHeight / 2 + 50})`);
+
+// Create legend group
+const legendGroup = tempoKeySVG.append("g")
+    .attr("transform", `translate(0, ${-diagramRadius - 120})`);
+
 
 // Create a tooltip container
-const tooltip = d3.select("#visualization")
+const tooltip = d3.select("body")
     .append("div")
     .style("position", "absolute")
     .style("background", "rgba(0, 0, 0, 0.8)")
     .style("color", "#c4f24c")
-    .style("padding", "10px")
+    .style("padding", "13px")
     .style("border-radius", "5px")
     .style("pointer-events", "none")
     .style("opacity", 0)
-    .style("font-size", "25px");
+    .style("z-index", 1000)
+    .style("font-size", "20px");
+
 
 // Load data
 d3.csv("data/brat.csv").then(data => {
@@ -155,11 +162,12 @@ d3.csv("data/brat.csv").then(data => {
     // Gradient-based legend
     const legendWidth = 120;
     const legendHeight = 20;
-    const legendPadding = 10;
 
-    // Popularity gradient legend
-    const popularityGradient = tempoKeySVG.append("defs")
-        .append("linearGradient")
+// Create defs for gradients
+    const defs = tempoKeySVG.append("defs");
+
+// Popularity gradient legend
+    const popularityGradient = defs.append("linearGradient")
         .attr("id", "popularityGradient")
         .attr("x1", "0%")
         .attr("x2", "100%")
@@ -174,24 +182,8 @@ d3.csv("data/brat.csv").then(data => {
         .attr("offset", "100%")
         .attr("stop-color", popularityColorScale(d3.max(data, d => d.popularity)));
 
-    tempoKeySVG.append("rect")
-        .attr("x", diagramRadius + 50)
-        .attr("y", -diagramRadius + 20)
-        .attr("width", legendWidth)
-        .attr("height", legendHeight)
-        .style("fill", "url(#popularityGradient)");
-
-    tempoKeySVG.append("text")
-        .attr("x", diagramRadius + 50 + legendWidth / 2)
-        .attr("y", -diagramRadius + 15)
-        .attr("text-anchor", "middle")
-        .attr("fill", "#FFFFFF")
-        .style("font-size", "20px")
-        .text("Popularity (outer circle)");
-
-    // Tempo gradient legend
-    const tempoGradient = tempoKeySVG.append("defs")
-        .append("linearGradient")
+// Tempo gradient legend
+    const tempoGradient = defs.append("linearGradient")
         .attr("id", "tempoGradient")
         .attr("x1", "0%")
         .attr("x2", "100%")
@@ -206,16 +198,35 @@ d3.csv("data/brat.csv").then(data => {
         .attr("offset", "100%")
         .attr("stop-color", tempoColorScale(d3.max(data, d => d.tempo)));
 
+/// Add popularity legend rectangle
     tempoKeySVG.append("rect")
-        .attr("x", diagramRadius + 50)
-        .attr("y", -diagramRadius + 50 + legendPadding)
+        .attr("x", -legendWidth / 2)
+        .attr("y", -diagramRadius)
+        .attr("width", legendWidth)
+        .attr("height", legendHeight)
+        .style("fill", "url(#popularityGradient)");
+
+// Add popularity legend text
+    tempoKeySVG.append("text")
+        .attr("x", 0)
+        .attr("y", -diagramRadius - 8)
+        .attr("text-anchor", "middle")
+        .attr("fill", "#FFFFFF")
+        .style("font-size", "20px")
+        .text("Popularity (outer circle)");
+
+// Add tempo legend rectangle
+    tempoKeySVG.append("rect")
+        .attr("x", -legendWidth / 2)
+        .attr("y", -diagramRadius - 60)
         .attr("width", legendWidth)
         .attr("height", legendHeight)
         .style("fill", "url(#tempoGradient)");
 
+// Add tempo legend text
     tempoKeySVG.append("text")
-        .attr("x", diagramRadius + 50 + legendWidth / 2)
-        .attr("y", -diagramRadius + 45 + legendPadding)
+        .attr("x", 0)
+        .attr("y", -diagramRadius - 68)
         .attr("text-anchor", "middle")
         .attr("fill", "#FFFFFF")
         .style("font-size", "20px")
