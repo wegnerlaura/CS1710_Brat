@@ -1,28 +1,93 @@
+// AI acknowledgment: I used ChatGPT to debug the Ranking and Play Again buttons and the solution had some different
+// parts to it, but the main solution was to place calculateScores a the top of the code.
+
+
 const answers = {};
+
+function calculateScores(answers) {
+    const weights = {
+        danceability: 0.4,
+        energy: 0.3,
+        valence: 0.2,
+        tempo: 0.1
+    };
+
+    return songsData.map((song) => {
+        let score = 0;
+
+        // Question 1: Music preference
+        if (answers["question-1"] === "danceability") {
+            score += song.danceability * weights.danceability;
+        } else if (answers["question-1"] === "energy") {
+            score += song.energy * weights.energy;
+        } else if (answers["question-1"] === "valence") {
+            score += song.valence * weights.valence;
+        }
+
+        // Question 2: Vibe preference
+        if (answers["question-2"] === "acousticness") {
+            score += (1 - song.energy) * weights.energy;
+        } else if (answers["question-2"] === "danceability") {
+            score += song.danceability * weights.danceability;
+        } else if (answers["question-2"] === "instrumentalness") {
+            score += song.energy * weights.energy;
+        }
+
+        // Question 3: Expression
+        if (answers["question-3"] === "explicit") {
+            score += song.energy * weights.energy;
+        } else if (answers["question-3"] === "speechiness") {
+            score += (1 - song.valence) * weights.valence;
+        } else if (answers["question-3"] === "valence") {
+            score += song.valence * weights.valence;
+        }
+
+        // Question 4: Tempo preference
+        if (answers["question-4"] === "slow") {
+            score += (song.tempo < 100 ? 1 : 0) * weights.tempo;
+        } else if (answers["question-4"] === "medium") {
+            score += ((song.tempo >= 100 && song.tempo <= 130) ? 1 : 0) * weights.tempo;
+        } else if (answers["question-4"] === "fast") {
+            score += (song.tempo > 130 ? 1 : 0) * weights.tempo;
+        }
+
+        // Question 5: What matters most
+        if (answers["question-5"] === "danceability") {
+            score += song.danceability * weights.danceability;
+        } else if (answers["question-5"] === "valence") {
+            score += song.valence * weights.valence;
+        } else if (answers["question-5"] === "energy") {
+            score += song.energy * weights.energy;
+        }
+
+        return { ...song, score };
+    }).sort((a, b) => b.score - a.score);
+}
+
+// Song dataset with normalized attributes
+const songsData = [
+    { name: "360", youtube_id: "WJW-VvmRKsE", danceability: 0.928, energy: 0.649, valence: 0.951, tempo: 120.042, popularity: 54 },
+    { name: "Club Classics", youtube_id: "bg9EmWTRt3Y", danceability: 0.716, energy: 0.879, valence: 0.693, tempo: 144.95, popularity: 54 },
+    { name: "Sympathy is a Knife", youtube_id: "KrxDhDDXUwQ", danceability: 0.718, energy: 0.706, valence: 0.580, tempo: 131.944, popularity: 54 },
+    { name: "Something Stupid", youtube_id: "zw6bA75H2jc", danceability: 0.504, energy: 0.3, valence: 0.16, tempo: 79.25, popularity: 49 },
+    { name: "Talk Talk", youtube_id: "K5jyIoPbu4M", danceability: 0.701, energy: 0.82, valence: 0.49, tempo: 130.146, popularity: 52 },
+    { name: "Von Dutch", youtube_id: "cwZ1L_0QLjw", danceability: 0.8, energy: 0.95, valence: 0.6, tempo: 140.0, popularity: 50 },
+    { name: "Everything Is Romantic", youtube_id: "fUr2t-KnILQ", danceability: 0.6, energy: 0.5, valence: 0.4, tempo: 115.0, popularity: 48 },
+    { name: "Rewind", youtube_id: "WlM7nm3TLnY", danceability: 0.55, energy: 0.6, valence: 0.5, tempo: 118.5, popularity: 47 },
+    { name: "So I", youtube_id: "g-PovEJ1qWc", danceability: 0.68, energy: 0.7, valence: 0.65, tempo: 125.0, popularity: 53 },
+    { name: "Girl So Confusing", youtube_id: "0q3K6FPzY18", danceability: 0.7, energy: 0.6, valence: 0.5, tempo: 135.0, popularity: 51 },
+    { name: "Apple", youtube_id: "CPWxExGk7PM", danceability: 0.804, energy: 0.957, valence: 0.962, tempo: 150.0, popularity: 55 },
+    { name: "B2B", youtube_id: "Lp8TaMWU-Ho", danceability: 0.6, energy: 0.8, valence: 0.4, tempo: 120.0, popularity: 50 },
+    { name: "Mean Girls", youtube_id: "IKUQDMEBXN0", danceability: 0.7, energy: 0.75, valence: 0.6, tempo: 140.0, popularity: 52 },
+    { name: "Think About It All The Time", youtube_id: "Mn0aho8Ayfk", danceability: 0.65, energy: 0.7, valence: 0.55, tempo: 132.0, popularity: 53 },
+    { name: "365", youtube_id: "Ol9CCM240Ag", danceability: 0.75, energy: 0.8, valence: 0.7, tempo: 145.0, popularity: 54 }
+];
+
 document.addEventListener("DOMContentLoaded", function () {
     let currentQuestionIndex = 0;
     const questions = document.querySelectorAll(".quiz-question");
     const nextButton = document.getElementById("next-button");
     const findSongButton = document.getElementById("quiz-submit");
-
-    // Song dataset with normalized attributes
-    const songsData = [
-        { name: "360", youtube_id: "WJW-VvmRKsE", danceability: 0.928, energy: 0.649, valence: 0.951, tempo: 120.042, popularity: 54 },
-        { name: "Club Classics", youtube_id: "bg9EmWTRt3Y", danceability: 0.716, energy: 0.879, valence: 0.693, tempo: 144.95, popularity: 54 },
-        { name: "Sympathy is a Knife", youtube_id: "KrxDhDDXUwQ", danceability: 0.718, energy: 0.706, valence: 0.580, tempo: 131.944, popularity: 54 },
-        { name: "Something Stupid", youtube_id: "zw6bA75H2jc", danceability: 0.504, energy: 0.3, valence: 0.16, tempo: 79.25, popularity: 49 },
-        { name: "Talk Talk", youtube_id: "K5jyIoPbu4M", danceability: 0.701, energy: 0.82, valence: 0.49, tempo: 130.146, popularity: 52 },
-        { name: "Von Dutch", youtube_id: "cwZ1L_0QLjw", danceability: 0.8, energy: 0.95, valence: 0.6, tempo: 140.0, popularity: 50 },
-        { name: "Everything Is Romantic", youtube_id: "fUr2t-KnILQ", danceability: 0.6, energy: 0.5, valence: 0.4, tempo: 115.0, popularity: 48 },
-        { name: "Rewind", youtube_id: "WlM7nm3TLnY", danceability: 0.55, energy: 0.6, valence: 0.5, tempo: 118.5, popularity: 47 },
-        { name: "So I", youtube_id: "g-PovEJ1qWc", danceability: 0.68, energy: 0.7, valence: 0.65, tempo: 125.0, popularity: 53 },
-        { name: "Girl So Confusing", youtube_id: "0q3K6FPzY18", danceability: 0.7, energy: 0.6, valence: 0.5, tempo: 135.0, popularity: 51 },
-        { name: "Apple", youtube_id: "CPWxExGk7PM", danceability: 0.804, energy: 0.957, valence: 0.962, tempo: 150.0, popularity: 55 },
-        { name: "B2B", youtube_id: "Lp8TaMWU-Ho", danceability: 0.6, energy: 0.8, valence: 0.4, tempo: 120.0, popularity: 50 },
-        { name: "Mean Girls", youtube_id: "IKUQDMEBXN0", danceability: 0.7, energy: 0.75, valence: 0.6, tempo: 140.0, popularity: 52 },
-        { name: "Think About It All The Time", youtube_id: "Mn0aho8Ayfk", danceability: 0.65, energy: 0.7, valence: 0.55, tempo: 132.0, popularity: 53 },
-        { name: "365", youtube_id: "Ol9CCM240Ag", danceability: 0.75, energy: 0.8, valence: 0.7, tempo: 145.0, popularity: 54 }
-    ];
 
     // Show only the first question initially
     questions.forEach((question, index) => {
@@ -52,7 +117,6 @@ document.addEventListener("DOMContentLoaded", function () {
             answers[questionId] = button.getAttribute("data-value");
 
             if (questionId === "question-5") {
-                // Changing the Next button to "Show My Song" for question 5
                 const nextButton = document.getElementById("next-button");
                 if (nextButton) {
                     nextButton.textContent = "Show My Song";
@@ -91,6 +155,11 @@ document.addEventListener("DOMContentLoaded", function () {
         const nextButton = document.getElementById("next-button");
 
         document.querySelectorAll(".quiz-question")[4].classList.add("hidden");
+
+        document.getElementById('barChartsSection').style.display = 'block';
+        document.getElementById('rankingSection').style.display = 'none';
+        document.getElementById('barChartsButton').style.backgroundColor = '#ddd';
+        document.getElementById('rankingButton').style.backgroundColor = '';
 
         if (!resultContent || !quizResult || !countdown || !nextButton) {
             console.error("Required elements not found");
@@ -321,69 +390,10 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Function to calculate scores based on answers
-    function calculateScores(answers) {
-        const weights = {
-            danceability: 0.4,
-            energy: 0.3,
-            valence: 0.2,
-            tempo: 0.1
-        };
-
-        return songsData.map((song) => {
-            let score = 0;
-
-            // Question 1: Music preference
-            if (answers["question-1"] === "danceability") {
-                score += song.danceability * weights.danceability;
-            } else if (answers["question-1"] === "energy") {
-                score += song.energy * weights.energy;
-            } else if (answers["question-1"] === "valence") {
-                score += song.valence * weights.valence;
-            }
-
-            // Question 2: Vibe preference
-            if (answers["question-2"] === "acousticness") {
-                score += (1 - song.energy) * weights.energy;
-            } else if (answers["question-2"] === "danceability") {
-                score += song.danceability * weights.danceability;
-            } else if (answers["question-2"] === "instrumentalness") {
-                score += song.energy * weights.energy;
-            }
-
-            // Question 3: Expression
-            if (answers["question-3"] === "explicit") {
-                score += song.energy * weights.energy;
-            } else if (answers["question-3"] === "speechiness") {
-                score += (1 - song.valence) * weights.valence;
-            } else if (answers["question-3"] === "valence") {
-                score += song.valence * weights.valence;
-            }
-
-            // Question 4: Tempo preference
-            if (answers["question-4"] === "slow") {
-                score += (song.tempo < 100 ? 1 : 0) * weights.tempo;
-            } else if (answers["question-4"] === "medium") {
-                score += ((song.tempo >= 100 && song.tempo <= 130) ? 1 : 0) * weights.tempo;
-            } else if (answers["question-4"] === "fast") {
-                score += (song.tempo > 130 ? 1 : 0) * weights.tempo;
-            }
-
-            // Question 5: What matters most
-            if (answers["question-5"] === "danceability") {
-                score += song.danceability * weights.danceability;
-            } else if (answers["question-5"] === "valence") {
-                score += song.valence * weights.valence;
-            } else if (answers["question-5"] === "energy") {
-                score += song.energy * weights.energy;
-            }
-
-            return { ...song, score };
-        }).sort((a, b) => b.score - a.score);
-    }
 });
 
 function showBarCharts() {
+    event.preventDefault();
     // Show the Bar Charts section and hide the Ranking section
     document.getElementById('barChartsSection').style.display = 'block';
     document.getElementById('rankingSection').style.display = 'none';
@@ -395,30 +405,44 @@ function showBarCharts() {
 
 
 function showRanking() {
-    // Hide the Bar Charts section and show the Ranking section
+    event.preventDefault();
     document.getElementById('barChartsSection').style.display = 'none';
     document.getElementById('rankingSection').style.display = 'block';
 
-    // Highlight the active button
     document.getElementById('barChartsButton').style.backgroundColor = '';
     document.getElementById('rankingButton').style.backgroundColor = '#ddd';
 
-    // Dynamically populate the ranking list
-    console.log("test")
     const rankingList = document.getElementById('rankingList');
     rankingList.innerHTML = '';
 
-    // Use the quiz answers to get the scores
-    //const songScores = calculateScores(answers);
+    // Center the ranking list
+    rankingList.style.display = 'grid';
+    rankingList.style.gridTemplateColumns = '50px auto';
+    rankingList.style.gap = '10px';
+    rankingList.style.width = 'fit-content';
+    rankingList.style.margin = '0 auto';
+    rankingList.style.marginTop = '40px';
+    rankingList.style.marginBottom = '40px';
 
-    // Sort the songs by score and generate the ranked list
-    //songScores.forEach((song, index) => {
-    //const listItem = document.createElement('li');
-    //listItem.textContent = `${index + 1}. ${song.name} - ${song.score.toFixed(2)}`;
-    //rankingList.appendChild(listItem);
-    //});
+    const songScores = calculateScores(answers);
+
+    songScores.forEach((song, index) => {
+        const numberDiv = document.createElement('div');
+        numberDiv.style.fontSize = '22px';
+        numberDiv.style.color = 'white';
+        numberDiv.style.textAlign = 'right';
+        numberDiv.textContent = `${index + 1}.`;
+
+        const songDiv = document.createElement('div');
+        songDiv.style.fontSize = '22px';
+        songDiv.style.color = 'white';
+        songDiv.style.textAlign = 'left';
+        songDiv.textContent = song.name;
+
+        rankingList.appendChild(numberDiv);
+        rankingList.appendChild(songDiv);
+    });
 }
-
 
 
 function resetQuiz() {
@@ -466,9 +490,6 @@ function resetQuiz() {
     addQuizQuestion(questions[0].question);
     addQuizAnswers(questions[0].choices);
 }
-
-
-
 
 
 // The quiz determines the user's perfect song match from Charli XCX's Brat album by aligning the answers to specific musical
