@@ -446,6 +446,7 @@ function showRanking() {
 
 
 function resetQuiz() {
+
     currentQuestionIndex = 0;
     userScore = 0;
     usersAnswers = [];
